@@ -36,25 +36,6 @@ export default class GlobalWrapper extends React.Component {
     const {children, tag, navigation} = this.props;
     return (
       <SafeAreaView style={styles.wrapper}>
-        {/* {navigationVisibility && (
-        <NavigationDrawer
-          menu={menu}
-          setVisibility={v => this.setState({navigationVisibility: v})}
-          navigation={navigation}
-        />
-      )} */}
-        {/* <TouchableOpacity
-        onPress={() => this.setState({navigationVisibility: true})}
-        style={styles.buttonWrapper}>
-        <Image
-          source={require('../Assets/menu.png')}
-          style={{width: '100%', height: '100%', resizeMode: 'contain'}}
-        />
-      </TouchableOpacity>
-      <View>
-        <Text style={styles.title}>{menu[tag]?.title}</Text>
-        <View style={Styles.line} />
-      </View> */}
         <ScrollView style={{height: '90%'}}>{children}</ScrollView>
         <View style={styles.footerMenu}>
           {Object.keys(menu).map(m => (
@@ -76,28 +57,6 @@ export default class GlobalWrapper extends React.Component {
           ))}
         </View>
       </SafeAreaView>
-      // <View style={styles.wrapper}>
-      //   {navigationVisibility && (
-      //     <NavigationDrawer
-      //       menu={menu}
-      //       setVisibility={v => this.setState({navigationVisibility: v})}
-      //       navigation={navigation}
-      //     />
-      //   )}
-      //   <TouchableOpacity
-      //     onPress={() => this.setState({navigationVisibility: true})}
-      //     style={styles.buttonWrapper}>
-      //     <Image
-      //       source={require('../Assets/menu.png')}
-      //       style={{width: '100%', height: '100%', resizeMode: 'contain'}}
-      //     />
-      //   </TouchableOpacity>
-      //   <View>
-      //     <Text style={styles.title}>{menu[tag]?.title}</Text>
-      //     <View style={Styles.line} />
-      //   </View>
-      //   <ScrollView style={{height: '100%'}}>{children}</ScrollView>
-      // </View>
     );
   }
 }
@@ -146,22 +105,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.primary,
   },
-  // title: {
-  //   fontSize: 32,
-  //   fontWeight: 'bold',
-  // },
-  // wrapper: {
-  //   padding: 20,
-  //   // height: '100%',
-  // },
-  // buttonWrapper: {
-  //   padding: 10,
-  //   backgroundColor: Colors.primary,
-  //   width: 50,
-  //   height: 50,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderRadius: 10,
-  //   marginBottom: 20,
-  // },
 });

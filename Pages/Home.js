@@ -12,6 +12,7 @@ import {
 import Colors from '../Constants/colors';
 
 import GlobalWrapper from '../Components/GlobalWrapper';
+import ProductCard from '../Components/ProductCard';
 
 export default class Home extends React.Component {
   render() {
@@ -19,7 +20,7 @@ export default class Home extends React.Component {
       <SafeAreaView>
         <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
           <View>
-            <Text></Text>
+            <ProductCard />
           </View>
         </GlobalWrapper>
       </SafeAreaView>
