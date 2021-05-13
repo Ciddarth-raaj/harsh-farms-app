@@ -19,7 +19,9 @@ export default class Home extends React.Component {
     return (
       <SafeAreaView>
         <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
-          <View>
+          <View style={styles.wrapper}>
+            <ProductCard />
+            <ProductCard />
             <ProductCard />
           </View>
         </GlobalWrapper>
@@ -27,3 +29,10 @@ export default class Home extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+});

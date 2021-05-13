@@ -96,10 +96,12 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 18,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   subText: {
     fontSize: 14,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   stockText: {
     fontSize: 18,
