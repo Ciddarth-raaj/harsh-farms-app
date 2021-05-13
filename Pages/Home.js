@@ -18,7 +18,9 @@ export default class Home extends React.Component {
     return (
       <SafeAreaView>
         <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
-          <View></View>
+          <View>
+            <Text></Text>
+          </View>
         </GlobalWrapper>
       </SafeAreaView>
     );
