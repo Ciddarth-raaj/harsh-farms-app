@@ -34,10 +34,7 @@ export default class ProductCard extends React.Component {
               <Text style={[styles.stockText, styles.stockGreen]}>
                 {'5 In Stock'}
               </Text>
-              <TouchableOpacity
-                style={styles.shareButton}
-                //   onPress={() => this.shareLink()}
-              >
+              <TouchableOpacity style={styles.shareButton}>
                 <Text>ADD TO CART</Text>
               </TouchableOpacity>
             </View>
