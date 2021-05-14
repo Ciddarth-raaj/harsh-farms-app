@@ -11,7 +11,29 @@ import {
 import Colors from '../Constants/colors';
 
 export default class ProductCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      qty: 1,
+      QtyVisibility: false,
+    };
+  }
+
+  updateQty(type) {
+    let {qty} = this.state;
+    if (type === 'add') {
+      qty++;
+    } else {
+      if (this.state.qty > 0) {
+        qty--;
+      }
+    }
+
+    this.setState({qty: qty});
+  }
+
   render() {
+    const {QtyVisibility} = this.state;
     return (
       <SafeAreaView>
         <View style={styles.wrapper}>
@@ -34,7 +56,29 @@ export default class ProductCard extends React.Component {
               <Text style={[styles.stockText, styles.stockGreen]}>
                 {'5 In Stock'}
               </Text>
-              <TouchableOpacity style={styles.shareButton}>
+              {QtyVisibility && (
+                <View style={styles.qtyDiv}>
+                  <View style={styles.TextViewStyle}>
+                    <Text
+                      style={styles.qtyButton}
+                      onPress={() => this.updateQty('sub')}>
+                      {'-'}
+                    </Text>
+                  </View>
+                  <Text className={styles.price}>{this.state.qty}</Text>
+                  <View style={styles.TextViewStyle}>
+                    <Text
+                      style={styles.qtyButton}
+                      onPress={() => this.updateQty('add')}>
+                      {'+'}
+                    </Text>
+                  </View>
+                </View>
+              )}
+
+              <TouchableOpacity
+                style={styles.shareButton}
+                onPress={() => this.setState({QtyVisibility: true})}>
                 <Text>ADD TO CART</Text>
               </TouchableOpacity>
             </View>
@@ -116,4 +160,38 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
+  price: {
+    fontWeight: 'bold',
+    color: '#0088ff',
+    flexGrow: 0,
+  },
+  qtyDiv: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  qtyButton: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    // borderRadius: 50,
+    // borderColor: '#0088ff',
+    // borderWidth: 2,
+    // maxWidth: 30,
+    // height: 30,
+    // textAlign: 'center',
+  },
 });
+
+// .qtyButton {
+// 	font-weight: bold;
+// 	font-size: 24px;
+// 	border: solid;
+// 	border-radius: 50px;
+// 	border-width: 2px;
+// 	border-color: #0088ff;
+// 	max-width: 30px;
+// 	height: 30px;
+// 	text-align: center;
+// 	cursor: pointer;
+// }
