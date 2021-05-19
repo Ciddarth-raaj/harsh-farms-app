@@ -13,6 +13,7 @@ import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
 
 import NavigationDrawer from './NavigationDrawer';
+import Header from './Header';
 
 export default class GlobalWrapper extends React.Component {
   constructor(props) {
@@ -24,6 +25,13 @@ export default class GlobalWrapper extends React.Component {
           title: 'Overview',
           selected: false,
           pageName: 'Home',
+          icon: require('../Assets/icon-grey/home.png'),
+          selectedIcon: require('../Assets/icon-selected/home.png'),
+        },
+        login: {
+          title: 'Login',
+          selected: false,
+          pageName: 'Login',
           icon: require('../Assets/icon-grey/home.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
@@ -67,7 +75,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   wrapper: {
-    padding: 20,
     // height: '100%',
   },
   buttonWrapper: {

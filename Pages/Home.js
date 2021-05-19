@@ -26,36 +26,32 @@ const images = [
 ];
 
 export default class Home extends React.Component {
-  onFocus() {
-    this.setState({
-      borderColor: 'red',
-    });
-  }
   render() {
     return (
       <SafeAreaView>
         <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
           <Header />
+          <View style={styles.mainWrapper}>
+            <View style={styles.sectionStyle}>
+              <TextInput
+                style={{flex: 1}}
+                placeholder="Search"
+                underlineColorAndroid="transparent"
+              />
+              <Image
+                source={require('../Assets/search.png')}
+                style={styles.imageStyle}
+              />
+            </View>
+            <View style={styles.container}>
+              <BackgroundCarousel images={images} />
+            </View>
 
-          <View style={styles.sectionStyle}>
-            <TextInput
-              style={{flex: 1}}
-              placeholder="Search"
-              underlineColorAndroid="transparent"
-            />
-            <Image
-              source={require('../Assets/search.png')}
-              style={styles.imageStyle}
-            />
-          </View>
-          <View style={styles.container}>
-            <BackgroundCarousel images={images} />
-          </View>
-
-          <View style={styles.wrapper}>
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            <View style={styles.wrapper}>
+              <ProductCard />
+              <ProductCard />
+              <ProductCard />
+            </View>
           </View>
         </GlobalWrapper>
       </SafeAreaView>
@@ -95,5 +91,8 @@ const styles = StyleSheet.create({
     width: 25,
     resizeMode: 'stretch',
     alignItems: 'center',
+  },
+  mainWrapper: {
+    padding: 20,
   },
 });
