@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
   Share,
   Button,
+  Picker,
   TextInput,
   ScrollView,
 } from 'react-native';
+
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
 import {FloatingLabelInput} from 'react-native-floating-label-input';
@@ -24,13 +26,12 @@ export default class Login extends Component {
       phone: '',
       password: '',
       confirmPass: '',
-      loginWithOtp: false,
-      otp: '',
       name: '',
       email: '',
       address: '',
       securityNumber: '',
       primaryNumber: '',
+      selectedValue: 'Security',
     };
   }
 
@@ -44,6 +45,7 @@ export default class Login extends Component {
       password,
       confirmPass,
       primaryNumber,
+      selectedValue,
     } = this.state;
     return (
       <SafeAreaView>
@@ -54,73 +56,93 @@ export default class Login extends Component {
               <View style={styles.wrapper}>
                 <Text style={styles.heading}>Welcome To Harsh Farms</Text>
                 <View style={styles.fieldHolder}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Name"
-                    value={name}
-                    onChangeText={value => this.setState({name: value})}
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Phone Number"
-                    value={phone}
-                    keyboardType="numeric"
-                    onChangeText={value => this.setState({phone: value})}
-                  />
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={value => this.setState({email: value})}
-                  />
-
-                  <View style={styles.textAreaContainer}>
+                  <View srtyles={styles.personalDetailsSection}>
+                    <Text style={styles.subHeading}>Personal Details</Text>
                     <TextInput
-                      style={styles.textArea}
-                      underlineColorAndroid="transparent"
-                      placeholder="Address"
-                      value={address}
-                      numberOfLines={10}
-                      multiline={true}
-                      onChangeText={value => this.setState({address: value})}
+                      style={styles.input}
+                      placeholder="Name"
+                      value={name}
+                      onChangeText={value => this.setState({name: value})}
                     />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Phone Number"
+                      value={phone}
+                      keyboardType="numeric"
+                      onChangeText={value => this.setState({phone: value})}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Email"
+                      value={email}
+                      onChangeText={value => this.setState({email: value})}
+                    />
+
+                    <View style={styles.textAreaContainer}>
+                      <TextInput
+                        style={styles.textArea}
+                        underlineColorAndroid="transparent"
+                        placeholder="Address"
+                        value={address}
+                        numberOfLines={10}
+                        multiline={true}
+                        onChangeText={value => this.setState({address: value})}
+                      />
+                    </View>
+                    <View style={styles.textAreaContainer}>
+                      <Picker
+                        selectedValue={selectedValue}
+                        style={styles.input}
+                        style={{borderWidth: 1, color: 'gray'}}
+                        // onValueChange={(itemValue, itemIndex) =>
+                        //   setSelectedValue(itemValue)
+                        // }
+                      >
+                        <Picker.Item label="Security" value="Security" />
+                        <Picker.Item label="JavaScript" value="js" />
+                      </Picker>
+                    </View>
+                    {/* <TextInput
+                      style={styles.input}
+                      placeholder="Security"
+                      value={securityNumber}
+                      onChangeText={value =>
+                        this.setState({securityNumber: value})
+                      }
+                    /> */}
                   </View>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Security"
-                    value={securityNumber}
-                    onChangeText={value =>
-                      this.setState({securityNumber: value})
-                    }
-                  />
+                  <View srtyles={styles.accountDetailsSection}>
+                    <Text style={styles.subHeading}>Account Details</Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Password"
+                      value={password}
+                      onChangeText={value => this.setState({password: value})}
+                    />
 
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={value => this.setState({password: value})}
-                  />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Confirm Password"
+                      value={confirmPass}
+                      onChangeText={value =>
+                        this.setState({confirmPass: value})
+                      }
+                    />
 
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Confirm Password"
-                    value={confirmPass}
-                    onChangeText={value => this.setState({confirmPass: value})}
-                  />
-
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Mobile Number (Primary)"
-                    value={primaryNumber}
-                    keyboardType="numeric"
-                    onChangeText={value =>
-                      this.setState({primaryNumber: value})
-                    }
-                  />
+                    {/* <TextInput
+                      style={styles.input}
+                      placeholder="Mobile Number (Primary)"
+                      value={primaryNumber}
+                      keyboardType="numeric"
+                      onChangeText={value =>
+                        this.setState({primaryNumber: value})
+                      }
+                    /> */}
+                  </View>
+                  <TouchableOpacity style={styles.buttonWrapper}>
+                    <Text style={Styles.buttonText}>Submit</Text>
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.buttonWrapper}>
-                  <Text style={Styles.buttonText}>Submit</Text>
-                </TouchableOpacity>
               </View>
 
               {/* <View>
@@ -160,11 +182,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 20,
   },
-  heading: {
-    marginBottom: 20,
-    fontWeight: 'bold',
-    fontSize: 25,
-  },
+
   input: {
     width: '100%',
     height: 40,
@@ -232,5 +250,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'orange',
     marginBottom: 20,
+  },
+  subHeading: {
+    marginBottom: 20,
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: 'grey',
+    textAlign: 'center',
   },
 });

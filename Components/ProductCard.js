@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import colors from '../Constants/colors';
 import Colors from '../Constants/colors';
 
 export default class ProductCard extends React.Component {
@@ -37,6 +38,10 @@ export default class ProductCard extends React.Component {
     return (
       <SafeAreaView>
         <View style={styles.wrapper}>
+          <View style={styles.discountSectionField}>
+            <Text style={styles.discountSection}>20%</Text>
+          </View>
+
           <View style={styles.innerWrapper}>
             <View>
               <Image
@@ -45,41 +50,42 @@ export default class ProductCard extends React.Component {
                 }}
                 style={styles.image}
               />
-              <Text style={styles.nameText}>TOMATO</Text>
-              <Text style={styles.subText}>(400KG-500KH)</Text>
             </View>
+
             <View style={styles.contentWrapper}>
-              <View style={styles.priceWrapper}>
-                <Text style={styles.spText}>{'\u20A8 100'}</Text>
-                <Text style={styles.mrpText}>{'\u20A8 100'}</Text>
+              <View style={{marginBottom: 10}}>
+                <Text style={styles.nameText}>TOMATO</Text>
+                <Text style={styles.subText}>(400KG-500KH)</Text>
               </View>
-              <Text style={[styles.stockText, styles.stockGreen]}>
-                {'5 In Stock'}
-              </Text>
-              {QtyVisibility && (
-                <View style={styles.qtyDiv}>
-                  <View style={styles.TextViewStyle}>
-                    <Text
-                      style={styles.qtyButton}
-                      onPress={() => this.updateQty('sub')}>
-                      {'-'}
-                    </Text>
-                  </View>
-                  <Text className={styles.price}>{this.state.qty}</Text>
-                  <View style={styles.TextViewStyle}>
-                    <Text
-                      style={styles.qtyButton}
-                      onPress={() => this.updateQty('add')}>
-                      {'+'}
-                    </Text>
-                  </View>
+              <View style={styles.priceWrapper}>
+                <Text style={styles.mrpText}>{'\u20A8 100'}</Text>
+                <Text style={styles.spText}>{'\u20A8 100'}</Text>
+              </View>
+
+              {/* {QtyVisibility && ( */}
+              <View style={styles.qtyDiv}>
+                <View style={styles.TextViewStyle}>
+                  <Text
+                    style={styles.qtyButton}
+                    onPress={() => this.updateQty('sub')}>
+                    {'-'}
+                  </Text>
                 </View>
-              )}
+                <Text className={styles.price}>{this.state.qty}</Text>
+                <View style={styles.TextViewStyle}>
+                  <Text
+                    style={styles.qtyButton}
+                    onPress={() => this.updateQty('add')}>
+                    {'+'}
+                  </Text>
+                </View>
+              </View>
+              {/* )} */}
 
               <TouchableOpacity
                 style={styles.shareButton}
                 onPress={() => this.setState({QtyVisibility: true})}>
-                <Text>ADD TO CART</Text>
+                <Text style={{color: 'white'}}>Add to Basket</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -97,7 +103,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     backgroundColor: 'white',
-    padding: 10,
+    padding: 15,
     borderRadius: 20,
     marginBottom: 20,
     shadowColor: '#000',
@@ -107,10 +113,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
+    borderWidth: 1,
+    borderColor: 'grey',
+    position: 'relative',
+    borderRadius: 6,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 170,
     borderRadius: 20,
   },
   innerWrapper: {
@@ -120,29 +130,31 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     // height: 100,
     justifyContent: 'space-around',
+    marginRight: 20,
   },
   priceWrapper: {
     flexDirection: 'row',
+    marginBottom: 10,
   },
   spText: {
-    marginRight: 20,
     fontWeight: 'bold',
     fontSize: 18,
+    color: colors.primary,
   },
   mrpText: {
     fontSize: 18,
     textDecorationLine: 'line-through',
+    marginRight: 15,
     color: 'gray',
   },
   nameText: {
     fontSize: 18,
-    textAlign: 'center',
     fontWeight: 'bold',
   },
   subText: {
     fontSize: 14,
-    textAlign: 'center',
     fontWeight: 'bold',
+    color: 'gray',
   },
   stockText: {
     fontSize: 18,
@@ -154,7 +166,7 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   shareButton: {
-    backgroundColor: Colors.primaryLight,
+    backgroundColor: Colors.primary,
     padding: 10,
     marginTop: 10,
     borderRadius: 10,
@@ -181,17 +193,19 @@ const styles = StyleSheet.create({
     // height: 30,
     // textAlign: 'center',
   },
+  discountSectionField: {
+    position: 'absolute',
+    top: 6,
+    right: 5,
+    backgroundColor: 'orange',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderRadius: 6,
+  },
+  discountSection: {
+    fontWeight: 'bold',
+    color: 'white',
+  },
 });
-
-// .qtyButton {
-// 	font-weight: bold;
-// 	font-size: 24px;
-// 	border: solid;
-// 	border-radius: 50px;
-// 	border-width: 2px;
-// 	border-color: #0088ff;
-// 	max-width: 30px;
-// 	height: 30px;
-// 	text-align: center;
-// 	cursor: pointer;
-// }
