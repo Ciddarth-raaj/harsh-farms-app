@@ -28,6 +28,13 @@ export default class GlobalWrapper extends React.Component {
           icon: require('../Assets/icon-grey/home.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
+        signin: {
+          title: 'Signin',
+          selected: false,
+          pageName: 'Signin',
+          icon: require('../Assets/icon-grey/home.png'),
+          selectedIcon: require('../Assets/icon-selected/home.png'),
+        },
         login: {
           title: 'Login',
           selected: false,
