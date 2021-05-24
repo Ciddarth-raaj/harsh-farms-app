@@ -49,6 +49,10 @@ export default class Login extends Component {
                 <TouchableOpacity style={styles.buttonWrapper}>
                   <Text style={Styles.buttonText}>Login</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate('Forgot')}>
+                  <Text style={styles.bottomText}>Forgot Password?</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </ScrollView>
@@ -94,5 +98,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'orange',
     marginBottom: 20,
+  },
+  bottomText: {
+    fontSize: 14,
+    color: '#0088ff',
+    marginTop: 10,
+    textAlign: 'center',
   },
 });
