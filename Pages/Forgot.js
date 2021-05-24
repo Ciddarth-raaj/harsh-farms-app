@@ -24,6 +24,7 @@ export default class Forgot extends React.Component {
       confirmPass: '',
       otp: '',
       timer: 60,
+      hidden: true,
     };
   }
 
@@ -46,7 +47,8 @@ export default class Forgot extends React.Component {
   }
 
   render() {
-    const {phone, password, sentOtp, otp, confirmPass, timer} = this.state;
+    const {phone, password, sentOtp, otp, confirmPass, timer, hidden} =
+      this.state;
     return (
       <SafeAreaView>
         <Header />
@@ -126,21 +128,27 @@ export default class Forgot extends React.Component {
             </View>
           )}
 
-          <TouchableOpacity
-            style={styles.buttonWrapper}
-            onPress={() => {
-              this.setState({
-                sentOtp: true,
-              });
-              this.intervalTimer();
-            }}
-            // onPress={() => (sentOtp ? this.checkInput() : this.sendOtp())
-            // }
-          >
-            <Text style={Styles.buttonText}>
-              {sentOtp ? 'Submit' : 'Send OTP'}
-            </Text>
-          </TouchableOpacity>
+          {sentOtp && (
+            <TouchableOpacity style={styles.buttonWrapper}>
+              <Text style={Styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+          )}
+          {hidden && (
+            <TouchableOpacity
+              style={styles.buttonWrapper}
+              onPress={() => {
+                this.setState({
+                  sentOtp: true,
+                  hidden: false,
+                });
+                this.intervalTimer();
+              }}
+              // onPress={() => (sentOtp ? this.checkInput() : this.sendOtp())
+              // }
+            >
+              <Text style={Styles.buttonText}>Send OTP</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </SafeAreaView>
     );
