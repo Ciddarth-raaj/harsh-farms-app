@@ -31,7 +31,7 @@ export default class GlobalWrapper extends React.Component {
         signin: {
           title: 'Signin',
           selected: false,
-          pageName: 'Signin',
+          pageName: 'Eua',
           icon: require('../Assets/icon-grey/home.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },

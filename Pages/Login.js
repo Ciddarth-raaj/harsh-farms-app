@@ -44,6 +44,7 @@ export default class Login extends Component {
                   style={styles.input}
                   placeholder="Password"
                   value={password}
+                  secureTextEntry={true}
                   onChangeText={value => this.setState({password: value})}
                 />
                 <TouchableOpacity style={styles.buttonWrapper}>

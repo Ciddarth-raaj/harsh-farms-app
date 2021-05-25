@@ -117,6 +117,7 @@ export default class Signin extends Component {
                       style={styles.input}
                       placeholder="Password"
                       value={password}
+                      secureTextEntry={true}
                       onChangeText={value => this.setState({password: value})}
                     />
 
@@ -124,6 +125,7 @@ export default class Signin extends Component {
                       style={styles.input}
                       placeholder="Confirm Password"
                       value={confirmPass}
+                      secureTextEntry={true}
                       onChangeText={value =>
                         this.setState({confirmPass: value})
                       }
