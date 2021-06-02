@@ -31,7 +31,8 @@ export default class Signin extends Component {
       address: '',
       securityNumber: '',
       primaryNumber: '',
-      selectedValue: 'Security',
+      selectedValue: 'Society',
+      phone_prefix: '91',
     };
   }
 
@@ -46,6 +47,7 @@ export default class Signin extends Component {
       confirmPass,
       primaryNumber,
       selectedValue,
+      phone_prefix,
     } = this.state;
     return (
       <SafeAreaView>
@@ -64,13 +66,23 @@ export default class Signin extends Component {
                       value={name}
                       onChangeText={value => this.setState({name: value})}
                     />
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Phone Number"
-                      value={phone}
-                      keyboardType="numeric"
-                      onChangeText={value => this.setState({phone: value})}
-                    />
+                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                      <TextInput
+                        style={styles.inputNumberPrefix}
+                        placeholder=" "
+                        value={phone_prefix}
+                        keyboardType="numeric"
+                        // onChangeText={value => this.setState({phone: value})}
+                      />
+                      <TextInput
+                        style={styles.inputNumber}
+                        placeholder="Phone Number"
+                        value={phone}
+                        keyboardType="numeric"
+                        onChangeText={value => this.setState({phone: value})}
+                      />
+                    </View>
+
                     <TextInput
                       style={styles.input}
                       placeholder="Email"
@@ -98,8 +110,7 @@ export default class Signin extends Component {
                         //   setSelectedValue(itemValue)
                         // }
                       >
-                        <Picker.Item label="Security" value="Security" />
-                        <Picker.Item label="JavaScript" value="js" />
+                        <Picker.Item label="Society" value="Society" />
                       </Picker>
                     </View>
                     {/* <TextInput
@@ -188,6 +199,24 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: 40,
+    borderWidth: 2,
+    borderColor: colors.primary,
+    marginBottom: 21,
+    paddingLeft: 20,
+  },
+
+  inputNumber: {
+    width: '75%',
+    height: 40,
+    borderWidth: 2,
+    borderColor: colors.primary,
+    marginBottom: 21,
+    paddingLeft: 20,
+  },
+  inputNumberPrefix: {
+    width: '20%',
+    height: 40,
+    marginRight: '5%',
     borderWidth: 2,
     borderColor: colors.primary,
     marginBottom: 21,

@@ -42,6 +42,13 @@ export default class GlobalWrapper extends React.Component {
           icon: require('../Assets/icon-grey/home.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
+        cart: {
+          title: 'My Cart',
+          selected: false,
+          pageName: 'Cart',
+          icon: require('../Assets/icon-grey/cart.png'),
+          selectedIcon: require('../Assets/icon-selected/home.png'),
+        },
       },
     };
   }
