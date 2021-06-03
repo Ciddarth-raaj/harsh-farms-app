@@ -11,6 +11,7 @@ import Login from './Pages/Login';
 import Forgot from './Pages/Forgot';
 import Eua from './Pages/Eua';
 import Cart from './Pages/Cart';
+import Wishlist from './Pages/Wishlist';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -41,6 +42,7 @@ export default class App extends React.Component {
           <Stack.Screen name="Forgot" component={Forgot} />
           <Stack.Screen name="Eua" component={Eua} />
           <Stack.Screen name="Cart" component={Cart} />
+          <Stack.Screen name="Wishlist" component={Wishlist} />
         </Stack.Navigator>
       </NavigationContainer>
     );
