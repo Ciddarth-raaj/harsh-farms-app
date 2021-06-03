@@ -55,6 +55,7 @@ export default class Cart extends Component {
       total_quantity: 20,
       subTotal: 300,
       otherCharges: 30,
+      discount: 20,
       grandTotal: 400,
     };
   }
@@ -104,6 +105,7 @@ export default class Cart extends Component {
       subTotal,
       otherCharges,
       grandTotal,
+      discount,
     } = this.state;
     return (
       <SafeAreaView>
@@ -124,11 +126,19 @@ export default class Cart extends Component {
             ))}
             <View>
               <Text style={styles.text}>Quantiy: {total_quantity}</Text>
-              <Text style={styles.text}>Subtotal: {subTotal}</Text>
               <Text style={styles.text}>
-                Home Deleivery Charges : {otherCharges}
+                Subtotal: {numberFormatter(subTotal)}
               </Text>
-              <Text style={styles.text}>Grand Total : {grandTotal}</Text>
+              <Text style={styles.text}>Discount : {discount}%</Text>
+              <Text style={styles.text}>
+                Home Deleivery Charges : {numberFormatter(otherCharges)}
+              </Text>
+              <Text style={styles.text}>
+                Grand Total :{' '}
+                {numberFormatter(
+                  subTotal - subTotal * (discount / 100) + otherCharges,
+                )}
+              </Text>
 
               <TouchableOpacity style={styles.shareButton}>
                 <Text style={{color: 'white'}}>Proceed to Buy</Text>
