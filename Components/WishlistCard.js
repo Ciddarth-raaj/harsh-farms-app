@@ -24,10 +24,6 @@ export default class WishlistCard extends Component {
     return (
       <View>
         <View style={styles.wrapper}>
-          {/* <View style={styles.discountSectionField}>
-          <Text style={styles.discountSection}>20%</Text>
-        </View> */}
-
           <View style={styles.innerWrapper}>
             <View>
               <Image

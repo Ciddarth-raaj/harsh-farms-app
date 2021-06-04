@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Modal,
 } from 'react-native';
 
 import Styles from '../Constants/styles';
@@ -20,48 +21,108 @@ export default class GlobalWrapper extends React.Component {
     super(props);
     this.state = {
       navigationVisibility: false,
+      show: false,
+      categories: [
+        {
+          category_name: 'Branded Foods',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Beverages',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'HouseHolds',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Kitchen needs',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Seeds',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Baby Care',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Baby Care',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Baby Care',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+      ],
       menu: {
         home: {
           title: 'Overview',
           selected: false,
+          action: () => props.navigation.navigate('Home'),
           pageName: 'Home',
           icon: require('../Assets/icon-grey/home.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
-        signin: {
-          title: 'Signin',
-          selected: false,
-          pageName: 'Eua',
-          icon: require('../Assets/icon-grey/home.png'),
-          selectedIcon: require('../Assets/icon-selected/home.png'),
-        },
-        login: {
-          title: 'Login',
-          selected: false,
-          pageName: 'Login',
-          icon: require('../Assets/icon-grey/home.png'),
-          selectedIcon: require('../Assets/icon-selected/home.png'),
-        },
+        // signin: {
+        //   title: 'Signin',
+        //   selected: false,
+        //   pageName: 'Eua',
+        //   icon: require('../Assets/icon-grey/home.png'),
+        //   selectedIcon: require('../Assets/icon-selected/home.png'),
+        // },
+        // login: {
+        //   title: 'Login',
+        //   selected: false,
+        //   pageName: 'Login',
+        //   icon: require('../Assets/icon-grey/home.png'),
+        //   selectedIcon: require('../Assets/icon-selected/home.png'),
+        // },
         cart: {
           title: 'My Cart',
           selected: false,
-          pageName: 'Cart',
+          action: () => props.navigation.navigate('Cart'),
+          // pageName: 'Cart',
           icon: require('../Assets/icon-grey/cart.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
         wishlist: {
           title: 'Wishlist',
           selected: false,
-          pageName: 'Wishlist',
+          action: () => props.navigation.navigate('Wishlist'),
+          // pageName: 'Wishlist',
           icon: require('../Assets/icon-grey/cart.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
+        },
+        category: {
+          title: 'Category',
+          selected: false,
+          // pageName: ' ',
+          action: () => this.openModal(),
+          icon: require('../Assets/icon-grey/category.png'),
+          selectedIcon: require('../Assets/icon-selected/category.png'),
         },
       },
     };
   }
 
+  openModal() {
+    this.setState({
+      show: true,
+    });
+  }
+
   render() {
-    const {menu, navigationVisibility} = this.state;
+    const {menu, navigationVisibility, categories, show} = this.state;
     const {children, tag, navigation} = this.props;
     return (
       <SafeAreaView style={styles.wrapper}>
@@ -70,11 +131,17 @@ export default class GlobalWrapper extends React.Component {
           {Object.keys(menu).map(m => (
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => this.props.navigation.navigate(menu[m].pageName)}>
+              onPress={
+                (() => {
+                  // this.props.navigation.navigate(menu[m].pageName);
+                },
+                menu[m].action)
+              }>
               <Image
                 source={menu[m].selected ? menu[m].selectedIcon : menu[m].icon}
                 style={styles.menuIcon}
               />
+
               <Text
                 style={[
                   styles.menuText,
@@ -84,6 +151,61 @@ export default class GlobalWrapper extends React.Component {
               </Text>
             </TouchableOpacity>
           ))}
+          <Modal visible={this.state.show}>
+            <View style={styles.modalContainer}>
+              <Header />
+              <ScrollView>
+                {/* <View
+                style={styles.closeIcon}
+                onPress={() => {
+                  this.setState({
+                    show: !show,
+                  });
+                }}>
+                <Image
+                  style={styles.closeIcon}
+                  source={require('../Assets/close.png')}
+                />
+              </View> */}
+                <Text
+                  style={styles.backText}
+                  onPress={() => {
+                    this.setState({
+                      show: false,
+                    });
+                  }}>
+                  Go Back
+                </Text>
+                <Text style={styles.heading}>Categories</Text>
+                {categories.map(c => (
+                  <View style={styles.modalWrapper}>
+                    <View style={styles.innerWrapper}>
+                      <View>
+                        <Image
+                          source={{
+                            uri: c.image,
+                          }}
+                          style={styles.image}
+                        />
+                      </View>
+
+                      <View style={styles.contentWrapper}>
+                        <View
+                          onPress={() => {
+                            this.setState({
+                              show: false,
+                            });
+                          }}>
+                          <Text style={styles.nameText}>{c.category_name}</Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={styles.line} />
+                  </View>
+                ))}
+              </ScrollView>
+            </View>
+          </Modal>
         </View>
       </SafeAreaView>
     );
@@ -132,5 +254,74 @@ const styles = StyleSheet.create({
   menuTextSelected: {
     fontWeight: 'bold',
     color: Colors.primary,
+  },
+
+  modalWrapper: {
+    width: '100%',
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    // borderWidth: 1,
+    // borderColor: 'grey',
+    position: 'relative',
+    borderRadius: 6,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 2,
+    marginRight: 20,
+  },
+  innerWrapper: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    alignItems: 'center',
+    alignContent: 'center',
+  },
+
+  nameText: {
+    fontSize: 18,
+  },
+
+  line: {
+    marginBottom: 10,
+    height: 1,
+    width: '100%',
+    backgroundColor: 'rgb(226, 226, 226)',
+  },
+  closeIcon: {
+    height: 20,
+    width: 20,
+    position: 'absolute',
+    top: 90,
+    right: 5,
+    backgroundColor: 'orange',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderRadius: 6,
+  },
+  modalContainer: {
+    position: 'relative',
+  },
+  backText: {
+    textAlign: 'right',
+    fontSize: 16,
+    paddingRight: 20,
+  },
+  heading: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: Colors.primary,
+    marginBottom: 20,
   },
 });
