@@ -33,7 +33,7 @@ export default class ProductCard extends React.Component {
   }
 
   render() {
-    const {id, name, mrp, sp, image, item_quantity, discount} = this.props;
+    const {id, name, mrp, sp, image, discount} = this.props;
     return (
       <View style={styles.wrapper}>
         <View style={styles.discountSectionField}>
@@ -41,20 +41,16 @@ export default class ProductCard extends React.Component {
         </View>
 
         <View style={styles.innerWrapper}>
-          <View>
-            <Image
-              source={{
-                uri: image,
-              }}
-              style={styles.image}
-            />
-          </View>
+          <Image
+            source={{
+              uri: image,
+            }}
+            style={styles.image}
+          />
 
           <View style={styles.contentWrapper}>
-            <View style={{marginBottom: 0}}>
-              <Text style={styles.nameText}>{name}</Text>
-              <Text style={styles.subText}>{item_quantity}</Text>
-            </View>
+            <Text style={styles.nameText}>{name}</Text>
+
             <View style={styles.priceWrapper}>
               <Text style={styles.mrpText}>{`\u20A8 ${mrp}`}</Text>
               <Text style={styles.spText}>{`\u20A8 ${sp}`}</Text>
@@ -62,15 +58,17 @@ export default class ProductCard extends React.Component {
 
             {/* {QtyVisibility && ( */}
             <View style={styles.qtyDiv}>
-              <View style={styles.TextViewStyle}>
+              <View style={styles.textViewStyle}>
                 <Text
                   style={styles.qtyButton}
                   onPress={() => this.updateQty('sub')}>
                   {'-'}
                 </Text>
               </View>
-              <Text className={styles.price}>{this.state.qty}</Text>
-              <View style={styles.TextViewStyle}>
+              <View style={{flex: 2, alignItems: 'center'}}>
+                <Text className={styles.price}>{this.state.qty}</Text>
+              </View>
+              <View style={styles.textViewStyle}>
                 <Text
                   style={styles.qtyButton}
                   onPress={() => this.updateQty('add')}>
@@ -91,58 +89,52 @@ export default class ProductCard extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-  },
   wrapper: {
     width: '100%',
     backgroundColor: 'white',
     padding: 10,
     marginBottom: 15,
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.23,
-    // shadowRadius: 2.62,
     borderWidth: 1,
     borderColor: '#c9c9c9',
     position: 'relative',
     borderRadius: 3,
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 100,
     borderRadius: 5,
+    alignSelf: 'center',
+    resizeMode: 'contain',
   },
   innerWrapper: {
     flexDirection: 'row',
   },
   contentWrapper: {
     justifyContent: 'space-between',
-    marginLeft: 10,
+    marginLeft: 20,
+    marginRight: 10,
     flex: 1,
   },
   priceWrapper: {
     flexDirection: 'row',
-    // marginBottom: 10,
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   spText: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 16,
     color: colors.primary,
   },
   mrpText: {
-    fontSize: 18,
     textDecorationLine: 'line-through',
     marginRight: 15,
     color: 'gray',
   },
   nameText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 5,
+    textAlign: 'center',
   },
   subText: {
     fontSize: 14,
@@ -161,7 +153,6 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.primary,
     padding: 10,
-    // marginTop: 10,
     borderRadius: 5,
     alignItems: 'center',
     width: '100%',
@@ -176,30 +167,34 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#c9c9c9',
+    marginVertical: 10,
+    borderRadius: 5,
   },
   qtyButton: {
     fontSize: 24,
     fontWeight: 'bold',
-    // borderRadius: 50,
-    // borderColor: '#0088ff',
-    // borderWidth: 2,
-    // maxWidth: 30,
-    // height: 30,
-    // textAlign: 'center',
+    color: 'white',
+    borderRadius: 5,
   },
   discountSectionField: {
     position: 'absolute',
-    top: 6,
-    right: 5,
-    backgroundColor: 'orange',
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
-    borderRadius: 6,
+    top: 5,
+    left: 5,
+    backgroundColor: Colors.secondary,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 3,
+    zIndex: 1,
   },
   discountSection: {
     fontWeight: 'bold',
     color: 'white',
+  },
+  textViewStyle: {
+    backgroundColor: Colors.secondary,
+    flex: 1,
+    alignItems: 'center',
   },
 });

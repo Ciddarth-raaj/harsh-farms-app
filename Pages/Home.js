@@ -33,21 +33,19 @@ export default class Home extends React.Component {
           product_id: 1,
           mrp: 200,
           sp: 100,
-          product_name: 'Random',
-          item_quantity: '40 KG',
+          product_name: 'Red Apple | Best Quality | 1 Kg',
           item_image:
-            'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+            'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
           discount: '30%',
         },
         {
           product_id: 1,
           mrp: 200,
           sp: 100,
-          product_name: 'Random',
-          item_quantity: '40 KG',
+          product_name: 'Orange | Top Grade | 1 Kg',
           discount: '30%',
           item_image:
-            'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
         },
       ],
     };
@@ -80,7 +78,6 @@ export default class Home extends React.Component {
                 mrp={p.mrp}
                 sp={p.sp}
                 image={p.item_image}
-                item_quantity={p.item_quantity}
                 discount={p.discount}
               />
             ))}
