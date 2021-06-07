@@ -1,4 +1,4 @@
 export default {
-  primary: '#0088ff',
-  primaryLight: '#c5e4ff',
+  primary: '#37765d',
+  primaryLight: '#82aa9a',
 };
