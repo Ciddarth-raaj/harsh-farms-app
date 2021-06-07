@@ -19,7 +19,7 @@ export default class FooterMenu extends React.Component {
     this.state = {
       menu: {
         home: {
-          title: 'Overview',
+          title: 'Home',
           selected: false,
           action: () => props.navigation.navigate('Home'),
           icon: require('../Assets/icon-grey/home.png'),
@@ -43,10 +43,14 @@ export default class FooterMenu extends React.Component {
     };
   }
 
-  openModal() {
-    this.setState({
-      show: true,
-    });
+  componentDidMount() {
+    const {tag} = this.props;
+    const {menu} = this.state;
+
+    if (menu[tag] != undefined) {
+      menu[tag].selected = true;
+      this.setState({menu: menu});
+    }
   }
 
   render() {
