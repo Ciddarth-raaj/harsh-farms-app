@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-import CartCart from '../Components/CartCart';
+import CartCard from '../Components/CartCard';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import Header from '../Components/Header';
 
@@ -27,26 +27,26 @@ export default class Cart extends Component {
           product_id: 1,
           qty: 10,
           sp: 100,
-          product_name: 'Random',
-          item_quantity: '40 KG',
+          mrp: 200,
+          product_name: 'Red Apple | Best Quality | 1 Kg',
           item_image:
-            'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+            'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
         },
         {
           product_id: 2,
           qty: 10,
           sp: 10,
-          product_name: 'Random',
-          item_quantity: '40 KG',
+          mrp: 200,
+          product_name: 'Orange | Top Grade | 1 Kg',
           item_image:
-            'https://images.unsplash.com/photo-1622510993112-b31de77a2424?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
         },
         {
           product_id: 3,
           qty: 10,
           sp: 100,
+          mrp: 200,
           product_name: 'Random',
-          item_quantity: '40 KG',
           item_image:
             'https://images.unsplash.com/photo-1612564148954-59545876eaa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
         },
@@ -114,14 +114,14 @@ export default class Cart extends Component {
             <Text style={styles.heading}>My Cart</Text>
 
             {cart.map(c => (
-              <CartCart
+              <CartCard
                 id={c.product_id}
                 name={c.product_name}
                 qty={c.qty}
                 // updateCart={this.updateCart}
-                price={c.sp}
+                sp={c.sp}
+                mrp={c.mrp}
                 image={c.item_image}
-                item_quantity={c.item_quantity}
               />
             ))}
             <View>
