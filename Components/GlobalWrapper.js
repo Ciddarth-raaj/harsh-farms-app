@@ -12,7 +12,7 @@ export default class GlobalWrapper extends React.Component {
     this.state = {};
   }
   render() {
-    const {children, disableFooter} = this.props;
+    const {children, disableFooter, tag, navigation} = this.props;
     return (
       <>
         <SafeAreaView style={{backgroundColor: Colors.primary}} />
@@ -24,7 +24,7 @@ export default class GlobalWrapper extends React.Component {
             </View>
             {!disableFooter && (
               <View style={{flex: 1}}>
-                <FooterMenu />
+                <FooterMenu tag={tag} navigation={navigation} />
               </View>
             )}
           </View>

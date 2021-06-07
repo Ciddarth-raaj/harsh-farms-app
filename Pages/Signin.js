@@ -14,10 +14,9 @@ import {
 
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
-import {FloatingLabelInput} from 'react-native-floating-label-input';
+
 import Header from '../Components/Header';
-import colors from '../Constants/colors';
-import NavigationWrapper from '../Components/NavigationWrapper';
+import GlobalWrapper from '../Components/GlobalWrapper';
 
 export default class Signin extends Component {
   constructor(props) {
@@ -50,70 +49,66 @@ export default class Signin extends Component {
       phone_prefix,
     } = this.state;
     return (
-      <SafeAreaView>
-        <NavigationWrapper tag={'signin'} navigation={this.props.navigation}>
-          <ScrollView>
-            <View>
-              <Header />
-              <View style={styles.wrapper}>
-                <Text style={styles.heading}>Welcome To Harsh Farms</Text>
-                <View style={styles.fieldHolder}>
-                  <View srtyles={styles.personalDetailsSection}>
-                    <Text style={styles.subHeading}>Personal Details</Text>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Name"
-                      value={name}
-                      onChangeText={value => this.setState({name: value})}
-                    />
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
-                      <TextInput
-                        style={styles.inputNumberPrefix}
-                        placeholder=" "
-                        value={phone_prefix}
-                        keyboardType="numeric"
-                        // onChangeText={value => this.setState({phone: value})}
-                      />
-                      <TextInput
-                        style={styles.inputNumber}
-                        placeholder="Phone Number"
-                        value={phone}
-                        keyboardType="numeric"
-                        onChangeText={value => this.setState({phone: value})}
-                      />
-                    </View>
+      <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
+        <View style={styles.wrapper}>
+          <Text style={styles.heading}>Welcome To Harsh Farms</Text>
+          <View style={styles.fieldHolder}>
+            <View srtyles={styles.personalDetailsSection}>
+              <Text style={styles.subHeading}>Personal Details</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Name"
+                value={name}
+                onChangeText={value => this.setState({name: value})}
+              />
+              <View style={{display: 'flex', flexDirection: 'row'}}>
+                <TextInput
+                  style={styles.inputNumberPrefix}
+                  placeholder=" "
+                  value={phone_prefix}
+                  keyboardType="numeric"
+                  // onChangeText={value => this.setState({phone: value})}
+                />
+                <TextInput
+                  style={styles.inputNumber}
+                  placeholder="Phone Number"
+                  value={phone}
+                  keyboardType="numeric"
+                  onChangeText={value => this.setState({phone: value})}
+                />
+              </View>
 
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Email"
-                      value={email}
-                      onChangeText={value => this.setState({email: value})}
-                    />
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={value => this.setState({email: value})}
+              />
 
-                    <View style={styles.textAreaContainer}>
-                      <TextInput
-                        style={styles.textArea}
-                        underlineColorAndroid="transparent"
-                        placeholder="Address"
-                        value={address}
-                        numberOfLines={10}
-                        multiline={true}
-                        onChangeText={value => this.setState({address: value})}
-                      />
-                    </View>
-                    <View style={styles.textAreaContainer}>
-                      <Picker
-                        selectedValue={selectedValue}
-                        style={styles.input}
-                        style={{borderWidth: 1, color: 'gray'}}
-                        // onValueChange={(itemValue, itemIndex) =>
-                        //   setSelectedValue(itemValue)
-                        // }
-                      >
-                        <Picker.Item label="Society" value="Society" />
-                      </Picker>
-                    </View>
-                    {/* <TextInput
+              <View style={styles.textAreaContainer}>
+                <TextInput
+                  style={styles.textArea}
+                  underlineColorAndroid="transparent"
+                  placeholder="Address"
+                  value={address}
+                  numberOfLines={10}
+                  multiline={true}
+                  onChangeText={value => this.setState({address: value})}
+                />
+              </View>
+              <View style={styles.textAreaContainer}>
+                <Picker
+                  selectedValue={selectedValue}
+                  style={styles.input}
+                  style={{borderWidth: 1, color: 'gray'}}
+                  // onValueChange={(itemValue, itemIndex) =>
+                  //   setSelectedValue(itemValue)
+                  // }
+                >
+                  <Picker.Item label="Society" value="Society" />
+                </Picker>
+              </View>
+              {/* <TextInput
                       style={styles.input}
                       placeholder="Security"
                       value={securityNumber}
@@ -121,28 +116,26 @@ export default class Signin extends Component {
                         this.setState({securityNumber: value})
                       }
                     /> */}
-                  </View>
-                  <View srtyles={styles.accountDetailsSection}>
-                    <Text style={styles.subHeading}>Account Details</Text>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Password"
-                      value={password}
-                      secureTextEntry={true}
-                      onChangeText={value => this.setState({password: value})}
-                    />
+            </View>
+            <View srtyles={styles.accountDetailsSection}>
+              <Text style={styles.subHeading}>Account Details</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                value={password}
+                secureTextEntry={true}
+                onChangeText={value => this.setState({password: value})}
+              />
 
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Confirm Password"
-                      value={confirmPass}
-                      secureTextEntry={true}
-                      onChangeText={value =>
-                        this.setState({confirmPass: value})
-                      }
-                    />
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm Password"
+                value={confirmPass}
+                secureTextEntry={true}
+                onChangeText={value => this.setState({confirmPass: value})}
+              />
 
-                    {/* <TextInput
+              {/* <TextInput
                       style={styles.input}
                       placeholder="Mobile Number (Primary)"
                       value={primaryNumber}
@@ -151,26 +144,13 @@ export default class Signin extends Component {
                         this.setState({primaryNumber: value})
                       }
                     /> */}
-                  </View>
-                  <TouchableOpacity style={styles.buttonWrapper}>
-                    <Text style={Styles.buttonText}>Submit</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              {/* <View>
-          <FloatingLabelInput
-            label="Phone"
-            value={phone}
-            mask="(99)99999-9999"
-            keyboardType="numeric"
-            // onChangeText={value => setPhone(value)}
-          />
-        </View> */}
             </View>
-          </ScrollView>
-        </NavigationWrapper>
-      </SafeAreaView>
+            <TouchableOpacity style={styles.buttonWrapper}>
+              <Text style={Styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </GlobalWrapper>
     );
   }
 }
@@ -200,7 +180,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     marginBottom: 21,
     paddingLeft: 20,
   },
@@ -209,7 +189,7 @@ const styles = StyleSheet.create({
     width: '75%',
     height: 40,
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     marginBottom: 21,
     paddingLeft: 20,
   },
@@ -218,7 +198,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginRight: '5%',
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     marginBottom: 21,
     paddingLeft: 20,
   },
@@ -244,7 +224,7 @@ const styles = StyleSheet.create({
   },
   textAreaContainer: {
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: Colors.primary,
     marginBottom: 21,
   },
   textArea: {
@@ -259,7 +239,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: colors.primary,
+    backgroundColor: Colors.primary,
     paddingLeft: 30,
     paddingRight: 30,
     marginBottom: 21,

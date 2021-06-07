@@ -14,11 +14,9 @@ import {
 
 import Colors from '../Constants/colors';
 
-import NavigationWrapper from '../Components/NavigationWrapper';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import ProductCard from '../Components/ProductCard';
 import {BackgroundCarousel} from '../Components/BackgroundCarousel';
-import Header from '../Components/Header';
 
 const images = [
   'https://images.unsplash.com/photo-1593642634443-44adaa06623a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1850&q=80',
@@ -57,8 +55,7 @@ export default class Home extends React.Component {
   render() {
     const {product_listing} = this.state;
     return (
-      <GlobalWrapper>
-        {/* <NavigationWrapper tag={'home'} navigation={this.props.navigation}> */}
+      <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
         <View style={styles.mainWrapper}>
           <View style={styles.sectionStyle}>
             <TextInput
@@ -89,7 +86,6 @@ export default class Home extends React.Component {
             ))}
           </View>
         </View>
-        {/* </NavigationWrapper> */}
       </GlobalWrapper>
     );
   }

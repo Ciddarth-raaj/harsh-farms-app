@@ -10,11 +10,12 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
-import CartCart from '../Components/CartCart';
-import NavigationWrapper from '../Components/NavigationWrapper';
-import Header from '../Components/Header';
-import Colors from '../Constants/colors';
 
+import CartCart from '../Components/CartCart';
+import GlobalWrapper from '../Components/GlobalWrapper';
+import Header from '../Components/Header';
+
+import Colors from '../Constants/colors';
 import numberFormatter from '../util/numberFormatter';
 
 export default class Cart extends Component {
@@ -107,63 +108,60 @@ export default class Cart extends Component {
       discount,
     } = this.state;
     return (
-      <SafeAreaView>
-        <NavigationWrapper tag={'cart'} navigation={this.props.navigation}>
-          <Header />
-          {cart.length > 0 ? (
-            <View style={styles.mainWrapper}>
-              <Text style={styles.heading}>My Cart</Text>
+      <GlobalWrapper tag={'cart'} navigation={this.props.navigation}>
+        {cart.length > 0 ? (
+          <View style={styles.mainWrapper}>
+            <Text style={styles.heading}>My Cart</Text>
 
-              {cart.map(c => (
-                <CartCart
-                  id={c.product_id}
-                  name={c.product_name}
-                  qty={c.qty}
-                  // updateCart={this.updateCart}
-                  price={c.sp}
-                  image={c.item_image}
-                  item_quantity={c.item_quantity}
-                />
-              ))}
-              <View>
-                <Text style={styles.text}>Quantiy: {total_quantity}</Text>
-                <Text style={styles.text}>
-                  Subtotal: {numberFormatter(subTotal)}
-                </Text>
-                <Text style={styles.text}>Discount : {discount}%</Text>
-                <Text style={styles.text}>
-                  Home Deleivery Charges : {numberFormatter(otherCharges)}
-                </Text>
-                <Text style={styles.text}>
-                  Grand Total :{' '}
-                  {numberFormatter(
-                    subTotal - subTotal * (discount / 100) + otherCharges,
-                  )}
-                </Text>
-
-                <TouchableOpacity
-                  style={styles.shareButton}
-                  onPress={() => this.props.navigation.navigate('Payment')}>
-                  <Text style={{color: 'white'}}>Proceed to Buy</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.mainSubWrapper}>
-              <Image
-                source={{
-                  uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
-                }}
-                style={styles.image}
+            {cart.map(c => (
+              <CartCart
+                id={c.product_id}
+                name={c.product_name}
+                qty={c.qty}
+                // updateCart={this.updateCart}
+                price={c.sp}
+                image={c.item_image}
+                item_quantity={c.item_quantity}
               />
-              <Text style={styles.heading}>Your Cart is empty</Text>
-              <Text style={styles.heading}>
-                Add items to your Cart and they will appear here
+            ))}
+            <View>
+              <Text style={styles.text}>Quantiy: {total_quantity}</Text>
+              <Text style={styles.text}>
+                Subtotal: {numberFormatter(subTotal)}
               </Text>
+              <Text style={styles.text}>Discount : {discount}%</Text>
+              <Text style={styles.text}>
+                Home Deleivery Charges : {numberFormatter(otherCharges)}
+              </Text>
+              <Text style={styles.text}>
+                Grand Total :{' '}
+                {numberFormatter(
+                  subTotal - subTotal * (discount / 100) + otherCharges,
+                )}
+              </Text>
+
+              <TouchableOpacity
+                style={styles.shareButton}
+                onPress={() => this.props.navigation.navigate('Payment')}>
+                <Text style={{color: 'white'}}>Proceed to Buy</Text>
+              </TouchableOpacity>
             </View>
-          )}
-        </NavigationWrapper>
-      </SafeAreaView>
+          </View>
+        ) : (
+          <View style={styles.mainSubWrapper}>
+            <Image
+              source={{
+                uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
+              }}
+              style={styles.image}
+            />
+            <Text style={styles.heading}>Your Cart is empty</Text>
+            <Text style={styles.heading}>
+              Add items to your Cart and they will appear here
+            </Text>
+          </View>
+        )}
+      </GlobalWrapper>
     );
   }
 }
