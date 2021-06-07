@@ -23,21 +23,18 @@ export default class FooterMenu extends React.Component {
           selected: false,
           action: () => props.navigation.navigate('Home'),
           icon: require('../Assets/icon-grey/home.png'),
-          selectedIcon: require('../Assets/icon-selected/home.png'),
         },
         cart: {
           title: 'My Cart',
           selected: false,
           action: () => props.navigation.navigate('Cart'),
           icon: require('../Assets/icon-grey/cart.png'),
-          selectedIcon: require('../Assets/icon-selected/cart.png'),
         },
         wishlist: {
           title: 'Wishlist',
           selected: false,
           action: () => props.navigation.navigate('Wishlist'),
           icon: require('../Assets/icon-grey/wishlist.png'),
-          selectedIcon: require('../Assets/icon-selected/home.png'),
         },
       },
     };
@@ -68,8 +65,11 @@ export default class FooterMenu extends React.Component {
                 menu[m].action)
               }>
               <Image
-                source={menu[m].selected ? menu[m].selectedIcon : menu[m].icon}
-                style={styles.menuIcon}
+                source={menu[m].icon}
+                style={[
+                  styles.menuIcon,
+                  {tintColor: menu[m].selected ? Colors.primary : 'none'},
+                ]}
               />
 
               <Text
