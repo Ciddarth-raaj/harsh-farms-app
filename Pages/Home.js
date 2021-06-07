@@ -58,38 +58,38 @@ export default class Home extends React.Component {
     const {product_listing} = this.state;
     return (
       <GlobalWrapper>
-        <NavigationWrapper tag={'home'} navigation={this.props.navigation}>
-          <View style={styles.mainWrapper}>
-            <View style={styles.sectionStyle}>
-              <TextInput
-                style={{flex: 1}}
-                placeholder="Search"
-                underlineColorAndroid="transparent"
-              />
-              <Image
-                source={require('../Assets/search.png')}
-                style={styles.imageStyle}
-              />
-            </View>
-            <View style={styles.container}>
-              <BackgroundCarousel images={images} />
-            </View>
-
-            <View style={styles.wrapper}>
-              {product_listing.map(p => (
-                <ProductCard
-                  id={p.product_id}
-                  name={p.product_name}
-                  mrp={p.mrp}
-                  sp={p.sp}
-                  image={p.item_image}
-                  item_quantity={p.item_quantity}
-                  discount={p.discount}
-                />
-              ))}
-            </View>
+        {/* <NavigationWrapper tag={'home'} navigation={this.props.navigation}> */}
+        <View style={styles.mainWrapper}>
+          <View style={styles.sectionStyle}>
+            <TextInput
+              style={{flex: 1}}
+              placeholder="Search"
+              underlineColorAndroid="transparent"
+            />
+            <Image
+              source={require('../Assets/search.png')}
+              style={styles.imageStyle}
+            />
           </View>
-        </NavigationWrapper>
+          <View style={styles.container}>
+            <BackgroundCarousel images={images} />
+          </View>
+
+          <View style={styles.wrapper}>
+            {product_listing.map(p => (
+              <ProductCard
+                id={p.product_id}
+                name={p.product_name}
+                mrp={p.mrp}
+                sp={p.sp}
+                image={p.item_image}
+                item_quantity={p.item_quantity}
+                discount={p.discount}
+              />
+            ))}
+          </View>
+        </View>
+        {/* </NavigationWrapper> */}
       </GlobalWrapper>
     );
   }

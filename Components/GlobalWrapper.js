@@ -1,9 +1,10 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView} from 'react-native';
+import {SafeAreaView, StyleSheet, ScrollView, View} from 'react-native';
 
 import Colors from '../Constants/colors';
 
 import Header from '../Components/Header';
+import FooterMenu from '../Components/FooterMenu';
 
 export default class GlobalWrapper extends React.Component {
   constructor(props) {
@@ -11,13 +12,22 @@ export default class GlobalWrapper extends React.Component {
     this.state = {};
   }
   render() {
-    const {children} = this.props;
+    const {children, disableFooter} = this.props;
     return (
       <>
         <SafeAreaView style={{backgroundColor: Colors.primary}} />
-        <SafeAreaView>
+        <SafeAreaView style={{height: '100%'}}>
           <Header />
-          <ScrollView>{children}</ScrollView>
+          <View style={{flex: 1, height: '100%'}}>
+            <View style={{flex: 7}}>
+              <ScrollView style={{height: '100%'}}>{children}</ScrollView>
+            </View>
+            {!disableFooter && (
+              <View style={{flex: 1}}>
+                <FooterMenu />
+              </View>
+            )}
+          </View>
         </SafeAreaView>
       </>
     );
