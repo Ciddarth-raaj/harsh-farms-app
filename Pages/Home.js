@@ -14,9 +14,9 @@ import {
 
 import Colors from '../Constants/colors';
 
+import ImageCarousel from '../Components/ImageCarousal';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import ProductCard from '../Components/ProductCard';
-import {BackgroundCarousel} from '../Components/BackgroundCarousel';
 
 const images = [
   'https://images.unsplash.com/photo-1593642634443-44adaa06623a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1850&q=80',
@@ -54,34 +54,28 @@ export default class Home extends React.Component {
     const {product_listing} = this.state;
     return (
       <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
-        <View style={styles.mainWrapper}>
-          <View style={styles.sectionStyle}>
-            <TextInput
-              style={{flex: 1}}
-              placeholder="Search"
-              underlineColorAndroid="transparent"
-            />
-            <Image
-              source={require('../Assets/search.png')}
-              style={styles.imageStyle}
-            />
-          </View>
-          <View style={styles.container}>
-            <BackgroundCarousel images={images} />
-          </View>
+        <ImageCarousel
+          data={[
+            {
+              url: 'https://i2.wp.com/kgsadvisors.com/wp-content/uploads/2020/06/Hero-Banner-Placeholder-Light-1024x480-1.png?fit=1024%2C480&ssl=1',
+            },
+            {
+              url: 'https://www.cellmax.eu/wp-content/uploads/2020/01/Hero-Banner-Placeholder-Dark-1024x480-1.png',
+            },
+          ]}
+        />
 
-          <View style={styles.wrapper}>
-            {product_listing.map(p => (
-              <ProductCard
-                id={p.product_id}
-                name={p.product_name}
-                mrp={p.mrp}
-                sp={p.sp}
-                image={p.item_image}
-                discount={p.discount}
-              />
-            ))}
-          </View>
+        <View style={styles.wrapper}>
+          {product_listing.map(p => (
+            <ProductCard
+              id={p.product_id}
+              name={p.product_name}
+              mrp={p.mrp}
+              sp={p.sp}
+              image={p.item_image}
+              discount={p.discount}
+            />
+          ))}
         </View>
       </GlobalWrapper>
     );
@@ -94,34 +88,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 50,
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    marginTop: 20,
-  },
-
-  sectionStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderWidth: 0.5,
-    borderColor: '#000',
-    height: 40,
-    borderRadius: 5,
-  },
-  imageStyle: {
-    padding: 10,
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: 'stretch',
-    alignItems: 'center',
-  },
-  mainWrapper: {
     padding: 20,
   },
 });
