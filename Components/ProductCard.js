@@ -79,7 +79,9 @@ export default class ProductCard extends React.Component {
             {/* )} */}
 
             <TouchableOpacity style={styles.button}>
-              <Text style={{color: 'white'}}>Add to Basket</Text>
+              <Text style={{color: 'white', fontWeight: 'bold'}}>
+                Add to Basket
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
