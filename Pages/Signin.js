@@ -17,7 +17,7 @@ import Colors from '../Constants/colors';
 import {FloatingLabelInput} from 'react-native-floating-label-input';
 import Header from '../Components/Header';
 import colors from '../Constants/colors';
-import GlobalWrapper from '../Components/GlobalWrapper';
+import NavigationWrapper from '../Components/NavigationWrapper';
 
 export default class Signin extends Component {
   constructor(props) {
@@ -51,7 +51,7 @@ export default class Signin extends Component {
     } = this.state;
     return (
       <SafeAreaView>
-        <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
+        <NavigationWrapper tag={'signin'} navigation={this.props.navigation}>
           <ScrollView>
             <View>
               <Header />
@@ -169,7 +169,7 @@ export default class Signin extends Component {
         </View> */}
             </View>
           </ScrollView>
-        </GlobalWrapper>
+        </NavigationWrapper>
       </SafeAreaView>
     );
   }

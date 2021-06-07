@@ -69,7 +69,6 @@ export default class GlobalWrapper extends React.Component {
           title: 'Overview',
           selected: false,
           action: () => props.navigation.navigate('Home'),
-          pageName: 'Home',
           icon: require('../Assets/icon-grey/home.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
@@ -91,7 +90,6 @@ export default class GlobalWrapper extends React.Component {
           title: 'My Cart',
           selected: false,
           action: () => props.navigation.navigate('Cart'),
-          // pageName: 'Cart',
           icon: require('../Assets/icon-grey/cart.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
@@ -99,18 +97,16 @@ export default class GlobalWrapper extends React.Component {
           title: 'Wishlist',
           selected: false,
           action: () => props.navigation.navigate('Wishlist'),
-          // pageName: 'Wishlist',
           icon: require('../Assets/icon-grey/cart.png'),
           selectedIcon: require('../Assets/icon-selected/home.png'),
         },
-        category: {
-          title: 'Category',
-          selected: false,
-          // pageName: ' ',
-          action: () => this.openModal(),
-          icon: require('../Assets/icon-grey/category.png'),
-          selectedIcon: require('../Assets/icon-selected/category.png'),
-        },
+        // category: {
+        //   title: 'Category',
+        //   selected: false,
+        //   action: () => this.openModal(),
+        //   icon: require('../Assets/icon-grey/category.png'),
+        //   selectedIcon: require('../Assets/icon-selected/category.png'),
+        // },
       },
     };
   }
@@ -151,22 +147,10 @@ export default class GlobalWrapper extends React.Component {
               </Text>
             </TouchableOpacity>
           ))}
-          <Modal visible={this.state.show}>
+          {/* <Modal visible={this.state.show}>
             <View style={styles.modalContainer}>
               <Header />
               <ScrollView>
-                {/* <View
-                style={styles.closeIcon}
-                onPress={() => {
-                  this.setState({
-                    show: !show,
-                  });
-                }}>
-                <Image
-                  style={styles.closeIcon}
-                  source={require('../Assets/close.png')}
-                />
-              </View> */}
                 <Text
                   style={styles.backText}
                   onPress={() => {
@@ -211,7 +195,7 @@ export default class GlobalWrapper extends React.Component {
                 ))}
               </ScrollView>
             </View>
-          </Modal>
+          </Modal> */}
         </View>
       </SafeAreaView>
     );

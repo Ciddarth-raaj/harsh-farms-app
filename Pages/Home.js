@@ -14,7 +14,7 @@ import {
 
 import Colors from '../Constants/colors';
 
-import GlobalWrapper from '../Components/GlobalWrapper';
+import NavigationWrapper from '../Components/NavigationWrapper';
 import ProductCard from '../Components/ProductCard';
 import {BackgroundCarousel} from '../Components/BackgroundCarousel';
 import Header from '../Components/Header';
@@ -56,41 +56,44 @@ export default class Home extends React.Component {
   render() {
     const {product_listing} = this.state;
     return (
-      <SafeAreaView>
-        <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
-          <Header />
-          <View style={styles.mainWrapper}>
-            <View style={styles.sectionStyle}>
-              <TextInput
-                style={{flex: 1}}
-                placeholder="Search"
-                underlineColorAndroid="transparent"
-              />
-              <Image
-                source={require('../Assets/search.png')}
-                style={styles.imageStyle}
-              />
-            </View>
-            <View style={styles.container}>
-              <BackgroundCarousel images={images} />
-            </View>
-
-            <View style={styles.wrapper}>
-              {product_listing.map(p => (
-                <ProductCard
-                  id={p.product_id}
-                  name={p.product_name}
-                  mrp={p.mrp}
-                  sp={p.sp}
-                  image={p.item_image}
-                  item_quantity={p.item_quantity}
-                  discount={p.discount}
+      <>
+        <SafeAreaView style={{backgroundColor: Colors.primary}} />
+        <SafeAreaView>
+          <NavigationWrapper tag={'home'} navigation={this.props.navigation}>
+            <Header />
+            <View style={styles.mainWrapper}>
+              <View style={styles.sectionStyle}>
+                <TextInput
+                  style={{flex: 1}}
+                  placeholder="Search"
+                  underlineColorAndroid="transparent"
                 />
-              ))}
+                <Image
+                  source={require('../Assets/search.png')}
+                  style={styles.imageStyle}
+                />
+              </View>
+              <View style={styles.container}>
+                <BackgroundCarousel images={images} />
+              </View>
+
+              <View style={styles.wrapper}>
+                {product_listing.map(p => (
+                  <ProductCard
+                    id={p.product_id}
+                    name={p.product_name}
+                    mrp={p.mrp}
+                    sp={p.sp}
+                    image={p.item_image}
+                    item_quantity={p.item_quantity}
+                    discount={p.discount}
+                  />
+                ))}
+              </View>
             </View>
-          </View>
-        </GlobalWrapper>
-      </SafeAreaView>
+          </NavigationWrapper>
+        </SafeAreaView>
+      </>
     );
   }
 }

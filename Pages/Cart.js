@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import CartCart from '../Components/CartCart';
-import GlobalWrapper from '../Components/GlobalWrapper';
+import NavigationWrapper from '../Components/NavigationWrapper';
 import Header from '../Components/Header';
 import Colors from '../Constants/colors';
 
@@ -108,7 +108,7 @@ export default class Cart extends Component {
     } = this.state;
     return (
       <SafeAreaView>
-        <GlobalWrapper tag={'cart'} navigation={this.props.navigation}>
+        <NavigationWrapper tag={'cart'} navigation={this.props.navigation}>
           <Header />
           {cart.length > 0 ? (
             <View style={styles.mainWrapper}>
@@ -162,7 +162,7 @@ export default class Cart extends Component {
               </Text>
             </View>
           )}
-        </GlobalWrapper>
+        </NavigationWrapper>
       </SafeAreaView>
     );
   }
