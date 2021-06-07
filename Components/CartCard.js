@@ -75,14 +75,13 @@ export default class CartCard extends Component {
                 </Text>
               </View>
             </View>
-            {/* )} */}
-
-            <TouchableOpacity style={styles.button}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>
-                Add to Basket
-              </Text>
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity style={styles.deleteWrapper}>
+            <Image
+              source={require('../Assets/delete.png')}
+              style={styles.deleteImage}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -197,5 +196,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondary,
     flex: 1,
     alignItems: 'center',
+  },
+  deleteWrapper: {
+    zIndex: 1,
+  },
+  deleteImage: {
+    width: 25,
+    height: 25,
   },
 });
