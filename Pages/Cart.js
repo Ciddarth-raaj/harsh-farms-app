@@ -96,6 +96,15 @@ export default class Cart extends Component {
     });
   };
 
+  getSummary(title, value) {
+    return (
+      <View style={styles.summaryItem}>
+        <Text style={styles.label}>{title}</Text>
+        <Text style={styles.labelValue}>{value}</Text>
+      </View>
+    );
+  }
+
   render() {
     const {
       cart,
@@ -124,28 +133,28 @@ export default class Cart extends Component {
                 image={c.item_image}
               />
             ))}
-            <View>
-              <Text style={styles.text}>Quantiy: {total_quantity}</Text>
-              <Text style={styles.text}>
-                Subtotal: {numberFormatter(subTotal)}
-              </Text>
-              <Text style={styles.text}>Discount : {discount}%</Text>
-              <Text style={styles.text}>
-                Home Deleivery Charges : {numberFormatter(otherCharges)}
-              </Text>
-              <Text style={styles.text}>
-                Grand Total :{' '}
-                {numberFormatter(
-                  subTotal - subTotal * (discount / 100) + otherCharges,
-                )}
-              </Text>
 
-              <TouchableOpacity
-                style={styles.shareButton}
-                onPress={() => this.props.navigation.navigate('Payment')}>
-                <Text style={{color: 'white'}}>Proceed to Buy</Text>
-              </TouchableOpacity>
+            <View style={styles.summaryDiv}>
+              {this.getSummary('Total Quantity', total_quantity)}
+              {this.getSummary('Discount', discount + '%')}
+              {this.getSummary('Sub Total', numberFormatter(subTotal))}
+              {this.getSummary(
+                'Delivery Charges',
+                numberFormatter(otherCharges),
+              )}
+              {this.getSummary(
+                'Grand Total',
+                numberFormatter(
+                  subTotal - subTotal * (discount / 100) + otherCharges,
+                ),
+              )}
             </View>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate('Payment')}>
+              <Text style={{color: 'white'}}>Proceed to Buy</Text>
+            </TouchableOpacity>
           </View>
         ) : (
           <View style={styles.mainSubWrapper}>
@@ -170,16 +179,11 @@ const styles = StyleSheet.create({
   mainWrapper: {
     padding: 20,
   },
-  text: {
-    textAlign: 'right',
-    marginBottom: 10,
-    fontSize: 18,
-  },
-  shareButton: {
+  button: {
     backgroundColor: Colors.primary,
-    padding: 10,
+    padding: 15,
     marginTop: 10,
-    borderRadius: 10,
+    borderRadius: 5,
     alignItems: 'center',
     width: 'auto',
   },
@@ -200,5 +204,25 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  summaryDiv: {
+    borderWidth: 1,
+    borderColor: '#c9c9c9',
+    borderRadius: 3,
+    padding: 10,
+    paddingBottom: 5,
+  },
+  summaryItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  label: {
+    fontWeight: '600',
+    color: '#090909',
+  },
+  labelValue: {
+    fontWeight: 'bold',
+    color: Colors.secondary,
   },
 });
