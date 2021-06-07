@@ -13,7 +13,6 @@ import {
 import CartCart from '../Components/CartCart';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import Header from '../Components/Header';
-import colors from '../Constants/colors';
 import Colors from '../Constants/colors';
 
 import numberFormatter from '../util/numberFormatter';
@@ -142,7 +141,9 @@ export default class Cart extends Component {
                   )}
                 </Text>
 
-                <TouchableOpacity style={styles.shareButton}>
+                <TouchableOpacity
+                  style={styles.shareButton}
+                  onPress={() => this.props.navigation.navigate('Payment')}>
                   <Text style={{color: 'white'}}>Proceed to Buy</Text>
                 </TouchableOpacity>
               </View>

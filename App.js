@@ -12,6 +12,8 @@ import Forgot from './Pages/Forgot';
 import Eua from './Pages/Eua';
 import Cart from './Pages/Cart';
 import Wishlist from './Pages/Wishlist';
+import Listing from './Pages/Listing';
+import Payment from './Pages/Payment';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -43,6 +45,8 @@ export default class App extends React.Component {
           <Stack.Screen name="Eua" component={Eua} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Wishlist" component={Wishlist} />
+          <Stack.Screen name="Listing" component={Listing} />
+          <Stack.Screen name="Payment" component={Payment} />
         </Stack.Navigator>
       </NavigationContainer>
     );

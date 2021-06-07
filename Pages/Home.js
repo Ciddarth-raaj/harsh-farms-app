@@ -26,7 +26,35 @@ const images = [
 ];
 
 export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      product_listing: [
+        {
+          product_id: 1,
+          mrp: 200,
+          sp: 100,
+          product_name: 'Random',
+          item_quantity: '40 KG',
+          item_image:
+            'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+          discount: '30%',
+        },
+        {
+          product_id: 1,
+          mrp: 200,
+          sp: 100,
+          product_name: 'Random',
+          item_quantity: '40 KG',
+          discount: '30%',
+          item_image:
+            'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+        },
+      ],
+    };
+  }
   render() {
+    const {product_listing} = this.state;
     return (
       <SafeAreaView>
         <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
@@ -48,9 +76,17 @@ export default class Home extends React.Component {
             </View>
 
             <View style={styles.wrapper}>
-              <ProductCard />
-              <ProductCard />
-              <ProductCard />
+              {product_listing.map(p => (
+                <ProductCard
+                  id={p.product_id}
+                  name={p.product_name}
+                  mrp={p.mrp}
+                  sp={p.sp}
+                  image={p.item_image}
+                  item_quantity={p.item_quantity}
+                  discount={p.discount}
+                />
+              ))}
             </View>
           </View>
         </GlobalWrapper>

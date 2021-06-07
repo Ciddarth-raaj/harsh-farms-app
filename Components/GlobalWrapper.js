@@ -196,7 +196,13 @@ export default class GlobalWrapper extends React.Component {
                               show: false,
                             });
                           }}>
-                          <Text style={styles.nameText}>{c.category_name}</Text>
+                          <Text
+                            onPress={() =>
+                              this.props.navigation.navigate('Listing')
+                            }
+                            style={styles.nameText}>
+                            {c.category_name}
+                          </Text>
                         </View>
                       </View>
                     </View>

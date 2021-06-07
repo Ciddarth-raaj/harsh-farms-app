@@ -35,18 +35,19 @@ export default class ProductCard extends React.Component {
 
   render() {
     const {QtyVisibility} = this.state;
+    const {id, name, mrp, sp, image, item_quantity, discount} = this.props;
     return (
       <SafeAreaView>
         <View style={styles.wrapper}>
           <View style={styles.discountSectionField}>
-            <Text style={styles.discountSection}>20%</Text>
+            <Text style={styles.discountSection}>{discount}</Text>
           </View>
 
           <View style={styles.innerWrapper}>
             <View>
               <Image
                 source={{
-                  uri: 'https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80',
+                  uri: image,
                 }}
                 style={styles.image}
               />
@@ -54,12 +55,20 @@ export default class ProductCard extends React.Component {
 
             <View style={styles.contentWrapper}>
               <View style={{marginBottom: 10}}>
-                <Text style={styles.nameText}>TOMATO</Text>
-                <Text style={styles.subText}>(400KG-500KH)</Text>
+                <Text style={styles.nameText}>{name}</Text>
+                <Text style={styles.subText}>{item_quantity}</Text>
               </View>
               <View style={styles.priceWrapper}>
-                <Text style={styles.mrpText}>{'\u20A8 100'}</Text>
-                <Text style={styles.spText}>{'\u20A8 100'}</Text>
+                <Text style={styles.mrpText}>
+                  {' '}
+                  {'\u20A8'}
+                  {mrp}
+                </Text>
+                <Text style={styles.spText}>
+                  {' '}
+                  {'\u20A8'}
+                  {sp}
+                </Text>
               </View>
 
               {/* {QtyVisibility && ( */}
