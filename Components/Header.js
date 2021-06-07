@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Share,
-  Button,
-  ScrollView,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import Colors from '../Constants/colors';
 
 export default class Header extends React.Component {
@@ -23,12 +13,12 @@ export default class Header extends React.Component {
             }}
             style={styles.image}
           />
-          <Text style={styles.companyName}>HARSH FARMS</Text>
+          <Text style={styles.companyName}>{'Harsh Farms'}</Text>
         </View>
-        <Image
+        {/* <Image
           source={require('../Assets/search.png')}
           style={styles.searchImage}
-        />
+        /> */}
       </View>
     );
   }
@@ -39,17 +29,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: 20,
+    // marginBottom: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: Colors.primary,
     width: '100%',
-    padding: 20,
+    padding: 10,
   },
   image: {
     width: 50,
     height: 50,
-    borderRadius: 10,
+    borderRadius: 4,
   },
   header: {
     display: 'flex',
