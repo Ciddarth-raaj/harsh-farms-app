@@ -13,8 +13,8 @@ import {
 
 import Colors from '../Constants/colors';
 import Styles from '../Constants/styles';
+
 import GlobalWrapper from '../Components/GlobalWrapper';
-import Header from '../Components/Header';
 import WishlistCard from '../Components/WishlistCard';
 
 export default class Wishlist extends Component {
@@ -50,8 +50,6 @@ export default class Wishlist extends Component {
     const {wishlist} = this.state;
     return (
       <GlobalWrapper tag={'wishlist'} navigation={this.props.navigation}>
-        <Header />
-
         {wishlist.length > 0 ? (
           <View style={styles.mainWrapper}>
             <Text style={styles.heading}>My Wishlist</Text>
