@@ -9,7 +9,7 @@ export default class Header extends React.Component {
         <View style={styles.header}>
           <Image
             source={{
-              uri: 'https://images.unsplash.com/photo-1621377674852-0b332949ef25?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
+              uri: 'https://www.iconsdb.com/icons/preview/white/carrot-xxl.png',
             }}
             style={styles.image}
           />
@@ -35,10 +35,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     width: '100%',
     padding: 10,
+    paddingBottom: 12,
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
     borderRadius: 4,
   },
   header: {
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   companyName: {
     fontWeight: 'bold',
