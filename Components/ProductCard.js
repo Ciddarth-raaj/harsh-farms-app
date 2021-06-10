@@ -58,17 +58,17 @@ export default class ProductCard extends React.Component {
 
             {/* {QtyVisibility && ( */}
             <View style={styles.qtyDiv}>
-              <View style={styles.textViewStyle}>
+              <View style={styles.textViewStyleMinus}>
                 <Text
                   style={styles.qtyButton}
                   onPress={() => this.updateQty('sub')}>
                   {'-'}
                 </Text>
               </View>
-              <View style={{flex: 2, alignItems: 'center'}}>
+              <View style={{flex: 1, alignItems: 'center'}}>
                 <Text className={styles.price}>{this.state.qty}</Text>
               </View>
-              <View style={styles.textViewStyle}>
+              <View style={styles.textViewStylePlus}>
                 <Text
                   style={styles.qtyButton}
                   onPress={() => this.updateQty('add')}>
@@ -80,7 +80,7 @@ export default class ProductCard extends React.Component {
 
             <TouchableOpacity style={styles.button}>
               <Text style={{color: 'white', fontWeight: 'bold'}}>
-                Add to Basket
+                Add to Cart
               </Text>
             </TouchableOpacity>
           </View>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   image: {
-    width: 100,
+    width: '45%',
     height: 100,
     borderRadius: 5,
     alignSelf: 'center',
@@ -126,7 +126,8 @@ const styles = StyleSheet.create({
   spText: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: colors.primary,
+    color: '#347672',
+    // color: colors.primary,
   },
   mrpText: {
     textDecorationLine: 'line-through',
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   subText: {
     fontSize: 14,
@@ -153,7 +155,9 @@ const styles = StyleSheet.create({
     color: 'red',
   },
   button: {
-    backgroundColor: Colors.primary,
+    backgroundColor: '#347672',
+    // backgroundColor: '#73AB00',
+    // backgroundColor: Colors.primary,
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -174,8 +178,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 5,
   },
+
   qtyButton: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
     color: 'white',
     borderRadius: 5,
@@ -184,7 +189,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     left: 5,
-    backgroundColor: Colors.secondary,
+    backgroundColor: '#FC2215',
+    // backgroundColor: '#00AF50',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 3,
@@ -194,8 +200,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  textViewStyle: {
-    backgroundColor: Colors.secondary,
+  textViewStylePlus: {
+    backgroundColor: '#347672',
+    // backgroundColor: '#73AB00',
+    flex: 1,
+    alignItems: 'center',
+  },
+  textViewStyleMinus: {
+    backgroundColor: '#FF4634',
     flex: 1,
     alignItems: 'center',
   },

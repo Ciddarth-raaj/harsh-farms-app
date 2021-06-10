@@ -36,14 +36,32 @@ export default class Home extends React.Component {
           product_name: 'Red Apple | Best Quality | 1 Kg',
           item_image:
             'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
-          discount: '30%',
+          discount: '30% offer',
         },
         {
           product_id: 1,
           mrp: 200,
           sp: 100,
           product_name: 'Orange | Top Grade | 1 Kg',
-          discount: '30%',
+          discount: '30% offer',
+          item_image:
+            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
+        },
+        {
+          product_id: 1,
+          mrp: 200,
+          sp: 100,
+          product_name: 'Orange | Top Grade | 1 Kg',
+          discount: '30% offer',
+          item_image:
+            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
+        },
+        {
+          product_id: 1,
+          mrp: 200,
+          sp: 100,
+          product_name: 'Orange | Top Grade | 1 Kg',
+          discount: '30% offer',
           item_image:
             'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
         },
@@ -54,6 +72,21 @@ export default class Home extends React.Component {
     const {product_listing} = this.state;
     return (
       <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
+        <View>
+          <View style={styles.container}>
+            <View style={styles.sectionStyle}>
+              <TextInput
+                style={{flex: 1}}
+                placeholder="Search"
+                underlineColorAndroid="transparent"
+              />
+              <Image
+                source={require('../Assets/search.png')}
+                style={styles.imageStyle}
+              />
+            </View>
+          </View>
+        </View>
         <ImageCarousel
           data={[
             {
@@ -64,6 +97,8 @@ export default class Home extends React.Component {
             },
           ]}
         />
+
+        <Text style={styles.heading}>New Products</Text>
 
         <View style={styles.wrapper}>
           {product_listing.map(p => (
@@ -89,5 +124,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     padding: 20,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+  },
+  sectionStyle: {
+    paddingLeft: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderWidth: 0.5,
+    borderColor: '#000',
+    height: 40,
+    borderRadius: 5,
+    margin: 10,
+  },
+  imageStyle: {
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+  },
+  heading: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: 'orange',
+    marginBottom: 20,
+    marginTop: 30,
   },
 });

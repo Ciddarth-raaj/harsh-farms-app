@@ -9,6 +9,7 @@ import {
   Button,
   Picker,
   TextInput,
+  Switch,
   ScrollView,
 } from 'react-native';
 
@@ -21,7 +22,11 @@ import GlobalWrapper from '../Components/GlobalWrapper';
 export default class Signin extends Component {
   constructor(props) {
     super(props);
+    this.toggleSwitch = this.toggleSwitch.bind(this);
+    this.toggleSwitchConfirm = this.toggleSwitchConfirm.bind(this);
     this.state = {
+      showPassword: true,
+      showConfirmPassword: true,
       phone: '',
       password: '',
       confirmPass: '',
@@ -33,6 +38,14 @@ export default class Signin extends Component {
       selectedValue: 'Society',
       phone_prefix: '91',
     };
+  }
+
+  toggleSwitch() {
+    this.setState({showPassword: !this.state.showPassword});
+  }
+
+  toggleSwitchConfirm() {
+    this.setState({showConfirmPassword: !this.state.showConfirmPassword});
   }
 
   render() {
@@ -47,55 +60,67 @@ export default class Signin extends Component {
       primaryNumber,
       selectedValue,
       phone_prefix,
+      showPassword,
     } = this.state;
     return (
       <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
-          <Text style={styles.heading}>Welcome To Harsh Farms</Text>
+          <Text style={styles.heading}>Sign Up</Text>
           <View style={styles.fieldHolder}>
             <View srtyles={styles.personalDetailsSection}>
               <Text style={styles.subHeading}>Personal Details</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Name"
-                value={name}
-                onChangeText={value => this.setState({name: value})}
-              />
-              <View style={{display: 'flex', flexDirection: 'row'}}>
+              <View>
+                <Text style={styles.label}>Name</Text>
                 <TextInput
+                  style={styles.input}
+                  // placeholder="Name"
+                  value={name}
+                  onChangeText={value => this.setState({name: value})}
+                />
+              </View>
+              <View
+              // style={{display: 'flex', flexDirection: 'row'}}
+              >
+                <Text style={styles.label}>Phone Number</Text>
+                {/* <TextInput
                   style={styles.inputNumberPrefix}
                   placeholder=" "
                   value={phone_prefix}
                   keyboardType="numeric"
                   // onChangeText={value => this.setState({phone: value})}
-                />
+                /> */}
                 <TextInput
                   style={styles.inputNumber}
-                  placeholder="Phone Number"
+                  // placeholder="Phone Number"
                   value={phone}
                   keyboardType="numeric"
                   onChangeText={value => this.setState({phone: value})}
                 />
               </View>
-
-              <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={value => this.setState({email: value})}
-              />
-
-              <View style={styles.textAreaContainer}>
+              <View>
+                <Text style={styles.label}>Email address</Text>
                 <TextInput
-                  style={styles.textArea}
-                  underlineColorAndroid="transparent"
-                  placeholder="Address"
-                  value={address}
-                  numberOfLines={10}
-                  multiline={true}
-                  onChangeText={value => this.setState({address: value})}
+                  style={styles.input}
+                  // placeholder="Email"
+                  value={email}
+                  onChangeText={value => this.setState({email: value})}
                 />
               </View>
+              <View>
+                <Text style={styles.label}>Address</Text>
+                <View style={styles.textAreaContainer}>
+                  <TextInput
+                    style={styles.textArea}
+                    underlineColorAndroid="transparent"
+                    // placeholder="Address"
+                    value={address}
+                    numberOfLines={10}
+                    multiline={true}
+                    onChangeText={value => this.setState({address: value})}
+                  />
+                </View>
+              </View>
+
               <View style={styles.textAreaContainer}>
                 <Picker
                   selectedValue={selectedValue}
@@ -117,23 +142,44 @@ export default class Signin extends Component {
                       }
                     /> */}
             </View>
-            <View srtyles={styles.accountDetailsSection}>
+            <View style={styles.accountDetailsSection}>
               <Text style={styles.subHeading}>Account Details</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                secureTextEntry={true}
-                onChangeText={value => this.setState({password: value})}
-              />
+              <View>
+                <Text style={styles.label}>Password</Text>
+                <TextInput
+                  style={styles.inputPassfield}
+                  // placeholder="Password"
+                  value={password}
+                  secureTextEntry={this.state.showPassword}
+                  onChangeText={value => this.setState({password: value})}
+                />
+                <View style={styles.toggleSwitch}>
+                  <Text style={{marginRight: 2}}>Show Password</Text>
+                  <Switch
+                    onValueChange={this.toggleSwitch}
+                    value={!this.state.showPassword}
+                  />
+                </View>
+              </View>
 
-              <TextInput
-                style={styles.input}
-                placeholder="Confirm Password"
-                value={confirmPass}
-                secureTextEntry={true}
-                onChangeText={value => this.setState({confirmPass: value})}
-              />
+              <View>
+                <Text style={styles.label}>Confirm Password</Text>
+                <TextInput
+                  style={styles.inputPassfield}
+                  // placeholder="Confirm Password"
+                  value={confirmPass}
+                  // secureTextEntry={true}
+                  secureTextEntry={this.state.showConfirmPassword}
+                  onChangeText={value => this.setState({confirmPass: value})}
+                />
+                <View style={styles.toggleSwitch}>
+                  <Text style={{marginRight: 2}}>Show Confirm Password</Text>
+                  <Switch
+                    onValueChange={this.toggleSwitchConfirm}
+                    value={!this.state.showConfirmPassword}
+                  />
+                </View>
+              </View>
 
               {/* <TextInput
                       style={styles.input}
@@ -185,8 +231,16 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
 
+  inputPassfield: {
+    width: '100%',
+    height: 40,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    marginBottom: 10,
+    paddingLeft: 20,
+  },
+
   inputNumber: {
-    width: '75%',
     height: 40,
     borderWidth: 2,
     borderColor: Colors.primary,
@@ -252,13 +306,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     color: 'orange',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   subHeading: {
-    marginBottom: 20,
+    marginBottom: 30,
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 16,
     color: 'grey',
-    textAlign: 'center',
+  },
+  label: {
+    color: 'grey',
+    fontWeight: '500',
+    marginBottom: 5,
+  },
+  accountDetailsSection: {
+    marginTop: 40,
+  },
+  toggleSwitch: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 21,
   },
 });

@@ -56,54 +56,66 @@ export default class Forgot extends React.Component {
           <Text style={styles.heading}>Forgot Password</Text>
 
           <View style={styles.fieldHolder}>
-            <TextInput
-              style={styles.input}
-              placeholder="Phone"
-              value={phone}
-              keyboardType="numeric"
-              onChangeText={value =>
-                this.setState({
-                  phone: value,
-                })
-              }
-            />
+            <View>
+              <Text style={styles.label}>Phone number</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Phone"
+                value={phone}
+                keyboardType="numeric"
+                onChangeText={value =>
+                  this.setState({
+                    phone: value,
+                  })
+                }
+              />
+            </View>
           </View>
 
           {sentOtp && (
             <View style={styles.fieldHolder}>
               <View style={styles.fieldHolder}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChangeText={value =>
-                    this.setState({
-                      otp: value,
-                    })
-                  }
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Password"
-                  secureTextEntry={true}
-                  value={password}
-                  onChangeText={value =>
-                    this.setState({
-                      password: value,
-                    })
-                  }
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Confirm Password"
-                  secureTextEntry={true}
-                  value={confirmPass}
-                  onChangeText={value =>
-                    this.setState({
-                      confirmPass: value,
-                    })
-                  }
-                />
+                <View>
+                  <Text style={styles.label}>OTP</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChangeText={value =>
+                      this.setState({
+                        otp: value,
+                      })
+                    }
+                  />
+                </View>
+                <View>
+                  <Text style={styles.label}>Password</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    value={password}
+                    onChangeText={value =>
+                      this.setState({
+                        password: value,
+                      })
+                    }
+                  />
+                </View>
+                <View>
+                  <Text style={styles.label}>Confirm Password</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Confirm Password"
+                    secureTextEntry={true}
+                    value={confirmPass}
+                    onChangeText={value =>
+                      this.setState({
+                        confirmPass: value,
+                      })
+                    }
+                  />
+                </View>
               </View>
             </View>
           )}
@@ -174,7 +186,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     width: '100%',
     height: 40,
-    borderRadius: 9,
+    // borderRadius: 9,
     marginBottom: 21,
     paddingLeft: 20,
     paddingRight: 20,
@@ -213,5 +225,10 @@ const styles = StyleSheet.create({
     color: '#0088ff',
     textAlign: 'center',
     marginBottom: 21,
+  },
+  label: {
+    color: 'grey',
+    fontWeight: '500',
+    marginBottom: 5,
   },
 });

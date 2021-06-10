@@ -30,23 +30,29 @@ export default class Login extends Component {
       <SafeAreaView>
         <GlobalWrapper tag={'login'} navigation={this.props.navigation}>
           <ScrollView>
-            <Header />
             <View style={styles.wrapper}>
               <Text style={styles.heading}>Login</Text>
               <View style={styles.fieldHolder}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Username"
-                  value={username}
-                  onChangeText={value => this.setState({username: value})}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="Password"
-                  value={password}
-                  secureTextEntry={true}
-                  onChangeText={value => this.setState({password: value})}
-                />
+                <View>
+                  <Text style={styles.label}>Username</Text>
+                  <TextInput
+                    style={styles.input}
+                    // placeholder="Username"
+                    value={username}
+                    onChangeText={value => this.setState({username: value})}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.label}>Password</Text>
+                  <TextInput
+                    style={styles.input}
+                    // placeholder="Password"
+                    value={password}
+                    secureTextEntry={true}
+                    onChangeText={value => this.setState({password: value})}
+                  />
+                </View>
+
                 <TouchableOpacity style={styles.buttonWrapper}>
                   <Text style={Styles.buttonText}>Login</Text>
                 </TouchableOpacity>
@@ -105,5 +111,10 @@ const styles = StyleSheet.create({
     color: '#0088ff',
     marginTop: 10,
     textAlign: 'center',
+  },
+  label: {
+    color: 'grey',
+    fontWeight: '500',
+    marginBottom: 5,
   },
 });

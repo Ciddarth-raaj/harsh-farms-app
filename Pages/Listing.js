@@ -12,6 +12,7 @@ import {
   Dimensions,
 } from 'react-native';
 import ProductCard from '../Components/ProductCard';
+import GlobalWrapper from '../Components/GlobalWrapper';
 
 export default class Listing extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ export default class Listing extends React.Component {
           product_name: 'Random',
           item_quantity: '40 KG',
           item_image:
-            'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
           discount: '30%',
         },
         {
@@ -36,7 +37,7 @@ export default class Listing extends React.Component {
           item_quantity: '40 KG',
           discount: '30%',
           item_image:
-            'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
         },
       ],
     };
@@ -44,27 +45,27 @@ export default class Listing extends React.Component {
   render() {
     const {product_listing} = this.state;
     return (
-      <SafeAreaView>
-        <ScrollView>
-          <View>
-            <Header />
-
-            <View style={styles.wrapper}>
-              {product_listing.map(p => (
-                <ProductCard
-                  id={p.product_id}
-                  name={p.product_name}
-                  mrp={p.mrp}
-                  sp={p.sp}
-                  image={p.item_image}
-                  item_quantity={p.item_quantity}
-                  discount={p.discount}
-                />
-              ))}
+      <GlobalWrapper navigation={this.props.navigation}>
+        <SafeAreaView>
+          <ScrollView>
+            <View>
+              <View style={styles.wrapper}>
+                {product_listing.map(p => (
+                  <ProductCard
+                    id={p.product_id}
+                    name={p.product_name}
+                    mrp={p.mrp}
+                    sp={p.sp}
+                    image={p.item_image}
+                    item_quantity={p.item_quantity}
+                    discount={p.discount}
+                  />
+                ))}
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+          </ScrollView>
+        </SafeAreaView>
+      </GlobalWrapper>
     );
   }
 }
@@ -72,7 +73,7 @@ export default class Listing extends React.Component {
 const styles = StyleSheet.create({
   wrapper: {
     padding: 20,
-    // flex: 1,
+    flex: 1,
     // alignItems: 'center',
     // flexDirection: 'column',
     // marginTop: 50,

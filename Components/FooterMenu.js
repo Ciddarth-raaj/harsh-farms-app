@@ -17,6 +17,49 @@ export default class FooterMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      show: false,
+      categories: [
+        {
+          category_name: 'Branded Foods',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Beverages',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'HouseHolds',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Kitchen needs',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Seeds',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Baby Care',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Baby Care',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+        {
+          category_name: 'Baby Care',
+          image:
+            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+        },
+      ],
       menu: {
         home: {
           title: 'Home',
@@ -36,8 +79,49 @@ export default class FooterMenu extends React.Component {
           action: () => props.navigation.navigate('Wishlist'),
           icon: require('../Assets/icon-grey/wishlist.png'),
         },
+        signin: {
+          title: 'Signin',
+          selected: false,
+          action: () => props.navigation.navigate('Eua'),
+          // pageName: 'Eua',
+          icon: require('../Assets/icon-grey/home.png'),
+          selectedIcon: require('../Assets/icon-selected/home.png'),
+        },
+        login: {
+          title: 'Login',
+          selected: false,
+          action: () => props.navigation.navigate('Login'),
+          // pageName: 'Login',
+          icon: require('../Assets/icon-grey/home.png'),
+          selectedIcon: require('../Assets/icon-selected/home.png'),
+        },
+        // categories: {
+        //   title: 'Category',
+        //   selected: false,
+        //   action: () => props.navigation.navigate('Categories'),
+        //   icon: require('../Assets/icon-grey/category.png'),
+        // },
+        category: {
+          title: 'Category',
+          selected: false,
+          action: () => this.openModal(),
+          icon: require('../Assets/icon-grey/category.png'),
+          selectedIcon: require('../Assets/icon-selected/category.png'),
+        },
+        more: {
+          title: 'More',
+          selected: false,
+          // action: () => props.navigation.navigate('Wishlist'),
+          icon: require('../Assets/icon-grey/more.png'),
+        },
       },
     };
+  }
+
+  openModal() {
+    this.setState({
+      show: true,
+    });
   }
 
   componentDidMount() {
@@ -51,7 +135,7 @@ export default class FooterMenu extends React.Component {
   }
 
   render() {
-    const {menu} = this.state;
+    const {menu, categories} = this.state;
     return (
       <View style={styles.wrapper}>
         <View style={styles.footerMenu}>
@@ -82,6 +166,58 @@ export default class FooterMenu extends React.Component {
             </TouchableOpacity>
           ))}
         </View>
+        <Modal
+          visible={this.state.show}
+          animationType={'fade'}
+          transparent={true}>
+          <View style={styles.modalContainer}>
+            {/* <Header /> */}
+            <ScrollView>
+              <Text
+                style={styles.backText}
+                onPress={() => {
+                  this.setState({
+                    show: false,
+                  });
+                }}>
+                Close
+              </Text>
+              <Text style={styles.heading}>Categories</Text>
+              {categories.map(c => (
+                <View style={styles.modalWrapper}>
+                  <View style={styles.innerWrapper}>
+                    <View>
+                      <Image
+                        source={{
+                          uri: c.image,
+                        }}
+                        style={styles.image}
+                      />
+                    </View>
+
+                    <View style={styles.contentWrapper}>
+                      <View
+                        onPress={() => {
+                          this.setState({
+                            show: false,
+                          });
+                        }}>
+                        <Text
+                          onPress={() =>
+                            this.props.navigation.navigate('Listing')
+                          }
+                          style={styles.nameText}>
+                          {c.category_name}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.line} />
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -143,6 +279,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
+
     // borderWidth: 1,
     // borderColor: 'grey',
     position: 'relative',
@@ -186,11 +323,18 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     position: 'relative',
+    height: 400,
+    marginTop: 110,
+    marginLeft: 40,
+    borderWidth: 1,
+    borderColor: 'grey',
+    backgroundColor: 'white',
   },
   backText: {
     textAlign: 'right',
     fontSize: 16,
     paddingRight: 20,
+    paddingTop: 10,
   },
   heading: {
     textAlign: 'center',

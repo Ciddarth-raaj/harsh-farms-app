@@ -57,17 +57,17 @@ export default class CartCard extends Component {
             </View>
 
             <View style={styles.qtyDiv}>
-              <View style={styles.textViewStyle}>
+              <View style={styles.textViewStyleMinus}>
                 <Text
                   style={styles.qtyButton}
                   onPress={() => this.updateQty('sub')}>
                   {'-'}
                 </Text>
               </View>
-              <View style={{flex: 2, alignItems: 'center'}}>
+              <View style={{flex: 1, alignItems: 'center'}}>
                 <Text className={styles.price}>{qty}</Text>
               </View>
-              <View style={styles.textViewStyle}>
+              <View style={styles.textViewStylePlus}>
                 <Text
                   style={styles.qtyButton}
                   onPress={() => this.updateQty('add')}>
@@ -203,5 +203,26 @@ const styles = StyleSheet.create({
   deleteImage: {
     width: 25,
     height: 25,
+  },
+  // textViewStylePlus: {
+  //   backgroundColor: '#73AB00',
+  //   flex: 1,
+  //   alignItems: 'center',
+  // },
+  // textViewStyleMinus: {
+  //   backgroundColor: '#FF4634',
+  //   flex: 1,
+  //   alignItems: 'center',
+  // },
+  textViewStylePlus: {
+    backgroundColor: '#347672',
+    // backgroundColor: '#73AB00',
+    flex: 1,
+    alignItems: 'center',
+  },
+  textViewStyleMinus: {
+    backgroundColor: '#FF4634',
+    flex: 1,
+    alignItems: 'center',
   },
 });
