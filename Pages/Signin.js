@@ -11,6 +11,7 @@ import {
   TextInput,
   Switch,
   ScrollView,
+  Image,
 } from 'react-native';
 
 import Styles from '../Constants/styles';
@@ -146,6 +147,25 @@ export default class Signin extends Component {
               <Text style={styles.subHeading}>Account Details</Text>
               <View>
                 <Text style={styles.label}>Password</Text>
+                <View style={styles.container}>
+                  <View style={styles.sectionStyle}>
+                    <TextInput
+                      // style={styles.inputPassfield}
+                      value={password}
+                      style={{flex: 1}}
+                      secureTextEntry={this.state.showPassword}
+                      onChangeText={value => this.setState({password: value})}
+                    />
+                    <Switch
+                      onValueChange={this.toggleSwitch}
+                      value={!this.state.showPassword}
+                      style={styles.imageStyle}
+                    />
+                  </View>
+                </View>
+              </View>
+              {/* <View>
+                <Text style={styles.label}>Password</Text>
                 <TextInput
                   style={styles.inputPassfield}
                   // placeholder="Password"
@@ -160,25 +180,41 @@ export default class Signin extends Component {
                     value={!this.state.showPassword}
                   />
                 </View>
-              </View>
+              </View> */}
 
-              <View>
+              {/* <View style={styles.sectionStyle}>
+                <TextInput
+                  style={{flex: 1}}
+                  style={styles.inputPassfield}
+                  // placeholder="Password"
+                  value={password}
+                  secureTextEntry={this.state.showPassword}
+                  onChangeText={value => this.setState({password: value})}
+                  underlineColorAndroid="transparent"
+                />
+                <Switch
+                  style={styles.imageStyle}
+                  onValueChange={this.toggleSwitch}
+                  value={!this.state.showPassword}
+                />
+              </View> */}
+
+              <View style={{marginBottom: 20}}>
                 <Text style={styles.label}>Confirm Password</Text>
                 <TextInput
                   style={styles.inputPassfield}
-                  // placeholder="Confirm Password"
                   value={confirmPass}
-                  // secureTextEntry={true}
-                  secureTextEntry={this.state.showConfirmPassword}
                   onChangeText={value => this.setState({confirmPass: value})}
+                  // secureTextEntry={true}
+                  // secureTextEntry={this.state.showConfirmPassword}
                 />
-                <View style={styles.toggleSwitch}>
+                {/* <View style={styles.toggleSwitch}>
                   <Text style={{marginRight: 2}}>Show Confirm Password</Text>
                   <Switch
                     onValueChange={this.toggleSwitchConfirm}
                     value={!this.state.showConfirmPassword}
                   />
-                </View>
+                </View> */}
               </View>
 
               {/* <TextInput
@@ -326,5 +362,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 21,
+  },
+
+  // New css
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sectionStyle: {
+    width: '100%',
+    height: 40,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    marginBottom: 10,
+    paddingLeft: 20,
+
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  imageStyle: {
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+    alignItems: 'center',
   },
 });

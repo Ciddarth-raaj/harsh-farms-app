@@ -221,7 +221,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textViewStyleMinus: {
-    backgroundColor: '#FF4634',
+    backgroundColor: '#347672',
+    // backgroundColor: '#FF4634',
     flex: 1,
     alignItems: 'center',
   },

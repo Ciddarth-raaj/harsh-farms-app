@@ -33,7 +33,7 @@ export default class ProductCard extends React.Component {
   }
 
   render() {
-    const {id, name, mrp, sp, image, discount} = this.props;
+    const {id, name, mrp, sp, image, discount, stock} = this.props;
     return (
       <View style={styles.wrapper}>
         <View style={styles.discountSectionField}>
@@ -41,12 +41,15 @@ export default class ProductCard extends React.Component {
         </View>
 
         <View style={styles.innerWrapper}>
-          <Image
-            source={{
-              uri: image,
-            }}
-            style={styles.image}
-          />
+          <View style={styles.imageHolderField}>
+            <Image
+              source={{
+                uri: image,
+              }}
+              style={styles.image}
+            />
+            <Text style={styles.nameTextStock}>{stock}</Text>
+          </View>
 
           <View style={styles.contentWrapper}>
             <Text style={styles.nameText}>{name}</Text>
@@ -101,8 +104,13 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 3,
   },
-  image: {
+
+  imageHolderField: {
     width: '45%',
+  },
+  image: {
+    marginTop: 30,
+    width: '100%',
     height: 100,
     borderRadius: 5,
     alignSelf: 'center',
@@ -139,6 +147,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  nameTextStock: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: Colors.primary,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    paddingTop: 5,
   },
   subText: {
     fontSize: 14,
@@ -207,7 +223,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textViewStyleMinus: {
-    backgroundColor: '#FF4634',
+    backgroundColor: '#347672',
+    // backgroundColor: '#FF4634',
     flex: 1,
     alignItems: 'center',
   },

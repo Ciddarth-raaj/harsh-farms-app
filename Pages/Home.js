@@ -37,6 +37,7 @@ export default class Home extends React.Component {
           item_image:
             'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
           discount: '30% offer',
+          available_stock: '100 in stock',
         },
         {
           product_id: 1,
@@ -44,6 +45,7 @@ export default class Home extends React.Component {
           sp: 100,
           product_name: 'Orange | Top Grade | 1 Kg',
           discount: '30% offer',
+          available_stock: '100 in stock',
           item_image:
             'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
         },
@@ -53,6 +55,7 @@ export default class Home extends React.Component {
           sp: 100,
           product_name: 'Orange | Top Grade | 1 Kg',
           discount: '30% offer',
+          available_stock: '100 in stock',
           item_image:
             'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
         },
@@ -62,6 +65,7 @@ export default class Home extends React.Component {
           sp: 100,
           product_name: 'Orange | Top Grade | 1 Kg',
           discount: '30% offer',
+          available_stock: '100 in stock',
           item_image:
             'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
         },
@@ -109,6 +113,7 @@ export default class Home extends React.Component {
               sp={p.sp}
               image={p.item_image}
               discount={p.discount}
+              stock={p.available_stock}
             />
           ))}
         </View>

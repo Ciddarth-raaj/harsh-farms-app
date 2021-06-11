@@ -10,6 +10,7 @@ import {
   TextInput,
   Dimensions,
   StatusBar,
+  TouchableHighlight,
 } from 'react-native';
 
 import Header from '../Components/Header';
@@ -23,7 +24,7 @@ export default class Eua extends React.Component {
     super(props);
     this.state = {
       accepted: false,
-      Eua: 'hello  TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.TextInput component with multiline={true} should show a vertical scroll indicator while actively scrolling the input, and when its size changes due to a new line (if height is not fixed). Described above is implemented on iOS but not on Android, at least for react-native init projects.',
+      Eua: ' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedo eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamcolaboris nisi ut aliquip ex ea commodo consequat. Duis aute  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecatsint occaecat cupidatat non proident, su',
     };
   }
 
@@ -43,12 +44,15 @@ export default class Eua extends React.Component {
       <SafeAreaView>
         <ScrollView>
           <View>
-            <Header />
+            <View style={{marginBottom: 20}}>
+              <Header />
+            </View>
 
             <Text style={styles.heading}>End User Agreement</Text>
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
               <ScrollView style={styles.scrollView}>
                 <Text style={styles.text}>
+                  {/* {Eua} */}
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -77,7 +81,7 @@ export default class Eua extends React.Component {
                   sint occaecat cupidatat non proident, su
                 </Text>
               </ScrollView>
-            </SafeAreaView>
+            </View>
             {/* 
             <View style={{padding: 30}}>
               <View style={styles.textAreaContainer}>
@@ -135,16 +139,24 @@ export default class Eua extends React.Component {
               </TouchableOpacity>
             </View> */}
 
-            <TouchableOpacity
+            <TouchableHighlight
+              activeOpacity={0.2}
+              // backgroundColor: '#73AB00',
+              underlayColor="#477d4a"
+              // underlayColor="#606060"
               style={styles.buttonWrapper}
               onPress={() => this.props.navigation.navigate('Signin')}>
               <Text style={Styles.buttonText}>Accept and Continue</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonWrapper}
+            </TouchableHighlight>
+            <TouchableHighlight
+              activeOpacity={0.2}
+              // backgroundColor: '#73AB00',
+              underlayColor="#477d4a"
+              // underlayColor="#606060"
+              style={styles.buttonWrapperBottom}
               onPress={() => this.props.navigation.navigate('Home')}>
               <Text style={Styles.buttonText}>Do not accept</Text>
-            </TouchableOpacity>
+            </TouchableHighlight>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -165,10 +177,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,
-    backgroundColor: colors.primary,
+    backgroundColor: '#73AB00',
     paddingLeft: 30,
     paddingRight: 30,
     marginBottom: 21,
+    width: 200,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  buttonWrapperBottom: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15,
+    backgroundColor: '#73AB00',
+    paddingLeft: 30,
+    paddingRight: 30,
     width: 200,
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -195,8 +219,7 @@ const styles = StyleSheet.create({
     marginBottom: 21,
   },
   container: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    // flex: 1,
     height: 300,
     marginBottom: 20,
   },
@@ -207,5 +230,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
+    padding: 15,
   },
 });

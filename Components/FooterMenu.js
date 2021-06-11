@@ -79,22 +79,22 @@ export default class FooterMenu extends React.Component {
           action: () => props.navigation.navigate('Wishlist'),
           icon: require('../Assets/icon-grey/wishlist.png'),
         },
-        signin: {
-          title: 'Signin',
-          selected: false,
-          action: () => props.navigation.navigate('Eua'),
-          // pageName: 'Eua',
-          icon: require('../Assets/icon-grey/home.png'),
-          selectedIcon: require('../Assets/icon-selected/home.png'),
-        },
-        login: {
-          title: 'Login',
-          selected: false,
-          action: () => props.navigation.navigate('Login'),
-          // pageName: 'Login',
-          icon: require('../Assets/icon-grey/home.png'),
-          selectedIcon: require('../Assets/icon-selected/home.png'),
-        },
+        // signin: {
+        //   title: 'Signin',
+        //   selected: false,
+        //   action: () => props.navigation.navigate('Eua'),
+        //   // pageName: 'Eua',
+        //   icon: require('../Assets/icon-grey/home.png'),
+        //   selectedIcon: require('../Assets/icon-selected/home.png'),
+        // },
+        // login: {
+        //   title: 'Login',
+        //   selected: false,
+        //   action: () => props.navigation.navigate('Login'),
+        //   // pageName: 'Login',
+        //   icon: require('../Assets/icon-grey/home.png'),
+        //   selectedIcon: require('../Assets/icon-selected/home.png'),
+        // },
         // categories: {
         //   title: 'Category',
         //   selected: false,
@@ -148,13 +148,15 @@ export default class FooterMenu extends React.Component {
                 },
                 menu[m].action)
               }>
-              <Image
-                source={menu[m].icon}
-                style={[
-                  styles.menuIcon,
-                  {tintColor: menu[m].selected ? Colors.primary : 'none'},
-                ]}
-              />
+              <View>
+                <Image
+                  source={menu[m].icon}
+                  style={[
+                    styles.menuIcon,
+                    {tintColor: menu[m].selected ? Colors.primary : 'none'},
+                  ]}
+                />
+              </View>
 
               <Text
                 style={[
@@ -173,7 +175,27 @@ export default class FooterMenu extends React.Component {
           <View style={styles.modalContainer}>
             {/* <Header /> */}
             <ScrollView>
-              <Text
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  paddingRight: 10,
+                  paddingTop: 10,
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      show: false,
+                    });
+                  }}>
+                  <Image
+                    style={{height: 30, width: 30}}
+                    // style={styles.closeImage}
+                    source={require('../Assets/close-red.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+              {/* <Text
                 style={styles.backText}
                 onPress={() => {
                   this.setState({
@@ -181,7 +203,7 @@ export default class FooterMenu extends React.Component {
                   });
                 }}>
                 Close
-              </Text>
+              </Text> */}
               <Text style={styles.heading}>Categories</Text>
               {categories.map(c => (
                 <View style={styles.modalWrapper}>
@@ -330,11 +352,12 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     backgroundColor: 'white',
   },
-  backText: {
-    textAlign: 'right',
-    fontSize: 16,
-    paddingRight: 20,
-    paddingTop: 10,
+
+  closeImage: {
+    position: 'absolute',
+    right: 80,
+    height: 30,
+    width: 30,
   },
   heading: {
     textAlign: 'center',
@@ -342,5 +365,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: Colors.primary,
     marginBottom: 20,
+    paddingTop: 20,
   },
 });
