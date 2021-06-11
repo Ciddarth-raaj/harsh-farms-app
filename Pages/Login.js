@@ -9,6 +9,7 @@ import {
   Image,
   TextInput,
   Dimensions,
+  Switch,
 } from 'react-native';
 
 import Colors from '../Constants/colors';
@@ -19,11 +20,18 @@ import Header from '../Components/Header';
 export default class Login extends Component {
   constructor(props) {
     super(props);
+    this.toggleSwitch = this.toggleSwitch.bind(this);
     this.state = {
+      showPassword: true,
       username: '',
       password: '',
     };
   }
+
+  toggleSwitch() {
+    this.setState({showPassword: !this.state.showPassword});
+  }
+
   render() {
     const {username, password} = this.state;
     return (
@@ -44,6 +52,25 @@ export default class Login extends Component {
                 </View>
                 <View>
                   <Text style={styles.label}>Password</Text>
+                  <View style={styles.container}>
+                    <View style={styles.sectionStyle}>
+                      <TextInput
+                        // style={styles.inputPassfield}
+                        value={password}
+                        style={{flex: 1}}
+                        secureTextEntry={this.state.showPassword}
+                        onChangeText={value => this.setState({password: value})}
+                      />
+                      <Switch
+                        onValueChange={this.toggleSwitch}
+                        value={!this.state.showPassword}
+                        style={styles.imageStyle}
+                      />
+                    </View>
+                  </View>
+                </View>
+                {/* <View>
+                  <Text style={styles.label}>Password</Text>
                   <TextInput
                     style={styles.input}
                     // placeholder="Password"
@@ -51,7 +78,7 @@ export default class Login extends Component {
                     secureTextEntry={true}
                     onChangeText={value => this.setState({password: value})}
                   />
-                </View>
+                </View> */}
 
                 <TouchableOpacity style={styles.buttonWrapper}>
                   <Text style={Styles.buttonText}>Login</Text>
@@ -116,5 +143,30 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontWeight: '500',
     marginBottom: 5,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sectionStyle: {
+    width: '100%',
+    height: 40,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    marginBottom: 10,
+    paddingLeft: 20,
+
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  imageStyle: {
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+    alignItems: 'center',
   },
 });
