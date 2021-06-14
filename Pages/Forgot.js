@@ -19,8 +19,10 @@ export default class Forgot extends React.Component {
   constructor(props) {
     super(props);
     this.toggleSwitch = this.toggleSwitch.bind(this);
+    this.toggleSwitchConfirm = this.toggleSwitchConfirm.bind(this);
     this.state = {
       showPassword: true,
+      showConfirmPassword: true,
       phone: '8890637892',
       password: '',
       sentOtp: false,
@@ -33,6 +35,10 @@ export default class Forgot extends React.Component {
 
   toggleSwitch() {
     this.setState({showPassword: !this.state.showPassword});
+  }
+
+  toggleSwitchConfirm() {
+    this.setState({showConfirmPassword: !this.state.showConfirmPassword});
   }
 
   intervalTimer() {
@@ -116,6 +122,30 @@ export default class Forgot extends React.Component {
                       </View>
                     </View>
                   </View>
+
+                  <View>
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <View style={styles.container}>
+                      <View style={styles.sectionStyle}>
+                        <TextInput
+                          // style={styles.inputPassfield}
+                          value={confirmPass}
+                          style={{flex: 1}}
+                          secureTextEntry={this.state.showConfirmPassword}
+                          onChangeText={value =>
+                            this.setState({
+                              confirmPass: value,
+                            })
+                          }
+                        />
+                        <Switch
+                          onValueChange={this.toggleSwitchConfirm}
+                          value={!this.state.showConfirmPassword}
+                          style={styles.imageStyle}
+                        />
+                      </View>
+                    </View>
+                  </View>
                   {/* <View>
                     <Text style={styles.label}>Password</Text>
                     <TextInput
@@ -129,19 +159,6 @@ export default class Forgot extends React.Component {
                       }
                     />
                   </View> */}
-                  <View>
-                    <Text style={styles.label}>Confirm Password</Text>
-                    <TextInput
-                      style={styles.input}
-                      secureTextEntry={true}
-                      value={confirmPass}
-                      onChangeText={value =>
-                        this.setState({
-                          confirmPass: value,
-                        })
-                      }
-                    />
-                  </View>
                 </View>
               </View>
             )}

@@ -164,6 +164,7 @@ export default class Signin extends Component {
                   </View>
                 </View>
               </View>
+
               {/* <View>
                 <Text style={styles.label}>Password</Text>
                 <TextInput
@@ -200,14 +201,14 @@ export default class Signin extends Component {
               </View> */}
 
               <View style={{marginBottom: 20}}>
-                <Text style={styles.label}>Confirm Password</Text>
+                {/* <Text style={styles.label}>Confirm Password</Text>
                 <TextInput
                   style={styles.inputPassfield}
                   value={confirmPass}
-                  onChangeText={value => this.setState({confirmPass: value})}
-                  // secureTextEntry={true}
+                  onChangeText={value => this.setState({confirmPass: value})} */}
+                {/* // secureTextEntry={true}
                   // secureTextEntry={this.state.showConfirmPassword}
-                />
+                /> */}
                 {/* <View style={styles.toggleSwitch}>
                   <Text style={{marginRight: 2}}>Show Confirm Password</Text>
                   <Switch
@@ -216,7 +217,28 @@ export default class Signin extends Component {
                   />
                 </View> */}
               </View>
+              <Text style={styles.label}>Confirm Password</Text>
+              <View style={styles.container}>
+                <View style={styles.sectionStyle}>
+                  <TextInput
+                    // style={styles.inputPassfield}
+                    // style={styles.inputPassfield}
+                    style={{flex: 1}}
+                    value={confirmPass}
+                    onChangeText={value => this.setState({confirmPass: value})}
+                    secureTextEntry={this.state.showConfirmPassword}
+                  />
+                  <Switch
+                    // onValueChange={this.toggleSwitch}
 
+                    // value={!this.state.showPassword}
+
+                    onValueChange={this.toggleSwitchConfirm}
+                    value={!this.state.showConfirmPassword}
+                    style={styles.imageStyle}
+                  />
+                </View>
+              </View>
               {/* <TextInput
                       style={styles.input}
                       placeholder="Mobile Number (Primary)"
@@ -325,6 +347,7 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   buttonWrapper: {
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

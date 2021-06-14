@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     position: 'relative',
     height: 400,
-    marginTop: 110,
+    marginTop: '50%',
     marginLeft: 40,
     borderWidth: 1,
     borderColor: 'grey',
