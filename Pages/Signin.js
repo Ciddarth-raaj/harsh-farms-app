@@ -134,14 +134,6 @@ export default class Signin extends Component {
                   <Picker.Item label="Society" value="Society" />
                 </Picker>
               </View>
-              {/* <TextInput
-                      style={styles.input}
-                      placeholder="Security"
-                      value={securityNumber}
-                      onChangeText={value =>
-                        this.setState({securityNumber: value})
-                      }
-                    /> */}
             </View>
             <View style={styles.accountDetailsSection}>
               <Text style={styles.subHeading}>Account Details</Text>

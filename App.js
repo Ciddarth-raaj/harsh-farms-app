@@ -15,6 +15,8 @@ import Wishlist from './Pages/Wishlist';
 import Listing from './Pages/Listing';
 import Payment from './Pages/Payment';
 import Categories from './Components/Categories';
+import Myprofile from './Pages/Myprofile';
+import About from './Pages/About';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -49,6 +51,8 @@ export default class App extends React.Component {
           <Stack.Screen name="Listing" component={Listing} />
           <Stack.Screen name="Payment" component={Payment} />
           <Stack.Screen name="Categories" component={Categories} />
+          <Stack.Screen name="Myprofile" component={Myprofile} />
+          <Stack.Screen name="About" component={About} />
         </Stack.Navigator>
       </NavigationContainer>
     );
