@@ -294,8 +294,9 @@ export default class FooterMenu extends React.Component {
                     Version Details
                   </Text>
                 </View>
+                <View style={styles.line} />
               </View>
-              <View style={styles.line} />
+
               {/* {categories.map(c => (
                 <View style={styles.modalWrapper}>
                   <View style={styles.innerWrapper}>
