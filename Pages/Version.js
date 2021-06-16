@@ -25,7 +25,7 @@ export default class Version extends Component {
     return (
       <GlobalWrapper navigation={this.props.navigation}>
         <View style={styles.Wrapper}>
-          <Text style={styles.heading}>New Products</Text>
+          <Text style={styles.heading}>Version Details</Text>
           <Text style={styles.subHeading}>Version ID : {version_id}</Text>
           <Text style={styles.subHeading}>Release Date : {release_date}</Text>
         </View>
