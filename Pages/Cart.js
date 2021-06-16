@@ -57,6 +57,9 @@ export default class Cart extends Component {
       otherCharges: 30,
       discount: 20,
       grandTotal: 400,
+      saved: 30,
+      license_id: 232523233,
+      terms: '1) All products once purchased cannot be refunded',
     };
   }
 
@@ -115,6 +118,9 @@ export default class Cart extends Component {
       otherCharges,
       grandTotal,
       discount,
+      saved,
+      license_id,
+      terms,
     } = this.state;
     return (
       <GlobalWrapper tag={'cart'} navigation={this.props.navigation}>
@@ -149,6 +155,15 @@ export default class Cart extends Component {
                 ),
               )}
             </View>
+
+            <Text style={styles.subHeading}>
+              Congratulaions you have saved {numberFormatter(saved)}
+            </Text>
+            <Text style={styles.subHeading}>
+              FSSAI License Id : {license_id}
+            </Text>
+            <Text style={styles.subHeading}>Terms and conditions :</Text>
+            <Text style={styles.subHeading}>{terms}</Text>
 
             <TouchableOpacity
               style={styles.button}
@@ -211,6 +226,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     padding: 10,
     paddingBottom: 5,
+    marginBottom: 10,
   },
   summaryItem: {
     flexDirection: 'row',
@@ -224,5 +240,10 @@ const styles = StyleSheet.create({
   labelValue: {
     fontWeight: 'bold',
     color: Colors.secondary,
+  },
+  subHeading: {
+    fontSize: 18,
+
+    marginBottom: 10,
   },
 });
