@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     padding: 10,
     paddingBottom: 5,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   summaryItem: {
     flexDirection: 'row',
