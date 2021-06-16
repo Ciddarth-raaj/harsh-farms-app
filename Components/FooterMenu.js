@@ -18,6 +18,7 @@ export default class FooterMenu extends React.Component {
     super(props);
     this.state = {
       show: false,
+      showMore: false,
       categories: [
         {
           category_name: 'Branded Foods',
@@ -111,6 +112,7 @@ export default class FooterMenu extends React.Component {
         more: {
           title: 'More',
           selected: false,
+          action: () => this.openMoreModal(),
           // action: () => props.navigation.navigate('Wishlist'),
           icon: require('../Assets/icon-grey/more.png'),
         },
@@ -121,6 +123,12 @@ export default class FooterMenu extends React.Component {
   openModal() {
     this.setState({
       show: true,
+    });
+  }
+
+  openMoreModal() {
+    this.setState({
+      showMore: true,
     });
   }
 
@@ -237,6 +245,89 @@ export default class FooterMenu extends React.Component {
                   <View style={styles.line} />
                 </View>
               ))}
+            </ScrollView>
+          </View>
+        </Modal>
+
+        <Modal
+          visible={this.state.showMore}
+          animationType={'fade'}
+          transparent={true}>
+          <View style={styles.modalContainer}>
+            {/* <Header /> */}
+            <ScrollView>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  paddingRight: 10,
+                  paddingTop: 10,
+                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({
+                      showMore: false,
+                    });
+                  }}>
+                  <Image
+                    style={{height: 30, width: 30}}
+                    // style={styles.closeImage}
+                    source={require('../Assets/close-red.png')}
+                  />
+                </TouchableOpacity>
+              </View>
+              {/* <Text
+                style={styles.backText}
+                onPress={() => {
+                  this.setState({
+                    show: false,
+                  });
+                }}>
+                Close
+              </Text> */}
+              <Text style={styles.heading}>More</Text>
+              <View style={styles.modalWrapper}>
+                <View style={styles.innerWrapper}>
+                  <Text
+                    onPress={() => this.props.navigation.navigate('Version')}
+                    style={styles.nameText}>
+                    Version Details
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.line} />
+              {/* {categories.map(c => (
+                <View style={styles.modalWrapper}>
+                  <View style={styles.innerWrapper}>
+                    <View>
+                      <Image
+                        source={{
+                          uri: c.image,
+                        }}
+                        style={styles.image}
+                      />
+                    </View>
+
+                    <View style={styles.contentWrapper}>
+                      <View
+                        onPress={() => {
+                          this.setState({
+                            show: false,
+                          });
+                        }}>
+                        <Text
+                          onPress={() =>
+                            this.props.navigation.navigate('Listing')
+                          }
+                          style={styles.nameText}>
+                          {c.category_name}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.line} />
+                </View>
+              ))} */}
             </ScrollView>
           </View>
         </Modal>

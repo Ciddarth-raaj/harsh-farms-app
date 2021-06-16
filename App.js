@@ -17,6 +17,7 @@ import Payment from './Pages/Payment';
 import Categories from './Components/Categories';
 import Myprofile from './Pages/Myprofile';
 import About from './Pages/About';
+import Version from './Pages/Version';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ export default class App extends React.Component {
           <Stack.Screen name="Categories" component={Categories} />
           <Stack.Screen name="Myprofile" component={Myprofile} />
           <Stack.Screen name="About" component={About} />
+          <Stack.Screen name="Version" component={Version} />
         </Stack.Navigator>
       </NavigationContainer>
     );
