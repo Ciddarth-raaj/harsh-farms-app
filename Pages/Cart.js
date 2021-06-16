@@ -157,7 +157,7 @@ export default class Cart extends Component {
             </View>
 
             <Text style={styles.subHeading}>
-              Congratulaions you have saved {numberFormatter(saved)}
+              congratulaions you have saved {numberFormatter(saved)}
             </Text>
             <Text style={styles.subHeading}>
               FSSAI License Id : {license_id}
