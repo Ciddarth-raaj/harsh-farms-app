@@ -50,6 +50,58 @@ export default class Signin extends Component {
     this.setState({showConfirmPassword: !this.state.showConfirmPassword});
   }
 
+  validateEmail(email) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  validateNumber(e) {
+    const re = /^[0-9\b]+$/;
+    return re.test(String(e).toLowerCase());
+  }
+
+  onSubmit() {
+    const {name, email, phone, password, confirmPass, selectedValue, address} =
+      this.state;
+    const alertInitText = 'Fill these fields to continue:\n';
+    let alertText = alertInitText;
+
+    if (name == '') {
+      alertText += '• Username\n';
+    }
+
+    if (email == '') {
+      alertText += '• Email\n';
+    } else if (!this.validateEmail(email)) {
+      alertText += '• Invalid Email\n';
+    }
+
+    if (phone == '') {
+      alertText += '• Mobile Number\n';
+    } else if (isNaN(phone)) {
+      alertText += '• Invalid Mobile Number\n';
+    } else if (phone.length < 11 && phone.length < 10) {
+      alertText += '• Invalid Mobile Number\n';
+    }
+
+    if (address == '') {
+      alertText += '• Address\n';
+    }
+    if (password == '') {
+      alertText += '• Password\n';
+    }
+
+    if (confirmPass == '') {
+      alertText += '• Confirm Password\n';
+    }
+
+    if (alertText !== alertInitText) {
+      alert(alertText);
+      return;
+    }
+  }
+
   render() {
     const {
       phone,
@@ -72,12 +124,14 @@ export default class Signin extends Component {
           <Text style={styles.subHeading}>Personal Details</Text>
           <CustomInputText
             label={'Name'}
+            maxLength={100}
             value={name}
             onChangeText={value => this.setState({name: value})}
           />
           <CustomInputText
             label={'Phone Number'}
             value={phone}
+            maxLength={11}
             keyboardType="numeric"
             onChangeText={value => this.setState({phone: value})}
           />
@@ -85,12 +139,14 @@ export default class Signin extends Component {
             label={'Email address'}
             value={email}
             onChangeText={value => this.setState({email: value})}
+            maxLength={100}
           />
           <CustomInputText
             label={'Address'}
             value={address}
             numberOfLines={10}
             multiline={true}
+            maxLength={400}
             underlineColorAndroid="transparent"
             onChangeText={value => this.setState({address: value})}
           />
@@ -114,6 +170,7 @@ export default class Signin extends Component {
               <CustomInputText
                 label={'Password'}
                 value={password}
+                maxLength={100}
                 onChangeText={value => this.setState({password: value})}
                 secureTextEntry={showPassword}
                 toggleSecure={v => this.setState({showPassword: v})}
@@ -121,12 +178,15 @@ export default class Signin extends Component {
               <CustomInputText
                 label={'Confirm Password'}
                 value={confirmPass}
+                maxLength={100}
                 onChangeText={value => this.setState({confirmPass: value})}
                 secureTextEntry={showConfirmPassword}
                 toggleSecure={v => this.setState({showConfirmPassword: v})}
               />
             </View>
-            <TouchableOpacity style={styles.buttonWrapper}>
+            <TouchableOpacity
+              style={styles.buttonWrapper}
+              onPress={() => this.onSubmit()}>
               <Text style={Styles.buttonText}>Submit</Text>
             </TouchableOpacity>
           </View>
