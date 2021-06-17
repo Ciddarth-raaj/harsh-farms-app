@@ -17,12 +17,18 @@ export default class CustomTextInput extends React.Component {
   }
 
   render() {
-    const {label, secureTextEntry, toggleSecure} = this.props;
+    const {label, secureTextEntry, toggleSecure, multiline} = this.props;
     return (
       <View>
         <Text style={styles.label}>{label}</Text>
         <View style={styles.container}>
-          <TextInput style={styles.inputText} {...this.props} />
+          <TextInput
+            style={[
+              styles.inputText,
+              multiline ? {height: 100, paddingTop: 10} : {},
+            ]}
+            {...this.props}
+          />
           {secureTextEntry !== undefined && (
             <TouchableOpacity
               style={styles.eyeContainer}
@@ -48,13 +54,15 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 2,
     borderColor: Colors.primary,
-    marginBottom: 21,
-    paddingLeft: 20,
+    marginBottom: 10,
+    paddingLeft: 10,
+    borderRadius: 5,
   },
   label: {
     color: 'grey',
     fontWeight: '500',
     marginBottom: 5,
+    fontSize: 12,
   },
   container: {
     position: 'relative',

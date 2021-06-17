@@ -69,70 +69,66 @@ export default class Signin extends Component {
       <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
           <Text style={styles.heading}>Sign Up</Text>
-          <View style={styles.fieldHolder}>
-            <View srtyles={styles.personalDetailsSection}>
-              <Text style={styles.subHeading}>Personal Details</Text>
-              <CustomInputText
-                label={'Name'}
-                value={name}
-                onChangeText={value => this.setState({name: value})}
-              />
-              <CustomInputText
-                label={'Phone Number'}
-                value={phone}
-                keyboardType="numeric"
-                onChangeText={value => this.setState({phone: value})}
-              />
-              <CustomInputText
-                label={'Email address'}
-                value={email}
-                onChangeText={value => this.setState({email: value})}
-              />
-              <CustomInputText
-                label={'Address'}
-                value={address}
-                numberOfLines={10}
-                multiline={true}
-                underlineColorAndroid="transparent"
-                onChangeText={value => this.setState({address: value})}
-              />
+          <Text style={styles.subHeading}>Personal Details</Text>
+          <CustomInputText
+            label={'Name'}
+            value={name}
+            onChangeText={value => this.setState({name: value})}
+          />
+          <CustomInputText
+            label={'Phone Number'}
+            value={phone}
+            keyboardType="numeric"
+            onChangeText={value => this.setState({phone: value})}
+          />
+          <CustomInputText
+            label={'Email address'}
+            value={email}
+            onChangeText={value => this.setState({email: value})}
+          />
+          <CustomInputText
+            label={'Address'}
+            value={address}
+            numberOfLines={10}
+            multiline={true}
+            underlineColorAndroid="transparent"
+            onChangeText={value => this.setState({address: value})}
+          />
 
-              <View style={styles.textAreaContainer}>
-                <Picker
-                  selectedValue={selectedValue}
-                  style={styles.input}
-                  style={{borderWidth: 1, color: 'gray'}}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   setSelectedValue(itemValue)
-                  // }
-                >
-                  <Picker.Item label="Society" value="Society" />
-                </Picker>
-              </View>
-            </View>
+          <View style={styles.textAreaContainer}>
+            <Picker
+              selectedValue={selectedValue}
+              style={styles.input}
+              style={{borderWidth: 1, color: 'gray'}}
+              // onValueChange={(itemValue, itemIndex) =>
+              //   setSelectedValue(itemValue)
+              // }
+            >
+              <Picker.Item label="Society" value="Society" />
+            </Picker>
+          </View>
 
-            <View style={styles.accountDetailsSection}>
-              <Text style={styles.subHeading}>Account Details</Text>
-              <View>
-                <CustomInputText
-                  label={'Password'}
-                  value={password}
-                  onChangeText={value => this.setState({password: value})}
-                  secureTextEntry={showPassword}
-                  toggleSecure={v => this.setState({showPassword: v})}
-                />
-                <CustomInputText
-                  label={'Confirm Password'}
-                  value={confirmPass}
-                  onChangeText={value => this.setState({confirmPass: value})}
-                  secureTextEntry={showConfirmPassword}
-                  toggleSecure={v => this.setState({showConfirmPassword: v})}
-                />
-              </View>
-              <TouchableOpacity style={styles.buttonWrapper}>
-                <Text style={Styles.buttonText}>Submit</Text>
-              </TouchableOpacity>
+          <View style={styles.accountDetailsSection}>
+            <Text style={styles.subHeading}>Account Details</Text>
+            <View>
+              <CustomInputText
+                label={'Password'}
+                value={password}
+                onChangeText={value => this.setState({password: value})}
+                secureTextEntry={showPassword}
+                toggleSecure={v => this.setState({showPassword: v})}
+              />
+              <CustomInputText
+                label={'Confirm Password'}
+                value={confirmPass}
+                onChangeText={value => this.setState({confirmPass: value})}
+                secureTextEntry={showConfirmPassword}
+                toggleSecure={v => this.setState({showConfirmPassword: v})}
+              />
             </View>
+            <TouchableOpacity style={styles.buttonWrapper}>
+              <Text style={Styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </GlobalWrapper>
@@ -140,24 +136,7 @@ export default class Signin extends Component {
   }
 }
 const styles = StyleSheet.create({
-  // inputGroup: {
-  //   position: 'relative',
-  //   borderWidth: 1,
-  // },
-  // inputText: {
-  //   padding: 10,
-  //   borderWidth: 1,
-  //   borderRadius: 2,
-  //   fontSize: 14,
-  //   backgroundColor: 'transparent',
-  //   width: '100%',
-  //   color: '#363636',
-  // },
-  fieldHolder: {
-    width: '100%',
-  },
   wrapper: {
-    margin: 10,
     padding: 20,
   },
 
@@ -168,52 +147,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     marginBottom: 21,
     paddingLeft: 20,
-  },
-
-  inputPassfield: {
-    width: '100%',
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 10,
-    paddingLeft: 20,
-  },
-
-  inputNumber: {
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 21,
-    paddingLeft: 20,
-  },
-  inputNumberPrefix: {
-    width: '20%',
-    height: 40,
-    marginRight: '5%',
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 21,
-    paddingLeft: 20,
-  },
-  bottomContent: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  textContent: {
-    marginLeft: 6,
-  },
-  bottomText: {
-    fontSize: 14,
-    color: '#0088ff',
-    marginTop: 10,
-  },
-  sendOTPText: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#0088ff',
   },
   textAreaContainer: {
     borderWidth: 2,
@@ -245,53 +178,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'orange',
-    marginBottom: 40,
+    color: Colors.primary,
+    marginBottom: 20,
   },
   subHeading: {
-    marginBottom: 30,
+    textAlign: 'center',
+    marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,
-    color: 'grey',
-  },
-  label: {
-    color: 'grey',
-    fontWeight: '500',
-    marginBottom: 5,
-  },
-  accountDetailsSection: {
-    marginTop: 40,
-  },
-  toggleSwitch: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 21,
-  },
-
-  // New css
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  sectionStyle: {
-    width: '100%',
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 10,
-    paddingLeft: 20,
-
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  imageStyle: {
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: 'stretch',
-    alignItems: 'center',
+    color: Colors.secondary,
   },
 });
