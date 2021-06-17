@@ -17,6 +17,8 @@ import Styles from '../Constants/styles';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import Header from '../Components/Header';
 
+import CustomInputText from '../Components/CustomTextInput';
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +34,27 @@ export default class Login extends Component {
     this.setState({showPassword: !this.state.showPassword});
   }
 
-  render() {
+  onSubmit() {
     const {username, password} = this.state;
+    const alertInitText = 'Fill these fields to continue:\n';
+    let alertText = alertInitText;
+
+    if (username == '') {
+      alertText += '• Username\n';
+    }
+
+    if (password == '') {
+      alertText += '• Password\n';
+    }
+
+    if (alertText !== alertInitText) {
+      alert(alertText);
+      return;
+    }
+  }
+
+  render() {
+    const {username, password, showPassword} = this.state;
     return (
       <SafeAreaView>
         <GlobalWrapper tag={'login'} navigation={this.props.navigation}>
@@ -42,32 +63,29 @@ export default class Login extends Component {
               <Text style={styles.heading}>Login</Text>
               <View style={styles.fieldHolder}>
                 <View>
-                  <Text style={styles.label}>Username</Text>
-                  <TextInput
+                  <CustomInputText
                     style={styles.input}
                     // placeholder="Username"
+                    maxLength={100}
                     value={username}
+                    label={'Username'}
                     onChangeText={value => this.setState({username: value})}
                   />
                 </View>
                 <View>
-                  <Text style={styles.label}>Password</Text>
-                  <View style={styles.container}>
-                    <View style={styles.sectionStyle}>
-                      <TextInput
-                        // style={styles.inputPassfield}
-                        value={password}
-                        style={{flex: 1}}
-                        secureTextEntry={this.state.showPassword}
-                        onChangeText={value => this.setState({password: value})}
-                      />
-                      <Switch
-                        onValueChange={this.toggleSwitch}
-                        value={!this.state.showPassword}
-                        style={styles.imageStyle}
-                      />
-                    </View>
-                  </View>
+                  <CustomInputText
+                    label={'Password'}
+                    value={password}
+                    maxLength={100}
+                    onChangeText={value => this.setState({password: value})}
+                    secureTextEntry={showPassword}
+                    toggleSecure={v => this.setState({showPassword: v})}
+
+                    // value={password}
+                    // style={{flex: 1}}
+                    // secureTextEntry={this.state.showPassword}
+                    // onChangeText={value => this.setState({password: value})}
+                  />
                 </View>
                 {/* <View>
                   <Text style={styles.label}>Password</Text>
@@ -80,7 +98,9 @@ export default class Login extends Component {
                   />
                 </View> */}
 
-                <TouchableOpacity style={styles.buttonWrapper}>
+                <TouchableOpacity
+                  style={styles.buttonWrapper}
+                  onPress={() => this.onSubmit()}>
                   <Text style={Styles.buttonText}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
