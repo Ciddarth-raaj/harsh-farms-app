@@ -63,6 +63,7 @@ export default class Signin extends Component {
       selectedValue,
       phone_prefix,
       showPassword,
+      showConfirmPassword,
     } = this.state;
     return (
       <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
@@ -116,14 +117,14 @@ export default class Signin extends Component {
                 <CustomInputText
                   label={'Password'}
                   value={password}
-                  secureTextEntry={this.state.showPassword}
                   onChangeText={value => this.setState({password: value})}
+                  secureTextEntry={showPassword}
                 />
                 <CustomInputText
                   label={'Confirm Password'}
                   value={confirmPass}
                   onChangeText={value => this.setState({confirmPass: value})}
-                  secureTextEntry={this.state.showConfirmPassword}
+                  secureTextEntry={showConfirmPassword}
                 />
               </View>
               <TouchableOpacity style={styles.buttonWrapper}>
