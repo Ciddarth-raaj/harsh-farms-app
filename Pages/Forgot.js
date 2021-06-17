@@ -32,6 +32,7 @@ export default class Forgot extends React.Component {
       otp: '',
       timer: 60,
       hidden: true,
+      hiden: true,
     };
   }
 
