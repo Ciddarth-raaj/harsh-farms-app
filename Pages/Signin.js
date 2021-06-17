@@ -119,12 +119,14 @@ export default class Signin extends Component {
                   value={password}
                   onChangeText={value => this.setState({password: value})}
                   secureTextEntry={showPassword}
+                  toggleSecure={v => this.setState({showPassword: v})}
                 />
                 <CustomInputText
                   label={'Confirm Password'}
                   value={confirmPass}
                   onChangeText={value => this.setState({confirmPass: value})}
                   secureTextEntry={showConfirmPassword}
+                  toggleSecure={v => this.setState({showConfirmPassword: v})}
                 />
               </View>
               <TouchableOpacity style={styles.buttonWrapper}>
