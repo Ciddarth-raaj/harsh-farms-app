@@ -24,10 +24,14 @@ export default class Version extends Component {
     const {version_id, release_date} = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation}>
-        <View style={styles.Wrapper}>
-          <Text style={styles.heading}>Version Details</Text>
-          <Text style={styles.subHeading}>Version ID : {version_id}</Text>
-          <Text style={styles.subHeading}>Release Date : {release_date}</Text>
+        <Text style={styles.heading}>Version Details</Text>
+        <View style={styles.mainWrapper}>
+          <Text style={styles.subHeading}>Version ID : </Text>
+          <Text style={styles.subHeadingContent}>{version_id}</Text>
+        </View>
+        <View style={styles.mainWrapper}>
+          <Text style={styles.subHeading}>Release Date : </Text>
+          <Text style={styles.subHeadingContent}>{release_date}</Text>
         </View>
       </GlobalWrapper>
     );
@@ -46,6 +50,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.primary,
     marginBottom: 10,
+    width: '50%',
+    textAlign: 'right',
   },
   heading: {
     textAlign: 'center',
@@ -54,5 +60,19 @@ const styles = StyleSheet.create({
     color: 'orange',
     marginBottom: 30,
     marginTop: 30,
+  },
+  mainWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  subHeadingContent: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: Colors.primary,
+    marginBottom: 10,
+    width: '50%',
+    textAlign: 'left',
   },
 });

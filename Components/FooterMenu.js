@@ -77,7 +77,7 @@ export default class FooterMenu extends React.Component {
         wishlist: {
           title: 'Wishlist',
           selected: false,
-          action: () => props.navigation.navigate('Wishlist'),
+          action: () => props.navigation.navigate('Version'),
           icon: require('../Assets/icon-grey/wishlist.png'),
         },
         // signin: {
