@@ -22,6 +22,7 @@ import GlobalWrapper from '../Components/GlobalWrapper';
 import CustomInputText from '../Components/CustomTextInput';
 
 import SocietyHelper from '../helper/society';
+import UserHelper from '../helper/user';
 
 export default class Signin extends Component {
   constructor(props) {
@@ -117,6 +118,30 @@ export default class Signin extends Component {
       alert(alertText);
       return;
     }
+
+    const data = {
+      name: name,
+      mobile_nr: phone,
+      email_id: email,
+      address: address,
+      society_id: selectedSociety,
+      password: password,
+    };
+
+    UserHelper.register(data)
+      .then(data => {
+        if (data.code == 200) {
+          alert('Account successfully created!');
+        } else if (data.code == 101) {
+          alert('Phone number already exists!');
+        } else {
+          throw 'error';
+        }
+      })
+      .catch(err => {
+        console.log(data);
+        alert('Error creating account!');
+      });
   }
 
   render() {
