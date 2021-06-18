@@ -1,18 +1,6 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Share,
-  Button,
-  Picker,
-  TextInput,
-  Switch,
-  ScrollView,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Picker} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
@@ -129,8 +117,13 @@ export default class Signin extends Component {
     };
 
     UserHelper.register(data)
-      .then(data => {
+      .then(async data => {
         if (data.code == 200) {
+          await AsyncStorage.setItem('token', data.token);
+          await AsyncStorage.setItem(
+            'clt-type-id',
+            data.clt_type_id.toString(),
+          );
           alert('Account successfully created!');
         } else if (data.code == 101) {
           alert('Phone number already exists!');
@@ -139,7 +132,7 @@ export default class Signin extends Component {
         }
       })
       .catch(err => {
-        console.log(data);
+        console.log(err);
         alert('Error creating account!');
       });
   }
