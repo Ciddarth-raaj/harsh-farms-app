@@ -21,11 +21,12 @@ import Header from '../Components/Header';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import CustomInputText from '../Components/CustomTextInput';
 
+import SocietyHelper from '../helper/society';
+
 export default class Signin extends Component {
   constructor(props) {
     super(props);
-    this.toggleSwitch = this.toggleSwitch.bind(this);
-    this.toggleSwitchConfirm = this.toggleSwitchConfirm.bind(this);
+
     this.state = {
       showPassword: true,
       showConfirmPassword: true,
@@ -37,17 +38,22 @@ export default class Signin extends Component {
       address: '',
       securityNumber: '',
       primaryNumber: '',
-      selectedValue: 'Society',
+      selectedSociety: undefined,
       phone_prefix: '91',
+      society: [],
     };
   }
 
-  toggleSwitch() {
-    this.setState({showPassword: !this.state.showPassword});
+  componentDidMount() {
+    this.getSociety();
   }
 
-  toggleSwitchConfirm() {
-    this.setState({showConfirmPassword: !this.state.showConfirmPassword});
+  getSociety() {
+    SocietyHelper.get()
+      .then(data => {
+        this.setState({society: data});
+      })
+      .catch(err => console.log(err));
   }
 
   validateEmail(email) {
@@ -62,8 +68,15 @@ export default class Signin extends Component {
   }
 
   onSubmit() {
-    const {name, email, phone, password, confirmPass, selectedValue, address} =
-      this.state;
+    const {
+      name,
+      email,
+      phone,
+      password,
+      confirmPass,
+      selectedSociety,
+      address,
+    } = this.state;
     const alertInitText = 'Fill these fields to continue:\n';
     let alertText = alertInitText;
 
@@ -83,6 +96,10 @@ export default class Signin extends Component {
       alertText += '• Invalid Mobile Number\n';
     } else if (phone.length < 11 && phone.length < 10) {
       alertText += '• Invalid Mobile Number\n';
+    }
+
+    if (selectedSociety == undefined) {
+      alertText += '• Society\n';
     }
 
     if (address == '') {
@@ -112,10 +129,11 @@ export default class Signin extends Component {
       password,
       confirmPass,
       primaryNumber,
-      selectedValue,
+      selectedSociety,
       phone_prefix,
       showPassword,
       showConfirmPassword,
+      society,
     } = this.state;
     return (
       <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
@@ -153,14 +171,19 @@ export default class Signin extends Component {
 
           <View style={styles.textAreaContainer}>
             <Picker
-              selectedValue={selectedValue}
+              selectedValue={selectedSociety}
               style={styles.input}
               style={{borderWidth: 1, color: 'gray'}}
-              // onValueChange={(itemValue, itemIndex) =>
-              //   setSelectedValue(itemValue)
-              // }
-            >
-              <Picker.Item label="Society" value="Society" />
+              onValueChange={itemValue =>
+                this.setState({selectedSociety: itemValue})
+              }>
+              {society.map((s, i) => (
+                <Picker.Item
+                  key={'picker-item-' + i}
+                  label={s.society_name}
+                  value={s.society_id}
+                />
+              ))}
             </Picker>
           </View>
 
