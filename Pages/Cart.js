@@ -141,8 +141,8 @@ export default class Cart extends Component {
             ))}
 
             <View style={styles.summaryDiv}>
-              {this.getSummary('Total Quantity', total_quantity)}
-              {this.getSummary('Discount', discount + '%')}
+              {/* {this.getSummary('Total Quantity', total_quantity)}
+              {this.getSummary('Discount', discount + '%')} */}
               {this.getSummary('Sub Total', numberFormatter(subTotal))}
               {this.getSummary(
                 'Delivery Charges',
@@ -157,13 +157,13 @@ export default class Cart extends Component {
             </View>
 
             <Text style={styles.subHeading}>
-              congratulaions you have saved {numberFormatter(saved)}
+              congratulaions you have saved : {numberFormatter(saved)}
             </Text>
             <Text style={styles.subHeading}>
               FSSAI License Id : {license_id}
             </Text>
-            <Text style={styles.subHeading}>Terms and conditions :</Text>
-            <Text style={styles.subHeading}>{terms}</Text>
+            {/* <Text style={styles.subHeading}>Terms and conditions :</Text>
+            <Text style={styles.subHeading}>{terms}</Text> */}
 
             <TouchableOpacity
               style={styles.button}
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   },
   subHeading: {
     fontSize: 18,
-
+    fontWeight: 'bold',
     marginBottom: 10,
   },
 });
