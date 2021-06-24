@@ -1,19 +1,9 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Share,
-  Button,
-  ScrollView,
-  TextInput,
-  Image,
-  FlatList,
-} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+
 import Colors from '../Constants/colors';
-import Header from '../Components/Header';
+
+import GlobalWrapper from '../Components/GlobalWrapper';
 
 export default class Myorders extends Component {
   constructor(props) {
@@ -70,8 +60,7 @@ export default class Myorders extends Component {
   render() {
     const {colums, orders} = this.state;
     return (
-      <View>
-        <Header />
+      <GlobalWrapper>
         <View>
           <View style={styles.tableHeader}>
             {colums.map((c, index) => {
@@ -109,7 +98,7 @@ export default class Myorders extends Component {
             })}
           </View>
         </View>
-      </View>
+      </GlobalWrapper>
     );
   }
 }
@@ -127,10 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: Colors.primary,
-    // borderTopEndRadius: 10,
-    // borderTopStartRadius: 10,
     height: 70,
-    marginTop: 40,
   },
   tableRow: {
     flexDirection: 'row',
