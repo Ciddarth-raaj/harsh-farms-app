@@ -1,19 +1,9 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Dimensions,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import CartCard from '../Components/CartCard';
 import GlobalWrapper from '../Components/GlobalWrapper';
-import Header from '../Components/Header';
+import CustomButton from '../Components/CustomButton';
 
 import Colors from '../Constants/colors';
 import numberFormatter from '../util/numberFormatter';
@@ -155,21 +145,22 @@ export default class Cart extends Component {
                 ),
               )}
             </View>
-
-            <Text style={styles.subHeading}>
-              congratulaions you have saved : {numberFormatter(saved)}
+            <Text style={styles.subText}>
+              You save{' '}
+              <Text style={{color: Colors.secondary}}>
+                {numberFormatter(saved)}
+              </Text>{' '}
+              in this order
             </Text>
-            <Text style={styles.subHeading}>
-              FSSAI License Id : {license_id}
+            <Text style={styles.subText}>
+              {`FSSAI License ID : ${license_id}`}
             </Text>
-            {/* <Text style={styles.subHeading}>Terms and conditions :</Text>
-            <Text style={styles.subHeading}>{terms}</Text> */}
 
-            <TouchableOpacity
-              style={styles.button}
+            <CustomButton
+              wrapperStyle={{marginTop: 15}}
               onPress={() => this.props.navigation.navigate('Payment')}>
-              <Text style={{color: 'white'}}>Proceed to Buy</Text>
-            </TouchableOpacity>
+              {'Proceed to Buy'}
+            </CustomButton>
           </View>
         ) : (
           <View style={styles.mainSubWrapper}>
@@ -241,9 +232,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.secondary,
   },
-  subHeading: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
+  subText: {
+    textAlign: 'center',
+    marginTop: 10,
   },
 });
