@@ -17,15 +17,16 @@ export default class CustomTextInput extends React.Component {
   }
 
   render() {
-    const {label, secureTextEntry, toggleSecure, multiline} = this.props;
+    const {label, secureTextEntry, toggleSecure, multiline, error} = this.props;
     return (
       <View>
-        <Text style={styles.label}>{label}</Text>
+        <Text style={[styles.label, error && {color: 'red'}]}>{label}</Text>
         <View style={styles.container}>
           <TextInput
             style={[
               styles.inputText,
               multiline ? {height: 100, paddingTop: 10} : {},
+              error && {borderColor: 'red'},
             ]}
             {...this.props}
           />

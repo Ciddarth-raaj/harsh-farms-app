@@ -11,6 +11,7 @@ import CustomInputText from '../Components/CustomTextInput';
 
 import SocietyHelper from '../helper/society';
 import UserHelper from '../helper/user';
+import CustomButton from '../Components/CustomButton';
 
 export default class Signin extends Component {
   constructor(props) {
@@ -30,6 +31,18 @@ export default class Signin extends Component {
       selectedSociety: undefined,
       phone_prefix: '91',
       society: [],
+      error: {
+        phone: false,
+        password: false,
+        confirmPass: false,
+        name: false,
+        email: false,
+        address: false,
+        securityNumber: false,
+        primaryNumber: false,
+        selectedSociety: false,
+        phone_prefix: false,
+      },
     };
   }
 
@@ -65,45 +78,55 @@ export default class Signin extends Component {
       confirmPass,
       selectedSociety,
       address,
+      error,
     } = this.state;
-    const alertInitText = 'Fill these fields to continue:\n';
-    let alertText = alertInitText;
+
+    let count = 0;
 
     if (name == '') {
-      alertText += '• Username\n';
+      count++;
+      error['name'] = true;
     }
 
     if (email == '') {
-      alertText += '• Email\n';
+      count++;
+      error['email'] = true;
     } else if (!this.validateEmail(email)) {
-      alertText += '• Invalid Email\n';
+      count++;
+      error['email'] = true;
     }
 
     if (phone == '') {
-      alertText += '• Mobile Number\n';
+      count++;
+      error['phone'] = true;
     } else if (isNaN(phone)) {
-      alertText += '• Invalid Mobile Number\n';
+      count++;
+      error['phone'] = true;
     } else if (phone.length < 11 && phone.length < 10) {
-      alertText += '• Invalid Mobile Number\n';
+      count++;
+      error['phone'] = true;
     }
 
     if (selectedSociety == undefined) {
-      alertText += '• Society\n';
     }
 
     if (address == '') {
-      alertText += '• Address\n';
+      count++;
+      error['address'] = true;
     }
     if (password == '') {
-      alertText += '• Password\n';
+      count++;
+      error['password'] = true;
     }
 
     if (confirmPass == '') {
-      alertText += '• Confirm Password\n';
+      count++;
+      error['confirmPass'] = true;
     }
 
-    if (alertText !== alertInitText) {
-      alert(alertText);
+    if (count > 0) {
+      this.setState({error: error});
+      alert('Please recheck all the entered details!');
       return;
     }
 
@@ -137,6 +160,11 @@ export default class Signin extends Component {
       });
   }
 
+  setError = (val, key) => {
+    const {error} = this.state;
+    error[key] = val;
+  };
+
   render() {
     const {
       phone,
@@ -152,6 +180,7 @@ export default class Signin extends Component {
       showPassword,
       showConfirmPassword,
       society,
+      error,
     } = this.state;
     return (
       <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
@@ -162,20 +191,33 @@ export default class Signin extends Component {
             label={'Name'}
             maxLength={100}
             value={name}
-            onChangeText={value => this.setState({name: value})}
+            customStyle={{borderColor: 'red'}}
+            onChangeText={value => {
+              this.setState({name: value});
+              this.setError(false, 'name');
+            }}
+            error={error['name']}
           />
           <CustomInputText
             label={'Phone Number'}
             value={phone}
             maxLength={11}
             keyboardType="numeric"
-            onChangeText={value => this.setState({phone: value})}
+            onChangeText={value => {
+              this.setState({phone: value});
+              this.setError(false, 'phone');
+            }}
+            error={error['phone']}
           />
           <CustomInputText
             label={'Email address'}
             value={email}
-            onChangeText={value => this.setState({email: value})}
+            onChangeText={value => {
+              this.setState({email: value});
+              this.setError(false, 'email');
+            }}
             maxLength={100}
+            error={error['email']}
           />
           <CustomInputText
             label={'Address'}
@@ -184,7 +226,11 @@ export default class Signin extends Component {
             multiline={true}
             maxLength={400}
             underlineColorAndroid="transparent"
-            onChangeText={value => this.setState({address: value})}
+            onChangeText={value => {
+              this.setState({address: value});
+              this.setError(false, 'address');
+            }}
+            error={error['address']}
           />
 
           <View style={styles.textAreaContainer}>
@@ -212,24 +258,33 @@ export default class Signin extends Component {
                 label={'Password'}
                 value={password}
                 maxLength={100}
-                onChangeText={value => this.setState({password: value})}
+                onChangeText={value => {
+                  this.setState({password: value});
+                  this.setError(false, 'password');
+                }}
                 secureTextEntry={showPassword}
                 toggleSecure={v => this.setState({showPassword: v})}
+                error={error['password']}
               />
               <CustomInputText
                 label={'Confirm Password'}
                 value={confirmPass}
                 maxLength={100}
-                onChangeText={value => this.setState({confirmPass: value})}
+                onChangeText={value => {
+                  this.setState({confirmPass: value});
+                  this.setError(false, 'confirmPass');
+                }}
                 secureTextEntry={showConfirmPassword}
                 toggleSecure={v => this.setState({showConfirmPassword: v})}
+                error={error['confirmPass']}
               />
             </View>
-            <TouchableOpacity
-              style={styles.buttonWrapper}
+
+            <CustomButton
+              wrapperStyle={{marginTop: 20}}
               onPress={() => this.onSubmit()}>
-              <Text style={Styles.buttonText}>Submit</Text>
-            </TouchableOpacity>
+              {'Submit'}
+            </CustomButton>
           </View>
         </View>
       </GlobalWrapper>
