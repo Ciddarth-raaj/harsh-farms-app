@@ -17,6 +17,7 @@ import Payment from './Pages/Payment';
 import Categories from './Components/Categories';
 import Myprofile from './Pages/Myprofile';
 import About from './Pages/About';
+import Version from './Pages/Version';
 
 import global from './Constants/variables';
 
@@ -60,11 +61,11 @@ export default class App extends React.Component {
           screenOptions={{
             headerShown: false,
           }}>
+          <Stack.Screen name="Eua" component={Eua} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Signin" component={Signin} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Forgot" component={Forgot} />
-          <Stack.Screen name="Eua" component={Eua} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Wishlist" component={Wishlist} />
           <Stack.Screen name="Listing" component={Listing} />
@@ -72,6 +73,7 @@ export default class App extends React.Component {
           <Stack.Screen name="Categories" component={Categories} />
           <Stack.Screen name="Myprofile" component={Myprofile} />
           <Stack.Screen name="About" component={About} />
+          <Stack.Screen name="Version" component={Version} />
         </Stack.Navigator>
       </NavigationContainer>
     );
