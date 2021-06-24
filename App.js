@@ -17,6 +17,7 @@ import Payment from './Pages/Payment';
 import Categories from './Components/Categories';
 import Myprofile from './Pages/Myprofile';
 import About from './Pages/About';
+import Myorders from './Pages/Myorders';
 import Version from './Pages/Version';
 
 import global from './Constants/variables';
@@ -73,6 +74,7 @@ export default class App extends React.Component {
           <Stack.Screen name="Categories" component={Categories} />
           <Stack.Screen name="Myprofile" component={Myprofile} />
           <Stack.Screen name="About" component={About} />
+          <Stack.Screen name="Myorders" component={Myorders} />
           <Stack.Screen name="Version" component={Version} />
         </Stack.Navigator>
       </NavigationContainer>
