@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Picker} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
@@ -53,7 +52,9 @@ export default class Signin extends Component {
   getSociety() {
     SocietyHelper.get()
       .then(data => {
-        this.setState({society: data});
+        if (data.length > 0) {
+          this.setState({society: data, selectedSociety: data[0].society_id});
+        }
       })
       .catch(err => console.log(err));
   }
@@ -139,25 +140,7 @@ export default class Signin extends Component {
       password: password,
     };
 
-    UserHelper.register(data)
-      .then(async data => {
-        if (data.code == 200) {
-          await AsyncStorage.setItem('token', data.token);
-          await AsyncStorage.setItem(
-            'clt-type-id',
-            data.clt_type_id.toString(),
-          );
-          alert('Account successfully created!');
-        } else if (data.code == 101) {
-          alert('Phone number already exists!');
-        } else {
-          throw 'error';
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        alert('Error creating account!');
-      });
+    this.props.navigation.navigate('Eua', {data: data});
   }
 
   setError = (val, key) => {
@@ -197,6 +180,7 @@ export default class Signin extends Component {
               this.setError(false, 'name');
             }}
             error={error['name']}
+            autoCompleteType={'name'}
           />
           <CustomInputText
             label={'Phone Number'}
@@ -208,6 +192,7 @@ export default class Signin extends Component {
               this.setError(false, 'phone');
             }}
             error={error['phone']}
+            autoCompleteType={'tel'}
           />
           <CustomInputText
             label={'Email address'}
@@ -217,7 +202,10 @@ export default class Signin extends Component {
               this.setError(false, 'email');
             }}
             maxLength={100}
+            autoCompleteType={'email'}
             error={error['email']}
+            keyboardType={'email-address'}
+            autoCapitalize={'none'}
           />
           <CustomInputText
             label={'Address'}
@@ -230,7 +218,8 @@ export default class Signin extends Component {
               this.setState({address: value});
               this.setError(false, 'address');
             }}
-            error={error['address']}
+            error={error['street-address']}
+            autoCompleteType={'name'}
           />
 
           <View style={styles.textAreaContainer}>
@@ -265,6 +254,7 @@ export default class Signin extends Component {
                 secureTextEntry={showPassword}
                 toggleSecure={v => this.setState({showPassword: v})}
                 error={error['password']}
+                autoCompleteType={'password'}
               />
               <CustomInputText
                 label={'Confirm Password'}
@@ -277,6 +267,7 @@ export default class Signin extends Component {
                 secureTextEntry={showConfirmPassword}
                 toggleSecure={v => this.setState({showConfirmPassword: v})}
                 error={error['confirmPass']}
+                autoCompleteType={'password'}
               />
             </View>
 
