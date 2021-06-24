@@ -1,30 +1,21 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Share,
-  Button,
-  Picker,
-  TextInput,
-  Switch,
-  ScrollView,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Picker} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
 
 import Header from '../Components/Header';
 import GlobalWrapper from '../Components/GlobalWrapper';
+import CustomInputText from '../Components/CustomTextInput';
+
+import SocietyHelper from '../helper/society';
+import UserHelper from '../helper/user';
 
 export default class Signin extends Component {
   constructor(props) {
     super(props);
-    this.toggleSwitch = this.toggleSwitch.bind(this);
-    this.toggleSwitchConfirm = this.toggleSwitchConfirm.bind(this);
+
     this.state = {
       showPassword: true,
       showConfirmPassword: true,
@@ -36,17 +27,114 @@ export default class Signin extends Component {
       address: '',
       securityNumber: '',
       primaryNumber: '',
-      selectedValue: 'Society',
+      selectedSociety: undefined,
       phone_prefix: '91',
+      society: [],
     };
   }
 
-  toggleSwitch() {
-    this.setState({showPassword: !this.state.showPassword});
+  componentDidMount() {
+    this.getSociety();
   }
 
-  toggleSwitchConfirm() {
-    this.setState({showConfirmPassword: !this.state.showConfirmPassword});
+  getSociety() {
+    SocietyHelper.get()
+      .then(data => {
+        this.setState({society: data});
+      })
+      .catch(err => console.log(err));
+  }
+
+  validateEmail(email) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  validateNumber(e) {
+    const re = /^[0-9\b]+$/;
+    return re.test(String(e).toLowerCase());
+  }
+
+  onSubmit() {
+    const {
+      name,
+      email,
+      phone,
+      password,
+      confirmPass,
+      selectedSociety,
+      address,
+    } = this.state;
+    const alertInitText = 'Fill these fields to continue:\n';
+    let alertText = alertInitText;
+
+    if (name == '') {
+      alertText += '• Username\n';
+    }
+
+    if (email == '') {
+      alertText += '• Email\n';
+    } else if (!this.validateEmail(email)) {
+      alertText += '• Invalid Email\n';
+    }
+
+    if (phone == '') {
+      alertText += '• Mobile Number\n';
+    } else if (isNaN(phone)) {
+      alertText += '• Invalid Mobile Number\n';
+    } else if (phone.length < 11 && phone.length < 10) {
+      alertText += '• Invalid Mobile Number\n';
+    }
+
+    if (selectedSociety == undefined) {
+      alertText += '• Society\n';
+    }
+
+    if (address == '') {
+      alertText += '• Address\n';
+    }
+    if (password == '') {
+      alertText += '• Password\n';
+    }
+
+    if (confirmPass == '') {
+      alertText += '• Confirm Password\n';
+    }
+
+    if (alertText !== alertInitText) {
+      alert(alertText);
+      return;
+    }
+
+    const data = {
+      name: name,
+      mobile_nr: phone,
+      email_id: email,
+      address: address,
+      society_id: selectedSociety,
+      password: password,
+    };
+
+    UserHelper.register(data)
+      .then(async data => {
+        if (data.code == 200) {
+          await AsyncStorage.setItem('token', data.token);
+          await AsyncStorage.setItem(
+            'clt-type-id',
+            data.clt_type_id.toString(),
+          );
+          alert('Account successfully created!');
+        } else if (data.code == 101) {
+          alert('Phone number already exists!');
+        } else {
+          throw 'error';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error creating account!');
+      });
   }
 
   render() {
@@ -59,189 +147,87 @@ export default class Signin extends Component {
       password,
       confirmPass,
       primaryNumber,
-      selectedValue,
+      selectedSociety,
       phone_prefix,
       showPassword,
+      showConfirmPassword,
+      society,
     } = this.state;
     return (
       <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
           <Text style={styles.heading}>Sign Up</Text>
-          <View style={styles.fieldHolder}>
-            <View srtyles={styles.personalDetailsSection}>
-              <Text style={styles.subHeading}>Personal Details</Text>
-              <View>
-                <Text style={styles.label}>Name</Text>
-                <TextInput
-                  style={styles.input}
-                  // placeholder="Name"
-                  value={name}
-                  onChangeText={value => this.setState({name: value})}
-                />
-              </View>
-              <View
-              // style={{display: 'flex', flexDirection: 'row'}}
-              >
-                <Text style={styles.label}>Phone Number</Text>
-                {/* <TextInput
-                  style={styles.inputNumberPrefix}
-                  placeholder=" "
-                  value={phone_prefix}
-                  keyboardType="numeric"
-                  // onChangeText={value => this.setState({phone: value})}
-                /> */}
-                <TextInput
-                  style={styles.inputNumber}
-                  // placeholder="Phone Number"
-                  value={phone}
-                  keyboardType="numeric"
-                  onChangeText={value => this.setState({phone: value})}
-                />
-              </View>
-              <View>
-                <Text style={styles.label}>Email address</Text>
-                <TextInput
-                  style={styles.input}
-                  // placeholder="Email"
-                  value={email}
-                  onChangeText={value => this.setState({email: value})}
-                />
-              </View>
-              <View>
-                <Text style={styles.label}>Address</Text>
-                <View style={styles.textAreaContainer}>
-                  <TextInput
-                    style={styles.textArea}
-                    underlineColorAndroid="transparent"
-                    // placeholder="Address"
-                    value={address}
-                    numberOfLines={10}
-                    multiline={true}
-                    onChangeText={value => this.setState({address: value})}
-                  />
-                </View>
-              </View>
+          <Text style={styles.subHeading}>Personal Details</Text>
+          <CustomInputText
+            label={'Name'}
+            maxLength={100}
+            value={name}
+            onChangeText={value => this.setState({name: value})}
+          />
+          <CustomInputText
+            label={'Phone Number'}
+            value={phone}
+            maxLength={11}
+            keyboardType="numeric"
+            onChangeText={value => this.setState({phone: value})}
+          />
+          <CustomInputText
+            label={'Email address'}
+            value={email}
+            onChangeText={value => this.setState({email: value})}
+            maxLength={100}
+          />
+          <CustomInputText
+            label={'Address'}
+            value={address}
+            numberOfLines={10}
+            multiline={true}
+            maxLength={400}
+            underlineColorAndroid="transparent"
+            onChangeText={value => this.setState({address: value})}
+          />
 
-              <View style={styles.textAreaContainer}>
-                <Picker
-                  selectedValue={selectedValue}
-                  style={styles.input}
-                  style={{borderWidth: 1, color: 'gray'}}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   setSelectedValue(itemValue)
-                  // }
-                >
-                  <Picker.Item label="Society" value="Society" />
-                </Picker>
-              </View>
+          <View style={styles.textAreaContainer}>
+            <Picker
+              selectedValue={selectedSociety}
+              style={styles.input}
+              style={{borderWidth: 1, color: 'gray'}}
+              onValueChange={itemValue =>
+                this.setState({selectedSociety: itemValue})
+              }>
+              {society.map((s, i) => (
+                <Picker.Item
+                  key={'picker-item-' + i}
+                  label={s.society_name}
+                  value={s.society_id}
+                />
+              ))}
+            </Picker>
+          </View>
+
+          <View style={styles.accountDetailsSection}>
+            <Text style={styles.subHeading}>Account Details</Text>
+            <View>
+              <CustomInputText
+                label={'Password'}
+                value={password}
+                maxLength={100}
+                onChangeText={value => this.setState({password: value})}
+                secureTextEntry={showPassword}
+                toggleSecure={v => this.setState({showPassword: v})}
+              />
+              <CustomInputText
+                label={'Confirm Password'}
+                value={confirmPass}
+                maxLength={100}
+                onChangeText={value => this.setState({confirmPass: value})}
+                secureTextEntry={showConfirmPassword}
+                toggleSecure={v => this.setState({showConfirmPassword: v})}
+              />
             </View>
-            <View style={styles.accountDetailsSection}>
-              <Text style={styles.subHeading}>Account Details</Text>
-              <View>
-                <Text style={styles.label}>Password</Text>
-                <View style={styles.container}>
-                  <View style={styles.sectionStyle}>
-                    <TextInput
-                      // style={styles.inputPassfield}
-                      value={password}
-                      style={{flex: 1}}
-                      secureTextEntry={this.state.showPassword}
-                      onChangeText={value => this.setState({password: value})}
-                    />
-                    <Switch
-                      onValueChange={this.toggleSwitch}
-                      value={!this.state.showPassword}
-                      style={styles.imageStyle}
-                    />
-                  </View>
-                </View>
-              </View>
-
-              {/* <View>
-                <Text style={styles.label}>Password</Text>
-                <TextInput
-                  style={styles.inputPassfield}
-                  // placeholder="Password"
-                  value={password}
-                  secureTextEntry={this.state.showPassword}
-                  onChangeText={value => this.setState({password: value})}
-                />
-                <View style={styles.toggleSwitch}>
-                  <Text style={{marginRight: 2}}>Show Password</Text>
-                  <Switch
-                    onValueChange={this.toggleSwitch}
-                    value={!this.state.showPassword}
-                  />
-                </View>
-              </View> */}
-
-              {/* <View style={styles.sectionStyle}>
-                <TextInput
-                  style={{flex: 1}}
-                  style={styles.inputPassfield}
-                  // placeholder="Password"
-                  value={password}
-                  secureTextEntry={this.state.showPassword}
-                  onChangeText={value => this.setState({password: value})}
-                  underlineColorAndroid="transparent"
-                />
-                <Switch
-                  style={styles.imageStyle}
-                  onValueChange={this.toggleSwitch}
-                  value={!this.state.showPassword}
-                />
-              </View> */}
-
-              <View style={{marginBottom: 20}}>
-                {/* <Text style={styles.label}>Confirm Password</Text>
-                <TextInput
-                  style={styles.inputPassfield}
-                  value={confirmPass}
-                  onChangeText={value => this.setState({confirmPass: value})} */}
-                {/* // secureTextEntry={true}
-                  // secureTextEntry={this.state.showConfirmPassword}
-                /> */}
-                {/* <View style={styles.toggleSwitch}>
-                  <Text style={{marginRight: 2}}>Show Confirm Password</Text>
-                  <Switch
-                    onValueChange={this.toggleSwitchConfirm}
-                    value={!this.state.showConfirmPassword}
-                  />
-                </View> */}
-              </View>
-              <Text style={styles.label}>Confirm Password</Text>
-              <View style={styles.container}>
-                <View style={styles.sectionStyle}>
-                  <TextInput
-                    // style={styles.inputPassfield}
-                    // style={styles.inputPassfield}
-                    style={{flex: 1}}
-                    value={confirmPass}
-                    onChangeText={value => this.setState({confirmPass: value})}
-                    secureTextEntry={this.state.showConfirmPassword}
-                  />
-                  <Switch
-                    // onValueChange={this.toggleSwitch}
-
-                    // value={!this.state.showPassword}
-
-                    onValueChange={this.toggleSwitchConfirm}
-                    value={!this.state.showConfirmPassword}
-                    style={styles.imageStyle}
-                  />
-                </View>
-              </View>
-              {/* <TextInput
-                      style={styles.input}
-                      placeholder="Mobile Number (Primary)"
-                      value={primaryNumber}
-                      keyboardType="numeric"
-                      onChangeText={value =>
-                        this.setState({primaryNumber: value})
-                      }
-                    /> */}
-            </View>
-            <TouchableOpacity style={styles.buttonWrapper}>
+            <TouchableOpacity
+              style={styles.buttonWrapper}
+              onPress={() => this.onSubmit()}>
               <Text style={Styles.buttonText}>Submit</Text>
             </TouchableOpacity>
           </View>
@@ -251,24 +237,7 @@ export default class Signin extends Component {
   }
 }
 const styles = StyleSheet.create({
-  // inputGroup: {
-  //   position: 'relative',
-  //   borderWidth: 1,
-  // },
-  // inputText: {
-  //   padding: 10,
-  //   borderWidth: 1,
-  //   borderRadius: 2,
-  //   fontSize: 14,
-  //   backgroundColor: 'transparent',
-  //   width: '100%',
-  //   color: '#363636',
-  // },
-  fieldHolder: {
-    width: '100%',
-  },
   wrapper: {
-    margin: 10,
     padding: 20,
   },
 
@@ -279,52 +248,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     marginBottom: 21,
     paddingLeft: 20,
-  },
-
-  inputPassfield: {
-    width: '100%',
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 10,
-    paddingLeft: 20,
-  },
-
-  inputNumber: {
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 21,
-    paddingLeft: 20,
-  },
-  inputNumberPrefix: {
-    width: '20%',
-    height: 40,
-    marginRight: '5%',
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 21,
-    paddingLeft: 20,
-  },
-  bottomContent: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  textContent: {
-    marginLeft: 6,
-  },
-  bottomText: {
-    fontSize: 14,
-    color: '#0088ff',
-    marginTop: 10,
-  },
-  sendOTPText: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#0088ff',
   },
   textAreaContainer: {
     borderWidth: 2,
@@ -356,53 +279,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'orange',
-    marginBottom: 40,
+    color: Colors.primary,
+    marginBottom: 20,
   },
   subHeading: {
-    marginBottom: 30,
+    textAlign: 'center',
+    marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,
-    color: 'grey',
-  },
-  label: {
-    color: 'grey',
-    fontWeight: '500',
-    marginBottom: 5,
-  },
-  accountDetailsSection: {
-    marginTop: 40,
-  },
-  toggleSwitch: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 21,
-  },
-
-  // New css
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  sectionStyle: {
-    width: '100%',
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 10,
-    paddingLeft: 20,
-
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  imageStyle: {
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: 'stretch',
-    alignItems: 'center',
+    color: Colors.secondary,
   },
 });
