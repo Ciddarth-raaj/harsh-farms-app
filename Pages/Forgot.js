@@ -16,6 +16,7 @@ import Colors from '../Constants/colors';
 import Header from '../Components/Header';
 
 import CustomInputText from '../Components/CustomTextInput';
+import GlobalWrapper from '../Components/GlobalWrapper';
 
 export default class Forgot extends React.Component {
   constructor(props) {
@@ -105,126 +106,107 @@ export default class Forgot extends React.Component {
       showConfirmPassword,
     } = this.state;
     return (
-      <SafeAreaView>
-        <ScrollView>
-          <Header />
-          <View style={styles.wrapper}>
-            <Text style={styles.heading}>Forgot Password</Text>
+      <GlobalWrapper disableFooter={true} navigation={this.props.navigation}>
+        <View style={styles.wrapper}>
+          <Text style={styles.heading}>Forgot Password</Text>
 
+          <View style={styles.fieldHolder}>
+            <CustomInputText
+              label={'Phone Number'}
+              value={phone}
+              keyboardType="numeric"
+              onChangeText={value =>
+                this.setState({
+                  phone: value,
+                })
+              }
+            />
+          </View>
+
+          {sentOtp && (
             <View style={styles.fieldHolder}>
               <CustomInputText
-                style={styles.input}
-                label={'Phone Number'}
-                value={phone}
-                keyboardType="numeric"
+                maxLength={4}
+                label={'OTP'}
+                value={otp}
                 onChangeText={value =>
                   this.setState({
-                    phone: value,
+                    otp: value,
                   })
                 }
               />
+
+              <CustomInputText
+                label={'Password'}
+                maxLength={100}
+                value={password}
+                onChangeText={value => this.setState({password: value})}
+                secureTextEntry={showPassword}
+                toggleSecure={v => this.setState({showPassword: v})}
+              />
+
+              <CustomInputText
+                label={'Confirm Password'}
+                value={confirmPass}
+                maxLength={100}
+                onChangeText={value => this.setState({confirmPass: value})}
+                secureTextEntry={showConfirmPassword}
+                toggleSecure={v => this.setState({showConfirmPassword: v})}
+              />
             </View>
+          )}
 
-            {sentOtp && (
-              <View style={styles.fieldHolder}>
-                <View style={styles.fieldHolder}>
-                  <CustomInputText
-                    style={styles.input}
-                    maxLength={4}
-                    label={'OTP'}
-                    value={otp}
-                    onChangeText={value =>
-                      this.setState({
-                        otp: value,
-                      })
-                    }
-                  />
+          {sentOtp && (
+            <View>
+              <Text style={styles.bottomText}>
+                OTP will expire in {timer} seconds
+              </Text>
+            </View>
+          )}
 
-                  <View>
-                    <CustomInputText
-                      // style={styles.inputPassfield}\
-                      style={styles.input}
-                      label={'Password'}
-                      maxLength={100}
-                      value={password}
-                      onChangeText={value => this.setState({password: value})}
-                      secureTextEntry={showPassword}
-                      toggleSecure={v => this.setState({showPassword: v})}
-                    />
-                  </View>
+          {sentOtp && (
+            <TouchableOpacity
+              style={styles.buttonWrapper}
+              onPress={() => {
+                {
+                  this.props.navigation.navigate('Forgot'),
+                    this.setState({
+                      timer: 60,
+                    });
+                  clearInterval(this.interval), this.intervalTimer();
+                }
+              }}>
+              <Text styles={{textAlign: 'center'}} style={Styles.buttonText}>
+                Resend OTP
+              </Text>
+            </TouchableOpacity>
+          )}
 
-                  <View>
-                    <CustomInputText
-                      // style={styles.inputPassfield}\
-                      style={styles.input}
-                      label={'Confirm Password'}
-                      value={confirmPass}
-                      maxLength={100}
-                      onChangeText={value =>
-                        this.setState({confirmPass: value})
-                      }
-                      secureTextEntry={showConfirmPassword}
-                      toggleSecure={v =>
-                        this.setState({showConfirmPassword: v})
-                      }
-                    />
-                  </View>
-                </View>
-              </View>
-            )}
-
-            {sentOtp && (
-              <View>
-                <Text style={styles.bottomText}>
-                  OTP will expire in {timer} seconds
-                </Text>
-              </View>
-            )}
-
-            {sentOtp && (
-              <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => {
-                  {
-                    this.props.navigation.navigate('Forgot'),
-                      this.setState({
-                        timer: 60,
-                      });
-                    clearInterval(this.interval), this.intervalTimer();
-                  }
-                }}>
-                <Text styles={{textAlign: 'center'}} style={Styles.buttonText}>
-                  Resend OTP
-                </Text>
-              </TouchableOpacity>
-            )}
-
-            {sentOtp && (
-              <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => this.onSubmit()}>
-                <Text style={Styles.buttonText}>Submit</Text>
-              </TouchableOpacity>
-            )}
-            {hidden && (
-              <TouchableOpacity
-                style={styles.buttonWrapper}
-                onPress={() => {
-                  this.setState({
-                    sentOtp: true,
-                    hidden: false,
-                  });
-                  this.intervalTimer();
-                }}
-                // onPress={() => (sentOtp ? this.checkInput() : this.sendOtp())
-                // }
-              >
-                <Text style={Styles.buttonText}>Send OTP</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+          {sentOtp && (
+            <TouchableOpacity
+              style={styles.buttonWrapper}
+              onPress={() => this.onSubmit()}>
+              <Text style={Styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+          )}
+          {hidden && (
+            <TouchableOpacity
+              style={styles.buttonWrapper}
+              onPress={() => {
+                this.setState({
+                  sentOtp: true,
+                  hidden: false,
+                });
+                this.intervalTimer();
+              }}
+              // onPress={() => (sentOtp ? this.checkInput() : this.sendOtp())
+              // }
+            >
+              <Text style={Styles.buttonText}>Send OTP</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </GlobalWrapper>
     );
   }
 }
@@ -238,6 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    width: '100%',
   },
   heading: {
     marginBottom: 20,
