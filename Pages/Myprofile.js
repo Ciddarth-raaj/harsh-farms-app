@@ -18,6 +18,7 @@ import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
 
 import Header from '../Components/Header';
+import CustomInputText from '../Components/CustomTextInput';
 import GlobalWrapper from '../Components/GlobalWrapper';
 
 export default class Myprofile extends Component {
@@ -75,6 +76,9 @@ export default class Myprofile extends Component {
       confirmPass,
       currentPass,
       newPass,
+      showConfirmPassword,
+      showPassword,
+      showCurrentPassword,
     } = this.state;
     return (
       <SafeAreaView>
@@ -83,68 +87,56 @@ export default class Myprofile extends Component {
             <Header />
             <View style={styles.wrapper}>
               <Text style={styles.heading}>My Profile</Text>
-              <View>
-                <Text style={styles.label}>Name</Text>
-                <TextInput
-                  style={styles.input}
-                  // placeholder="Name"
-                  value={account_name}
-                  editable={this.state.TextInputDisableStatus}
-                  onChangeText={value => this.setState({account_name: value})}
-                />
-              </View>
 
-              <View>
-                <Text style={styles.label}>Name</Text>
-                <TextInput
-                  style={styles.input}
-                  // placeholder="Name"
-                  value={name}
-                  editable={this.state.TextInputDisableStatus}
-                  onChangeText={value => this.setState({name: value})}
-                />
-              </View>
+              <CustomInputText
+                label={'Account Name'}
+                style={styles.input}
+                // placeholder="Name"
+                value={account_name}
+                editable={this.state.TextInputDisableStatus}
+                onChangeText={value => this.setState({account_name: value})}
+              />
 
-              <View>
-                <Text style={styles.label}>Mobile Number</Text>
-                <TextInput
-                  style={styles.input}
-                  // placeholder="Name"
-                  value={phone}
-                  keyboardType="numeric"
-                  editable={this.state.TextInputDisableStatus}
-                  onChangeText={value => this.setState({phone: value})}
-                />
-              </View>
+              <CustomInputText
+                label={'My name'}
+                style={styles.input}
+                // placeholder="Name"
+                value={name}
+                editable={this.state.TextInputDisableStatus}
+                onChangeText={value => this.setState({name: value})}
+              />
+
+              <CustomInputText
+                label={'Mobile number'}
+                style={styles.input}
+                // placeholder="Name"
+                value={phone}
+                keyboardType="numeric"
+                editable={this.state.TextInputDisableStatus}
+                onChangeText={value => this.setState({phone: value})}
+              />
 
               <Text style={styles.subHeading}>
-                (Mobile number will be used during order deleivery only)
+                (Mobile number will be used during order delivery only)
               </Text>
 
-              <View>
-                <Text style={styles.label}>Email</Text>
-                <TextInput
-                  style={styles.input}
-                  value={email}
-                  editable={this.state.TextInputDisableStatus}
-                  onChangeText={value => this.setState({email: value})}
-                />
-              </View>
+              <CustomInputText
+                label={'Email'}
+                style={styles.input}
+                value={email}
+                editable={this.state.TextInputDisableStatus}
+                onChangeText={value => this.setState({email: value})}
+              />
 
-              <View>
-                <Text style={styles.label}>Address</Text>
-                <View style={styles.textAreaContainer}>
-                  <TextInput
-                    style={styles.textArea}
-                    value={email}
-                    editable={this.state.TextInputDisableStatus}
-                    value={address}
-                    numberOfLines={10}
-                    multiline={true}
-                    onChangeText={value => this.setState({address: value})}
-                  />
-                </View>
-              </View>
+              <CustomInputText
+                label={'Address'}
+                value={address}
+                numberOfLines={10}
+                multiline={true}
+                maxLength={400}
+                underlineColorAndroid="transparent"
+                onChangeText={value => this.setState({address: value})}
+              />
 
               <View style={styles.textAreaContainer}>
                 <Picker
@@ -168,66 +160,32 @@ export default class Myprofile extends Component {
 
               <View style={{marginTop: 40}}>
                 <Text style={styles.subHeading}>Change Password</Text>
-                <View>
-                  <Text style={styles.label}>Current Password</Text>
-                  <View style={styles.container}>
-                    <View style={styles.sectionStyle}>
-                      <TextInput
-                        style={{flex: 1}}
-                        value={currentPass}
-                        onChangeText={value =>
-                          this.setState({currentPass: value})
-                        }
-                        secureTextEntry={this.state.showCurrentPassword}
-                      />
-                      <Switch
-                        onValueChange={this.toggleSwitchCurrent}
-                        value={!this.state.showCurrentPassword}
-                        style={styles.imageStyle}
-                      />
-                    </View>
-                  </View>
-                </View>
-                <View>
-                  <Text style={styles.label}>New Password</Text>
-                  <View style={styles.container}>
-                    <View style={styles.sectionStyle}>
-                      <TextInput
-                        // style={styles.inputPassfield}
-                        value={newPass}
-                        style={{flex: 1}}
-                        secureTextEntry={this.state.showPassword}
-                        onChangeText={value => this.setState({newPass: value})}
-                      />
-                      <Switch
-                        onValueChange={this.toggleSwitch}
-                        value={!this.state.showPassword}
-                        style={styles.imageStyle}
-                      />
-                    </View>
-                  </View>
-                </View>
 
-                <View>
-                  <Text style={styles.label}>Confirm Password</Text>
-                  <View style={styles.container}>
-                    <View style={styles.sectionStyle}>
-                      <TextInput
-                        style={{flex: 1}}
-                        value={confirmPass}
-                        onChangeText={value =>
-                          this.setState({confirmPass: value})
-                        }
-                        secureTextEntry={this.state.showConfirmPassword}
-                      />
-                      <Switch
-                        onValueChange={this.toggleSwitchConfirm}
-                        value={!this.state.showConfirmPassword}
-                        style={styles.imageStyle}
-                      />
-                    </View>
-                  </View>
-                </View>
+                <CustomInputText
+                  label={'Current Password'}
+                  value={currentPass}
+                  maxLength={100}
+                  onChangeText={value => this.setState({currentPass: value})}
+                  secureTextEntry={this.state.showCurrentPassword}
+                  toggleSecure={v => this.setState({showCurrentPassword: v})}
+                />
+                <CustomInputText
+                  label={'New Password'}
+                  value={newPass}
+                  maxLength={100}
+                  onChangeText={value => this.setState({newPass: value})}
+                  secureTextEntry={this.state.showPassword}
+                  toggleSecure={v => this.setState({showPassword: v})}
+                />
+
+                <CustomInputText
+                  label={'Confirm Password'}
+                  value={confirmPass}
+                  maxLength={100}
+                  onChangeText={value => this.setState({confirmPass: value})}
+                  secureTextEntry={this.state.showConfirmPassword}
+                  toggleSecure={v => this.setState({showConfirmPassword: v})}
+                />
               </View>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
