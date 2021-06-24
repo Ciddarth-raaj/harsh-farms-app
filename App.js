@@ -61,11 +61,11 @@ export default class App extends React.Component {
           screenOptions={{
             headerShown: false,
           }}>
+          <Stack.Screen name="Eua" component={Eua} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Signin" component={Signin} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Forgot" component={Forgot} />
-          <Stack.Screen name="Eua" component={Eua} />
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Wishlist" component={Wishlist} />
           <Stack.Screen name="Listing" component={Listing} />
