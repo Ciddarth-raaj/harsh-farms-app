@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Picker} from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
@@ -53,7 +54,14 @@ export default class Signin extends Component {
     SocietyHelper.get()
       .then(data => {
         if (data.length > 0) {
-          this.setState({society: data, selectedSociety: data[0].society_id});
+          const formatted = [];
+          for (let d of data) {
+            formatted.push({
+              label: d.society_name,
+              value: d.society_id,
+            });
+          }
+          this.setState({society: formatted});
         }
       })
       .catch(err => console.log(err));
@@ -109,6 +117,8 @@ export default class Signin extends Component {
     }
 
     if (selectedSociety == undefined) {
+      count++;
+      error['selectedSociety'] = true;
     }
 
     if (address == '') {
@@ -218,11 +228,24 @@ export default class Signin extends Component {
               this.setState({address: value});
               this.setError(false, 'address');
             }}
-            error={error['street-address']}
+            error={error['address']}
             autoCompleteType={'name'}
           />
 
-          <View style={styles.textAreaContainer}>
+          <View
+            style={[
+              styles.input,
+              {marginTop: 5, marginBottom: 15},
+              error['selectedSociety'] ? {borderColor: 'red'} : {},
+            ]}>
+            <RNPickerSelect
+              onValueChange={value => this.setState({selectedSociety: value})}
+              items={society}
+              placeholder={{label: 'Select a Society...', value: null}}
+            />
+          </View>
+
+          {/* <View style={styles.textAreaContainer}>
             <Picker
               selectedValue={selectedSociety}
               style={styles.input}
@@ -238,7 +261,7 @@ export default class Signin extends Component {
                 />
               ))}
             </Picker>
-          </View>
+          </View> */}
 
           <View style={styles.accountDetailsSection}>
             <Text style={styles.subHeading}>Account Details</Text>
@@ -288,38 +311,13 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: '100%',
     height: 40,
     borderWidth: 2,
     borderColor: Colors.primary,
-    marginBottom: 21,
-    paddingLeft: 20,
-  },
-  textAreaContainer: {
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 21,
-  },
-  textArea: {
-    height: 100,
-    justifyContent: 'flex-start',
-    textAlignVertical: 'top',
-    width: '100%',
-    paddingLeft: 16,
-  },
-  buttonWrapper: {
-    marginTop: 20,
-    display: 'flex',
+    marginBottom: 10,
+    paddingLeft: 10,
+    borderRadius: 5,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: Colors.primary,
-    paddingLeft: 30,
-    paddingRight: 30,
-    marginBottom: 21,
-    width: 200,
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   heading: {
     textAlign: 'center',
