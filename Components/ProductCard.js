@@ -110,11 +110,11 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 30,
-    width: '100%',
-    height: 100,
+    width: 130,
+    height: 130,
     borderRadius: 5,
     alignSelf: 'center',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   innerWrapper: {
     flexDirection: 'row',
@@ -150,11 +150,10 @@ const styles = StyleSheet.create({
   },
   nameTextStock: {
     fontSize: 16,
-    marginBottom: 5,
     color: Colors.primary,
     textAlign: 'center',
     fontWeight: 'bold',
-    paddingTop: 5,
+    marginTop: 10,
   },
   subText: {
     fontSize: 14,
