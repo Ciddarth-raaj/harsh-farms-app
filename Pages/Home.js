@@ -1,22 +1,13 @@
-import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Share,
-  Button,
-  ScrollView,
-  TextInput,
-  Image,
-} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
 
 import Colors from '../Constants/colors';
 
 import ImageCarousel from '../Components/ImageCarousal';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import ProductCard from '../Components/ProductCard';
+
+import ProductHelper from '../helper/products';
 
 const images = [
   'https://images.unsplash.com/photo-1593642634443-44adaa06623a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1850&q=80',
@@ -28,50 +19,18 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product_listing: [
-        {
-          product_id: 1,
-          mrp: 200,
-          sp: 100,
-          product_name: 'Red Apple | Best Quality | 1 Kg',
-          item_image:
-            'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
-          discount: '30% offer',
-          available_stock: '100 in stock',
-        },
-        {
-          product_id: 1,
-          mrp: 200,
-          sp: 100,
-          product_name: 'Orange | Top Grade | 1 Kg',
-          discount: '30% offer',
-          available_stock: '100 in stock',
-          item_image:
-            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
-        },
-        {
-          product_id: 1,
-          mrp: 200,
-          sp: 100,
-          product_name: 'Orange | Top Grade | 1 Kg',
-          discount: '30% offer',
-          available_stock: '100 in stock',
-          item_image:
-            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
-        },
-        {
-          product_id: 1,
-          mrp: 200,
-          sp: 100,
-          product_name: 'Orange | Top Grade | 1 Kg',
-          discount: '30% offer',
-          available_stock: '100 in stock',
-          item_image:
-            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
-        },
-      ],
+      product_listing: [],
     };
   }
+
+  componentDidMount() {
+    ProductHelper.get()
+      .then(data => {
+        this.setState({product_listing: data});
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     const {product_listing} = this.state;
     return (
@@ -109,10 +68,10 @@ export default class Home extends React.Component {
             <ProductCard
               id={p.product_id}
               name={p.product_name}
-              mrp={p.mrp}
-              sp={p.sp}
-              image={p.item_image}
-              discount={p.discount}
+              mrp={p.original_price}
+              sp={p.selling_price}
+              image={p.image}
+              tag={p.batch_tag}
               stock={p.available_stock}
             />
           ))}

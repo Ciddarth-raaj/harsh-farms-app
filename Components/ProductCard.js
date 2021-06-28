@@ -33,11 +33,11 @@ export default class ProductCard extends React.Component {
   }
 
   render() {
-    const {id, name, mrp, sp, image, discount, stock} = this.props;
+    const {id, name, mrp, sp, image, tag, stock} = this.props;
     return (
       <View style={styles.wrapper}>
         <View style={styles.discountSectionField}>
-          <Text style={styles.discountSection}>{discount}</Text>
+          <Text style={styles.discountSection}>{tag}</Text>
         </View>
 
         <View style={styles.innerWrapper}>
@@ -48,7 +48,7 @@ export default class ProductCard extends React.Component {
               }}
               style={styles.image}
             />
-            <Text style={styles.nameTextStock}>{stock}</Text>
+            <Text style={styles.nameTextStock}>{`${stock} Left in Stock`}</Text>
           </View>
 
           <View style={styles.contentWrapper}>
