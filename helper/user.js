@@ -15,6 +15,25 @@ const user = {
           reject(err);
         });
     }),
+  login: (username, password) =>
+    new Promise(function (resolve, reject) {
+      API.post('/user/login', {
+        account_name: username,
+        password: password,
+        type: '1',
+      })
+        .then(async res => {
+          console.log(res.data);
+          if (res.status === 200) {
+            resolve(res.data);
+          } else {
+            reject(res);
+          }
+        })
+        .catch(err => {
+          reject(err);
+        });
+    }),
 };
 
 export default user;

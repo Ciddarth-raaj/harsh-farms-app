@@ -1,38 +1,24 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Dimensions,
-  Switch,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../Constants/colors';
 import Styles from '../Constants/styles';
-import GlobalWrapper from '../Components/GlobalWrapper';
-import Header from '../Components/Header';
 
+import GlobalWrapper from '../Components/GlobalWrapper';
 import CustomInputText from '../Components/CustomTextInput';
 import CustomButton from '../Components/CustomButton';
+
+import UserHelper from '../helper/user';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.toggleSwitch = this.toggleSwitch.bind(this);
     this.state = {
       showPassword: true,
       username: '',
       password: '',
     };
-  }
-
-  toggleSwitch() {
-    this.setState({showPassword: !this.state.showPassword});
   }
 
   onSubmit() {
@@ -52,6 +38,29 @@ export default class Login extends Component {
       alert(alertText);
       return;
     }
+
+    UserHelper.login(username, password)
+      .then(async data => {
+        if (data.code == 200) {
+          await AsyncStorage.setItem('token', data.token);
+          await AsyncStorage.setItem(
+            'clt-type-id',
+            data.clt_type_id.toString(),
+          );
+          global.accessToken = data.token;
+          global.clt_type = data.clt_type_id.toString();
+          this.props.navigation.navigate('Home');
+        } else if (data.code == 201) {
+          alert('Your account was deactivated!');
+        } else if (data.code == 404) {
+          alert('Invalid Username / Password!\nTry Again!');
+        } else {
+          throw 'error';
+        }
+      })
+      .catch(err => {
+        alert('Error Logging In!');
+      });
   }
 
   render() {
