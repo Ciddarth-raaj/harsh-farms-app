@@ -18,6 +18,7 @@ import GlobalWrapper from '../Components/GlobalWrapper';
 import Header from '../Components/Header';
 
 import CustomInputText from '../Components/CustomTextInput';
+import CustomButton from '../Components/CustomButton';
 
 export default class Login extends Component {
   constructor(props) {
@@ -56,137 +57,59 @@ export default class Login extends Component {
   render() {
     const {username, password, showPassword} = this.state;
     return (
-      <SafeAreaView>
-        <GlobalWrapper tag={'login'} navigation={this.props.navigation}>
-          <ScrollView>
-            <View style={styles.wrapper}>
-              <Text style={styles.heading}>Login</Text>
-              <View style={styles.fieldHolder}>
-                <View>
-                  <CustomInputText
-                    style={styles.input}
-                    // placeholder="Username"
-                    maxLength={100}
-                    value={username}
-                    label={'Username'}
-                    onChangeText={value => this.setState({username: value})}
-                  />
-                </View>
-                <View>
-                  <CustomInputText
-                    label={'Password'}
-                    value={password}
-                    maxLength={100}
-                    onChangeText={value => this.setState({password: value})}
-                    secureTextEntry={showPassword}
-                    toggleSecure={v => this.setState({showPassword: v})}
+      <GlobalWrapper tag={'login'} navigation={this.props.navigation}>
+        <View style={styles.wrapper}>
+          <Text style={styles.heading}>Login</Text>
+          <View style={styles.fieldHolder}>
+            <CustomInputText
+              maxLength={100}
+              value={username}
+              label={'Username'}
+              onChangeText={value => this.setState({username: value})}
+            />
 
-                    // value={password}
-                    // style={{flex: 1}}
-                    // secureTextEntry={this.state.showPassword}
-                    // onChangeText={value => this.setState({password: value})}
-                  />
-                </View>
-                {/* <View>
-                  <Text style={styles.label}>Password</Text>
-                  <TextInput
-                    style={styles.input}
-                    // placeholder="Password"
-                    value={password}
-                    secureTextEntry={true}
-                    onChangeText={value => this.setState({password: value})}
-                  />
-                </View> */}
+            <CustomInputText
+              label={'Password'}
+              value={password}
+              maxLength={100}
+              onChangeText={value => this.setState({password: value})}
+              secureTextEntry={showPassword}
+              toggleSecure={v => this.setState({showPassword: v})}
+            />
 
-                <TouchableOpacity
-                  style={styles.buttonWrapper}
-                  onPress={() => this.onSubmit()}>
-                  <Text style={Styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => this.props.navigation.navigate('Forgot')}>
-                  <Text style={styles.bottomText}>Forgot Password?</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ScrollView>
-        </GlobalWrapper>
-      </SafeAreaView>
+            <CustomButton
+              wrapperStyle={{marginTop: 20}}
+              onPress={() => this.onSubmit()}>
+              {'Login'}
+            </CustomButton>
+
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Forgot')}>
+              <Text style={styles.bottomText}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </GlobalWrapper>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  fieldHolder: {
-    width: '100%',
-  },
   wrapper: {
     padding: 20,
     marginTop: 100,
-  },
-
-  input: {
-    width: '100%',
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 21,
-    paddingLeft: 20,
-  },
-
-  buttonWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: Colors.primary,
-    paddingLeft: 30,
-    paddingRight: 30,
-    marginBottom: 21,
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   heading: {
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'orange',
+    color: Colors.secondary,
     marginBottom: 20,
   },
   bottomText: {
     fontSize: 14,
-    color: '#0088ff',
+    color: Colors.secondary,
     marginTop: 10,
     textAlign: 'center',
-  },
-  label: {
-    color: 'grey',
-    fontWeight: '500',
-    marginBottom: 5,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  sectionStyle: {
-    width: '100%',
-    height: 40,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    marginBottom: 10,
-    paddingLeft: 20,
-
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  imageStyle: {
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: 'stretch',
-    alignItems: 'center',
   },
 });
