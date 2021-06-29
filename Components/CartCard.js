@@ -10,7 +10,7 @@ export default class CartCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      qty: this.props.qty,
+      qty: props.qty,
     };
   }
 
@@ -19,7 +19,7 @@ export default class CartCard extends Component {
     if (type === 'add') {
       qty++;
     } else {
-      if (this.state.qty > 0) {
+      if (qty > 0) {
         qty--;
       }
     }
@@ -33,6 +33,7 @@ export default class CartCard extends Component {
 
     if (qty == 0) {
       this.deleteCart();
+      return;
     }
 
     if (qty > stock) {
@@ -44,7 +45,6 @@ export default class CartCard extends Component {
       .then(data => {
         if (data.code == 200) {
           modifyData(id, qty);
-          this.setState({added: true});
         } else {
           throw 'err';
         }
