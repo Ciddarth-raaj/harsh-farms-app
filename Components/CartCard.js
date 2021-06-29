@@ -1,15 +1,5 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Dimensions,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import colors from '../Constants/colors';
 import Colors from '../Constants/colors';
@@ -57,23 +47,19 @@ export default class CartCard extends Component {
             </View>
 
             <View style={styles.qtyDiv}>
-              <View style={styles.textViewStyleMinus}>
-                <Text
-                  style={styles.qtyButton}
-                  onPress={() => this.updateQty('sub')}>
-                  {'-'}
-                </Text>
+              <TouchableOpacity
+                style={[styles.textViewStyleMinus, styles.qtyCounter]}
+                onPress={() => this.updateQty('sub')}>
+                <Text style={styles.qtyButton}>{'-'}</Text>
+              </TouchableOpacity>
+              <View style={styles.qtyTextWrapper}>
+                <Text style={styles.qtyText}>{qty}</Text>
               </View>
-              <View style={{flex: 1, alignItems: 'center'}}>
-                <Text className={styles.price}>{qty}</Text>
-              </View>
-              <View style={styles.textViewStylePlus}>
-                <Text
-                  style={styles.qtyButton}
-                  onPress={() => this.updateQty('add')}>
-                  {'+'}
-                </Text>
-              </View>
+              <TouchableOpacity
+                style={[styles.textViewStylePlus, styles.qtyCounter]}
+                onPress={() => this.updateQty('add')}>
+                <Text style={styles.qtyButton}>{'+'}</Text>
+              </TouchableOpacity>
             </View>
           </View>
           <TouchableOpacity style={styles.deleteWrapper}>
@@ -135,6 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
     textAlign: 'center',
+    fontWeight: '600',
   },
   subText: {
     fontSize: 14,
@@ -162,22 +149,6 @@ const styles = StyleSheet.create({
     color: '#0088ff',
     flexGrow: 0,
   },
-  qtyDiv: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: '#c9c9c9',
-    marginVertical: 10,
-    borderRadius: 5,
-  },
-  qtyButton: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    borderRadius: 5,
-  },
   discountSectionField: {
     position: 'absolute',
     top: 5,
@@ -204,26 +175,41 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
   },
-  // textViewStylePlus: {
-  //   backgroundColor: '#73AB00',
-  //   flex: 1,
-  //   alignItems: 'center',
-  // },
-  // textViewStyleMinus: {
-  //   backgroundColor: '#FF4634',
-  //   flex: 1,
-  //   alignItems: 'center',
-  // },
-  textViewStylePlus: {
-    backgroundColor: '#347672',
-    // backgroundColor: '#73AB00',
+
+  qtyDiv: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginVertical: 10,
+    borderWidth: 2,
+    borderColor: Colors.secondary,
+    borderRadius: 12,
+  },
+  qtyButton: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    borderRadius: 5,
+  },
+  qtyCounter: {
+    backgroundColor: Colors.secondary,
     flex: 1,
     alignItems: 'center',
   },
+  textViewStylePlus: {
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+  },
   textViewStyleMinus: {
-    backgroundColor: '#347672',
-    // backgroundColor: '#FF4634',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  qtyTextWrapper: {
     flex: 1,
-    alignItems: 'center',
+  },
+  qtyText: {
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
