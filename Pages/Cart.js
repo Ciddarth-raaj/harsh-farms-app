@@ -13,33 +13,33 @@ export default class Cart extends Component {
     super(props);
     this.state = {
       cart: [
-        {
-          product_id: 1,
-          qty: 10,
-          sp: 100,
-          mrp: 200,
-          product_name: 'Red Apple | Best Quality | 1 Kg',
-          item_image:
-            'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
-        },
-        {
-          product_id: 2,
-          qty: 10,
-          sp: 10,
-          mrp: 200,
-          product_name: 'Orange | Top Grade | 1 Kg',
-          item_image:
-            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
-        },
-        {
-          product_id: 3,
-          qty: 10,
-          sp: 100,
-          mrp: 200,
-          product_name: 'Random',
-          item_image:
-            'https://images.unsplash.com/photo-1612564148954-59545876eaa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
-        },
+        // {
+        //   product_id: 1,
+        //   qty: 10,
+        //   sp: 100,
+        //   mrp: 200,
+        //   product_name: 'Red Apple | Best Quality | 1 Kg',
+        //   item_image:
+        //     'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
+        // },
+        // {
+        //   product_id: 2,
+        //   qty: 10,
+        //   sp: 10,
+        //   mrp: 200,
+        //   product_name: 'Orange | Top Grade | 1 Kg',
+        //   item_image:
+        //     'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
+        // },
+        // {
+        //   product_id: 3,
+        //   qty: 10,
+        //   sp: 100,
+        //   mrp: 200,
+        //   product_name: 'Random',
+        //   item_image:
+        //     'https://images.unsplash.com/photo-1612564148954-59545876eaa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
+        // },
       ],
       delivery: 50,
       total_quantity: 20,
@@ -165,15 +165,14 @@ export default class Cart extends Component {
         ) : (
           <View style={styles.mainSubWrapper}>
             <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
-              }}
+              source={require('../Assets/cart.png')}
               style={styles.image}
             />
             <Text style={styles.heading}>Your Cart is empty</Text>
-            <Text style={styles.heading}>
-              Add items to your Cart and they will appear here
-            </Text>
+            <CustomButton
+              onPress={() => this.props.navigation.navigate('Home')}>
+              {'Start Shopping'}
+            </CustomButton>
           </View>
         )}
       </GlobalWrapper>
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: Colors.primary,
+    color: Colors.secondary,
     marginBottom: 20,
   },
   image: {
@@ -205,6 +204,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     marginBottom: 40,
+    tintColor: Colors.secondary,
   },
   mainSubWrapper: {
     padding: 20,
