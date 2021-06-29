@@ -27,9 +27,7 @@ import {setCustomText} from 'react-native-global-props';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loggedIn: false,
-    };
+    this.state = {};
 
     setCustomText({style: {fontFamily: 'Poppins-Regular'}});
     this.setToken();
@@ -38,10 +36,9 @@ export default class App extends React.Component {
   async setToken() {
     try {
       const accessToken = await AsyncStorage.getItem('token');
-      if (accessToken != undefined || accessToken != null) {
+      if (accessToken != undefined && accessToken != null) {
         global.accessToken = accessToken;
         global.clt_type = await AsyncStorage.getItem('clt-type-id');
-        this.setState({loggedIn: true});
       }
     } catch (err) {
       console.error(err);
@@ -49,7 +46,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    const {loggedIn} = this.state;
     const Stack = createStackNavigator();
 
     const MyTheme = {

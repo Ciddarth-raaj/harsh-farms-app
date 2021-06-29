@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Alert} from 'react-native';
 
 import CartCard from '../Components/CartCard';
 import GlobalWrapper from '../Components/GlobalWrapper';
@@ -9,48 +9,85 @@ import Colors from '../Constants/colors';
 import {LICENSE_ID} from '../Constants/constants';
 import numberFormatter from '../util/numberFormatter';
 
+import CartHelper from '../helper/cart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: [
-        {
-          product_id: 1,
-          qty: 10,
-          sp: 100,
-          mrp: 200,
-          product_name: 'Red Apple | Best Quality | 1 Kg',
-          item_image:
-            'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
-        },
-        {
-          product_id: 2,
-          qty: 10,
-          sp: 10,
-          mrp: 200,
-          product_name: 'Orange | Top Grade | 1 Kg',
-          item_image:
-            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
-        },
-        {
-          product_id: 3,
-          qty: 10,
-          sp: 100,
-          mrp: 200,
-          product_name: 'Random',
-          item_image:
-            'https://images.unsplash.com/photo-1612564148954-59545876eaa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
-        },
-      ],
-      delivery: 50,
-      total_quantity: 20,
-      subTotal: 300,
-      otherCharges: 30,
-      discount: 20,
-      grandTotal: 400,
-      saved: 30,
+      cart: [],
+      delivery: 0,
+      total_quantity: 0,
+      subTotal: 0,
+      otherCharges: 0,
+      discount: 0,
+      grandTotal: 0,
+      saved: 0,
       terms: '1) All products once purchased cannot be refunded',
     };
+  }
+
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem('token');
+    global.accessToken = token;
+
+    if (token == undefined || token == null) {
+      Alert.alert(
+        'Cart',
+        'Login to view this page',
+        [
+          {
+            text: 'Cancel',
+            style: 'destructive',
+          },
+          {
+            text: 'Sign In',
+            onPress: () => this.props.navigation.navigate('Signin'),
+          },
+          {
+            text: 'Login',
+            onPress: () => this.props.navigation.navigate('Login'),
+          },
+        ],
+        {cancelable: true},
+      );
+    } else {
+      this.getCart();
+    }
+  }
+
+  getCalculatedData(data) {
+    let subTotal = 0;
+    let deliveryCharge = 30;
+    let actualPrice = 0;
+
+    for (let d of data) {
+      subTotal += d.qty * d.selling_price;
+      actualPrice += d.qty * d.original_price;
+    }
+
+    return {
+      subTotal: subTotal,
+      deliveryCharge: deliveryCharge,
+      grandTotal: subTotal + deliveryCharge,
+      saved: actualPrice - subTotal,
+    };
+  }
+
+  getCart() {
+    CartHelper.get()
+      .then(data => {
+        const calculatedData = this.getCalculatedData(data);
+        this.setState({
+          cart: data,
+          subTotal: calculatedData.subTotal,
+          otherCharges: calculatedData.deliveryCharge,
+          grandTotal: calculatedData.grandTotal,
+          saved: calculatedData.saved,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   getSubTotal = cartData => {
@@ -122,9 +159,9 @@ export default class Cart extends Component {
                 name={c.product_name}
                 qty={c.qty}
                 // updateCart={this.updateCart}
-                sp={c.sp}
-                mrp={c.mrp}
-                image={c.item_image}
+                sp={c.selling_price}
+                mrp={c.original_price}
+                image={c.image}
               />
             ))}
 

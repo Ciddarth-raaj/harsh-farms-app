@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 5,
     alignSelf: 'center',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   innerWrapper: {
     flexDirection: 'row',
