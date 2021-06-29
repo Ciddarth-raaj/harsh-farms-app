@@ -3,9 +3,9 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import Colors from '../Constants/colors';
 import numberFormatter from '../util/numberFormatter';
+import debounce from '../util/debounce';
 
 import CartHelper from '../helper/cart';
-
 export default class CartCard extends Component {
   constructor(props) {
     super(props);
@@ -16,8 +16,15 @@ export default class CartCard extends Component {
 
   updateQty(type) {
     let {qty} = this.state;
+    let {stock} = this.props;
+
     if (type === 'add') {
-      qty++;
+      if (qty + 1 > stock) {
+        alert(`Only ${stock} available in stock!`);
+        qty = stock;
+      } else {
+        qty++;
+      }
     } else {
       if (qty > 0) {
         qty--;
@@ -27,17 +34,12 @@ export default class CartCard extends Component {
     this.setState({qty: qty}, () => this.addToCart());
   }
 
-  addToCart = () => {
+  addToCart = debounce(() => {
     const {qty} = this.state;
     const {id, stock, modifyData} = this.props;
 
     if (qty == 0) {
       this.deleteCart();
-      return;
-    }
-
-    if (qty > stock) {
-      alert(`Only ${stock} available in stock!`);
       return;
     }
 
@@ -53,7 +55,7 @@ export default class CartCard extends Component {
         console.log(err);
         alert('Error Adding to Cart!');
       });
-  };
+  });
 
   deleteCart() {
     const {id, modifyData} = this.props;

@@ -159,6 +159,7 @@ export default class Cart extends Component {
                 id={c.product_id}
                 name={c.product_name}
                 qty={c.qty}
+                stock={c.available_stock}
                 // updateCart={this.updateCart}
                 sp={c.selling_price}
                 mrp={c.original_price}
