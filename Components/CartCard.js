@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
-import colors from '../Constants/colors';
 import Colors from '../Constants/colors';
 import numberFormatter from '../util/numberFormatter';
+
+import CartHelper from '../helper/cart';
 
 export default class CartCard extends Component {
   constructor(props) {
@@ -23,8 +24,31 @@ export default class CartCard extends Component {
       }
     }
 
-    this.setState({qty: qty});
+    this.setState({qty: qty}, () => this.addToCart());
   }
+
+  addToCart = () => {
+    const {qty} = this.state;
+    const {id, stock} = this.props;
+
+    if (qty > stock) {
+      alert(`Only ${stock} available in stock!`);
+      return;
+    }
+
+    CartHelper.add(id, qty)
+      .then(data => {
+        if (data.code == 200) {
+          this.setState({added: true});
+        } else {
+          throw 'err';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error Adding to Cart!');
+      });
+  };
 
   render() {
     const {id, sp, mrp, name, image} = this.props;
@@ -111,7 +135,7 @@ const styles = StyleSheet.create({
   spText: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: colors.primary,
+    color: Colors.primary,
   },
   mrpText: {
     textDecorationLine: 'line-through',
