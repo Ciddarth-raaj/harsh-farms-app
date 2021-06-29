@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderRadius: 3,
   },
-
   imageHolderField: {
     width: '45%',
   },
@@ -121,8 +120,7 @@ const styles = StyleSheet.create({
   spText: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: '#347672',
-    // color: colors.primary,
+    color: Colors.primary,
   },
   mrpText: {
     textDecorationLine: 'line-through',
@@ -133,13 +131,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
   stockText: {
     fontSize: 14,
     color: Colors.primary,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: '500',
     marginTop: 10,
   },
   subText: {
@@ -162,13 +160,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     borderRadius: 5,
-    paddingBottom: 4,
+    // paddingBottom: 4,
   },
   discountSectionField: {
     position: 'absolute',
     top: 5,
     left: 5,
-    backgroundColor: '#FC2215',
+    backgroundColor: Colors.secondary,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 3,
@@ -196,7 +194,6 @@ const styles = StyleSheet.create({
   },
   qtyText: {
     fontWeight: 'bold',
-    // color: Colors.secondary,
     textAlign: 'center',
   },
 });

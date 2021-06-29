@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'orange',
-    marginBottom: 20,
-    marginTop: 30,
+    color: Colors.secondary,
+    marginBottom: 0,
+    marginTop: 20,
   },
 });
