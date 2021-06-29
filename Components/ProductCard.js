@@ -11,7 +11,8 @@ import {
 import Colors from '../Constants/colors';
 
 import CustomButton from '../Components/CustomButton';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import CartHelper from '../helper/cart';
 
 export default class ProductCard extends React.Component {
   constructor(props) {
@@ -69,7 +70,18 @@ export default class ProductCard extends React.Component {
       return;
     }
 
-    this.setState({added: true});
+    CartHelper.add(id, qty)
+      .then(data => {
+        if (data.code == 200) {
+          this.setState({added: true});
+        } else {
+          throw 'err';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error Adding to Cart!');
+      });
   };
 
   render() {
