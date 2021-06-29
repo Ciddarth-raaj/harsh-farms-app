@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 
 import CartCard from '../Components/CartCard';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import CustomButton from '../Components/CustomButton';
 
 import Colors from '../Constants/colors';
+import {LICENSE_ID} from '../Constants/constants';
 import numberFormatter from '../util/numberFormatter';
 
 export default class Cart extends Component {
@@ -13,33 +14,33 @@ export default class Cart extends Component {
     super(props);
     this.state = {
       cart: [
-        // {
-        //   product_id: 1,
-        //   qty: 10,
-        //   sp: 100,
-        //   mrp: 200,
-        //   product_name: 'Red Apple | Best Quality | 1 Kg',
-        //   item_image:
-        //     'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
-        // },
-        // {
-        //   product_id: 2,
-        //   qty: 10,
-        //   sp: 10,
-        //   mrp: 200,
-        //   product_name: 'Orange | Top Grade | 1 Kg',
-        //   item_image:
-        //     'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
-        // },
-        // {
-        //   product_id: 3,
-        //   qty: 10,
-        //   sp: 100,
-        //   mrp: 200,
-        //   product_name: 'Random',
-        //   item_image:
-        //     'https://images.unsplash.com/photo-1612564148954-59545876eaa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
-        // },
+        {
+          product_id: 1,
+          qty: 10,
+          sp: 100,
+          mrp: 200,
+          product_name: 'Red Apple | Best Quality | 1 Kg',
+          item_image:
+            'https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png?fit=641%2C618&ssl=1',
+        },
+        {
+          product_id: 2,
+          qty: 10,
+          sp: 10,
+          mrp: 200,
+          product_name: 'Orange | Top Grade | 1 Kg',
+          item_image:
+            'https://sc04.alicdn.com/kf/U3f818dc61b164bd3996575580efd2b4b6.jpg',
+        },
+        {
+          product_id: 3,
+          qty: 10,
+          sp: 100,
+          mrp: 200,
+          product_name: 'Random',
+          item_image:
+            'https://images.unsplash.com/photo-1612564148954-59545876eaa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
+        },
       ],
       delivery: 50,
       total_quantity: 20,
@@ -48,7 +49,6 @@ export default class Cart extends Component {
       discount: 20,
       grandTotal: 400,
       saved: 30,
-      license_id: 232523233,
       terms: '1) All products once purchased cannot be refunded',
     };
   }
@@ -109,8 +109,6 @@ export default class Cart extends Component {
       grandTotal,
       discount,
       saved,
-      license_id,
-      terms,
     } = this.state;
     return (
       <GlobalWrapper tag={'cart'} navigation={this.props.navigation}>
@@ -153,7 +151,7 @@ export default class Cart extends Component {
               {' in this order'}
             </Text>
             <Text style={styles.subText}>
-              {`FSSAI License ID : ${license_id}`}
+              {`FSSAI License ID : ${LICENSE_ID}`}
             </Text>
 
             <CustomButton
