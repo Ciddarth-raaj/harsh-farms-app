@@ -29,7 +29,11 @@ export default class CartCard extends Component {
 
   addToCart = () => {
     const {qty} = this.state;
-    const {id, stock} = this.props;
+    const {id, stock, modifyData} = this.props;
+
+    if (qty == 0) {
+      this.deleteCart();
+    }
 
     if (qty > stock) {
       alert(`Only ${stock} available in stock!`);
@@ -39,6 +43,7 @@ export default class CartCard extends Component {
     CartHelper.add(id, qty)
       .then(data => {
         if (data.code == 200) {
+          modifyData(id, qty);
           this.setState({added: true});
         } else {
           throw 'err';
@@ -49,6 +54,22 @@ export default class CartCard extends Component {
         alert('Error Adding to Cart!');
       });
   };
+
+  deleteCart() {
+    const {id, modifyData} = this.props;
+    CartHelper.delete(id)
+      .then(data => {
+        if (data.code == 200) {
+          modifyData(id);
+        } else {
+          throw 'err';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error Deleting!');
+      });
+  }
 
   render() {
     const {id, sp, mrp, name, image} = this.props;
@@ -87,7 +108,9 @@ export default class CartCard extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity style={styles.deleteWrapper}>
+          <TouchableOpacity
+            style={styles.deleteWrapper}
+            onPress={() => this.deleteCart()}>
             <Image
               source={require('../Assets/delete.png')}
               style={styles.deleteImage}

@@ -1,4 +1,5 @@
 import API from '../util/api';
+import constants from '../Constants/api';
 
 const cart = {
   add: (product_id, qty) =>
@@ -61,6 +62,29 @@ const cart = {
 
     return formatted;
   },
+  delete: product_id =>
+    new Promise(function (resolve, reject) {
+      var axios = require('axios');
+      var data = JSON.stringify({product_id: product_id});
+
+      var config = {
+        method: 'delete',
+        url: constants.BASE_URL + 'cart',
+        headers: {
+          'x-access-token': global.accessToken,
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      };
+
+      axios(config)
+        .then(function (response) {
+          resolve(response.data);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    }),
 };
 
 export default cart;

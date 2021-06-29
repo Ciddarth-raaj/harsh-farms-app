@@ -102,27 +102,27 @@ export default class Cart extends Component {
     return subTotal;
   };
 
-  updateCartValue = (id, qty) => {
+  modifyData = (product_id, qty) => {
     const {cart} = this.state;
-    let {subTotal} = this.state;
 
     for (let i in cart) {
-      if (cart[i].product_id === id) {
-        if (qty === 0) {
-          subTotal = subTotal - cart[i].qty * cart[i].sp;
+      if (cart[i].product_id == product_id) {
+        if (qty == undefined) {
           cart.splice(i, 1);
-          break;
+        } else {
+          cart[i].qty = qty;
         }
-        subTotal = subTotal - cart[i].qty * cart[i].sp;
-        subTotal = subTotal + qty * cart[i].sp;
-        cart[i].qty = qty;
         break;
       }
     }
 
+    const calculatedData = this.getCalculatedData(cart);
     this.setState({
       cart: cart,
-      subTotal: subTotal,
+      subTotal: calculatedData.subTotal,
+      otherCharges: calculatedData.deliveryCharge,
+      grandTotal: calculatedData.grandTotal,
+      saved: calculatedData.saved,
     });
   };
 
@@ -162,6 +162,9 @@ export default class Cart extends Component {
                 sp={c.selling_price}
                 mrp={c.original_price}
                 image={c.image}
+                modifyData={(product_id, qty) =>
+                  this.modifyData(product_id, qty)
+                }
               />
             ))}
 
