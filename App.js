@@ -31,7 +31,7 @@ export default class App extends React.Component {
       loggedIn: false,
     };
 
-    setCustomText({style: {fontFamily: 'Montserrat-Regular'}});
+    setCustomText({style: {fontFamily: 'Poppins-Regular'}});
     this.setToken();
   }
 
