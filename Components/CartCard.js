@@ -3,13 +3,13 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 
 import colors from '../Constants/colors';
 import Colors from '../Constants/colors';
+import numberFormatter from '../util/numberFormatter';
 
 export default class CartCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       qty: this.props.qty,
-      QtyVisibility: false,
     };
   }
 
@@ -25,8 +25,9 @@ export default class CartCard extends Component {
 
     this.setState({qty: qty});
   }
+
   render() {
-    const {id, updateCart, sp, mrp, name, quantity, image} = this.props;
+    const {id, sp, mrp, name, image} = this.props;
     const {qty} = this.state;
     return (
       <View style={styles.wrapper}>
@@ -42,8 +43,8 @@ export default class CartCard extends Component {
             <Text style={styles.nameText}>{name}</Text>
 
             <View style={styles.priceWrapper}>
-              <Text style={styles.mrpText}>{`\u20A8 ${mrp}`}</Text>
-              <Text style={styles.spText}>{`\u20A8 ${sp}`}</Text>
+              <Text style={styles.mrpText}>{numberFormatter(mrp)}</Text>
+              <Text style={styles.spText}>{numberFormatter(sp)}</Text>
             </View>
 
             <View style={styles.qtyDiv}>

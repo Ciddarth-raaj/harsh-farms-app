@@ -146,11 +146,11 @@ export default class Cart extends Component {
               )}
             </View>
             <Text style={styles.subText}>
-              You save{' '}
+              {'You save '}
               <Text style={{color: Colors.secondary}}>
                 {numberFormatter(saved)}
-              </Text>{' '}
-              in this order
+              </Text>
+              {' in this order'}
             </Text>
             <Text style={styles.subText}>
               {`FSSAI License ID : ${license_id}`}

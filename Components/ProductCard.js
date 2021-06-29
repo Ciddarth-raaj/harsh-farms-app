@@ -13,6 +13,7 @@ import Colors from '../Constants/colors';
 import CustomButton from '../Components/CustomButton';
 
 import CartHelper from '../helper/cart';
+import numberFormatter from '../util/numberFormatter';
 
 export default class ProductCard extends React.Component {
   constructor(props) {
@@ -87,6 +88,7 @@ export default class ProductCard extends React.Component {
   render() {
     const {qty, added} = this.state;
     const {id, name, mrp, sp, image, tag, stock} = this.props;
+
     return (
       <View style={styles.wrapper}>
         <View style={styles.discountSectionField}>
@@ -108,8 +110,8 @@ export default class ProductCard extends React.Component {
             <Text style={styles.nameText}>{name}</Text>
 
             <View style={styles.priceWrapper}>
-              <Text style={styles.mrpText}>{`\u20A8 ${mrp}`}</Text>
-              <Text style={styles.spText}>{`\u20A8 ${sp}`}</Text>
+              <Text style={styles.mrpText}>{numberFormatter(mrp)}</Text>
+              <Text style={styles.spText}>{numberFormatter(sp)}</Text>
             </View>
 
             <View style={styles.qtyDiv}>
