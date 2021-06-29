@@ -22,12 +22,16 @@ import Version from './Pages/Version';
 
 import global from './Constants/variables';
 
+import {setCustomText} from 'react-native-global-props';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedIn: false,
     };
+
+    setCustomText({style: {fontFamily: 'Montserrat-Regular'}});
     this.setToken();
   }
 
