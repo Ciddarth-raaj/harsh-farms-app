@@ -73,6 +73,7 @@ export default class Home extends React.Component {
               image={p.image}
               tag={p.batch_tag}
               stock={p.available_stock}
+              navigation={this.props.navigation}
             />
           ))}
         </View>

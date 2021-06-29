@@ -1,15 +1,24 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from 'react-native';
 
 import Colors from '../Constants/colors';
 
 import CustomButton from '../Components/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class ProductCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       qty: 1,
+      added: false,
     };
   }
 
@@ -23,11 +32,48 @@ export default class ProductCard extends React.Component {
       }
     }
 
-    this.setState({qty: qty});
+    this.setState({qty: qty, added: false});
   }
 
-  render() {
+  addToCart = () => {
     const {qty} = this.state;
+    const {id, stock} = this.props;
+
+    const loggedIn = global.accessToken != undefined;
+
+    if (!loggedIn) {
+      Alert.alert(
+        'Add to Cart',
+        'Login to Continue',
+        [
+          {
+            text: 'Cancel',
+            style: 'destructive',
+          },
+          {
+            text: 'Sign In',
+            onPress: () => this.props.navigation.navigate('Signin'),
+          },
+          {
+            text: 'Login',
+            onPress: () => this.props.navigation.navigate('Login'),
+          },
+        ],
+        {cancelable: true},
+      );
+      return;
+    }
+
+    if (qty > stock) {
+      alert(`Only ${stock} available in stock!`);
+      return;
+    }
+
+    this.setState({added: true});
+  };
+
+  render() {
+    const {qty, added} = this.state;
     const {id, name, mrp, sp, image, tag, stock} = this.props;
     return (
       <View style={styles.wrapper}>
@@ -70,8 +116,10 @@ export default class ProductCard extends React.Component {
               </TouchableOpacity>
             </View>
 
-            <CustomButton wrapperStyle={{padding: 10}}>
-              {'Add to Cart'}
+            <CustomButton
+              wrapperStyle={{padding: 10}}
+              onPress={() => !added && this.addToCart()}>
+              {!added ? 'Add to Cart' : 'Added to Cart'}
             </CustomButton>
           </View>
         </View>
