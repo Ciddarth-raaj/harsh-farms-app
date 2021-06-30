@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../Constants/colors';
 
@@ -23,7 +24,17 @@ export default class Home extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.getProducts();
+
+    const accessToken = await AsyncStorage.getItem('token');
+    if (accessToken != undefined && accessToken != null) {
+      global.accessToken = accessToken;
+      global.clt_type = await AsyncStorage.getItem('clt-type-id');
+    }
+  }
+
+  getProducts() {
     ProductHelper.get()
       .then(data => {
         this.setState({product_listing: data});
