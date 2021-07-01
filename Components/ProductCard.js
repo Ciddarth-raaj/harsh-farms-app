@@ -9,11 +9,12 @@ import {
 } from 'react-native';
 
 import Colors from '../Constants/colors';
+import numberFormatter from '../util/numberFormatter';
 
 import CustomButton from '../Components/CustomButton';
 
 import CartHelper from '../helper/cart';
-import numberFormatter from '../util/numberFormatter';
+import WishlistHelper from '../helper/wishlist';
 
 export default class ProductCard extends React.Component {
   constructor(props) {
@@ -86,6 +87,35 @@ export default class ProductCard extends React.Component {
       });
   };
 
+  addToWishlist(value) {
+    const {id} = this.props;
+    this.setState({addedWishlist: value});
+
+    if (value) {
+      WishlistHelper.add(id)
+        .then(data => {
+          if (data.code != 200) {
+            throw 'err';
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({addedWishlist: !value});
+        });
+    } else {
+      WishlistHelper.delete(id)
+        .then(data => {
+          if (data.code != 200) {
+            throw 'err';
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.setState({addedWishlist: !value});
+        });
+    }
+  }
+
   render() {
     const {qty, added, addedWishlist} = this.state;
     const {id, name, mrp, sp, image, tag, stock} = this.props;
@@ -138,7 +168,7 @@ export default class ProductCard extends React.Component {
                 {!added ? 'Add to Cart' : 'Added to Cart'}
               </CustomButton>
               <TouchableOpacity
-                onPress={() => this.setState({addedWishlist: !addedWishlist})}
+                onPress={() => this.addToWishlist(!addedWishlist)}
                 style={[
                   styles.wishlistButton,
                   addedWishlist
