@@ -22,7 +22,11 @@ import Version from './Pages/Version';
 
 import global from './Constants/variables';
 
-import {setCustomText} from 'react-native-global-props';
+import {
+  setCustomText,
+  setCustomTextInput,
+  setCustomView,
+} from 'react-native-global-props';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -30,6 +34,8 @@ export default class App extends React.Component {
     this.state = {};
 
     setCustomText({style: {fontFamily: 'Poppins-Regular'}});
+    setCustomTextInput({style: {fontFamily: 'Poppins-Regular'}});
+    setCustomView({style: {fontFamily: 'Poppins-Regular'}});
     this.setToken();
   }
 
