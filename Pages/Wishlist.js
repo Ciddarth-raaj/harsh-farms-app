@@ -1,18 +1,10 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Dimensions,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, Alert} from 'react-native';
 
 import Colors from '../Constants/colors';
 import Styles from '../Constants/styles';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GlobalWrapper from '../Components/GlobalWrapper';
 import WishlistCard from '../Components/WishlistCard';
@@ -21,31 +13,40 @@ export default class Wishlist extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wishlist: [
-        // {
-        //   product_id: 1,
-        //   sp: 100,
-        //   product_name: 'Random',
-        //   item_image:
-        //     'https://images.unsplash.com/photo-1622473590864-caf55d61c69d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
-        // },
-        // {
-        //   product_id: 2,
-        //   sp: 10,
-        //   product_name: 'Random',
-        //   item_image:
-        //     'https://images.unsplash.com/photo-1622510993112-b31de77a2424?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        // },
-        // {
-        //   product_id: 3,
-        //   sp: 100,
-        //   product_name: 'Random',
-        //   item_image:
-        //     'https://images.unsplash.com/photo-1612564148954-59545876eaa0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80',
-        // },
-      ],
+      wishlist: [],
     };
   }
+
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem('token');
+    global.accessToken = token;
+
+    if (token == undefined || token == null) {
+      Alert.alert(
+        'Wishlist',
+        'Login to view this page',
+        [
+          {
+            text: 'Cancel',
+            style: 'destructive',
+            onPress: () => this.props.navigation.goBack(),
+          },
+          {
+            text: 'Sign In',
+            onPress: () => this.props.navigation.navigate('Signin'),
+          },
+          {
+            text: 'Login',
+            onPress: () => this.props.navigation.navigate('Login'),
+          },
+        ],
+        {cancelable: false},
+      );
+    } else {
+      // this.getCart();
+    }
+  }
+
   render() {
     const {wishlist} = this.state;
     return (

@@ -40,6 +40,7 @@ export default class Cart extends Component {
           {
             text: 'Cancel',
             style: 'destructive',
+            onPress: () => this.props.navigation.goBack(),
           },
           {
             text: 'Sign In',
@@ -50,7 +51,7 @@ export default class Cart extends Component {
             onPress: () => this.props.navigation.navigate('Login'),
           },
         ],
-        {cancelable: true},
+        {cancelable: false},
       );
     } else {
       this.getCart();
