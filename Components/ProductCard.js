@@ -116,29 +116,31 @@ export default class ProductCard extends React.Component {
       return;
     }
 
-    if (value) {
-      WishlistHelper.add(id)
-        .then(data => {
-          if (data.code != 200) {
-            throw 'err';
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          this.setState({addedWishlist: !value});
-        });
-    } else {
-      WishlistHelper.delete(id)
-        .then(data => {
-          if (data.code != 200) {
-            throw 'err';
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          this.setState({addedWishlist: !value});
-        });
-    }
+    // if (value) {
+    WishlistHelper.add(id)
+      .then(data => {
+        if (data.code == 200) {
+          this.setState({added: true});
+        } else {
+          throw 'err';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({addedWishlist: !value});
+      });
+    // } else {
+    //   WishlistHelper.delete(id)
+    //     .then(data => {
+    //       if (data.code != 200) {
+    //         throw 'err';
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //       this.setState({addedWishlist: !value});
+    //     });
+    // }
   }
 
   render() {
@@ -186,13 +188,19 @@ export default class ProductCard extends React.Component {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.buttonWrapper}>
-              <CustomButton
-                wrapperStyle={{padding: 10}}
-                onPress={() => !added && this.addToCart()}>
-                {!added ? 'Add to Cart' : 'Added'}
-              </CustomButton>
-              <TouchableOpacity
+            {/* <View style={styles.buttonWrapper}> */}
+            <CustomButton
+              wrapperStyle={{padding: 10}}
+              onPress={() =>
+                !added && (stock <= 0 ? this.addToWishlist() : this.addToCart())
+              }>
+              {!added
+                ? stock <= 0
+                  ? 'Add to Wishlist'
+                  : 'Add to Cart'
+                : 'Added'}
+            </CustomButton>
+            {/* <TouchableOpacity
                 onPress={() => this.addToWishlist(!addedWishlist)}
                 style={[
                   styles.wishlistButton,
@@ -204,8 +212,8 @@ export default class ProductCard extends React.Component {
                   source={require('../Assets/icon-grey/wishlist.png')}
                   style={styles.wishlistImage}
                 />
-              </TouchableOpacity>
-            </View>
+              </TouchableOpacity> */}
+            {/* </View> */}
           </View>
         </View>
       </View>
