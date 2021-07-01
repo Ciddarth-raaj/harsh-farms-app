@@ -165,7 +165,7 @@ export default class ProductCard extends React.Component {
               <CustomButton
                 wrapperStyle={{padding: 10}}
                 onPress={() => !added && this.addToCart()}>
-                {!added ? 'Add to Cart' : 'Added to Cart'}
+                {!added ? 'Add to Cart' : 'Added'}
               </CustomButton>
               <TouchableOpacity
                 onPress={() => this.addToWishlist(!addedWishlist)}

@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../Constants/colors';
 import Styles from '../Constants/styles';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import GlobalWrapper from '../Components/GlobalWrapper';
-import WishlistCard from '../Components/WishlistCard';
+import ProductCard from '../Components/ProductCard';
 import CustomButton from '../Components/CustomButton';
+
+import WishlistHelper from '../helper/wishlist';
 
 export default class Wishlist extends Component {
   constructor(props) {
@@ -44,8 +45,16 @@ export default class Wishlist extends Component {
         {cancelable: false},
       );
     } else {
-      // this.getCart();
+      this.getWishlist();
     }
+  }
+
+  getWishlist() {
+    WishlistHelper.get()
+      .then(data => this.setState({wishlist: data}))
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -53,25 +62,30 @@ export default class Wishlist extends Component {
     return (
       <GlobalWrapper tag={'wishlist'} navigation={this.props.navigation}>
         {wishlist.length > 0 ? (
-          <View style={styles.mainWrapper}>
-            <Text style={styles.heading}>My Wishlist</Text>
-            {wishlist.map(c => (
-              <WishlistCard
-                id={c.product_id}
-                name={c.product_name}
-                price={c.sp}
-                image={c.item_image}
+          <View style={styles.wrapper}>
+            <Text style={styles.heading}>{'Wishlist'}</Text>
+            {wishlist.map(p => (
+              <ProductCard
+                id={p.product_id}
+                name={p.product_name}
+                mrp={p.original_price}
+                sp={p.selling_price}
+                image={p.image}
+                tag={p.batch_tag}
+                stock={p.available_stock}
+                navigation={this.props.navigation}
               />
             ))}
           </View>
         ) : (
-          <View style={styles.mainSubWrapper}>
+          <View style={styles.wrapper}>
             <Image
-              source={require('../Assets/wishlist.png')}
+              source={{
+                uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
+              }}
               style={styles.image}
             />
             <Text style={styles.heading}>Your Wishlist is empty</Text>
-
             <CustomButton
               onPress={() => this.props.navigation.navigate('Home')}>
               {'Start Adding'}
@@ -84,26 +98,12 @@ export default class Wishlist extends Component {
 }
 
 const styles = StyleSheet.create({
-  mainWrapper: {
-    padding: 20,
-  },
-  mainSubWrapper: {
-    padding: 20,
-    justifyContent: 'center',
+  wrapper: {
+    flex: 1,
+    display: 'flex',
     alignItems: 'center',
-  },
-  text: {
-    textAlign: 'right',
-    marginBottom: 10,
-    fontSize: 18,
-  },
-  shareButton: {
-    backgroundColor: Colors.primary,
-    padding: 10,
-    marginTop: 10,
-    borderRadius: 10,
-    alignItems: 'center',
-    width: 'auto',
+    flexDirection: 'column',
+    padding: 20,
   },
   heading: {
     textAlign: 'center',
@@ -117,6 +117,5 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     marginBottom: 40,
-    tintColor: Colors.secondary,
   },
 });

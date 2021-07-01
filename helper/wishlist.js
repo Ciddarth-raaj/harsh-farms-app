@@ -47,13 +47,13 @@ const wishlist = {
 
     data.forEach(d => {
       formatted.push({
-        cart_id: d.cart_id,
+        wishlist_id: d.wishlist_id,
         product_id: d.product_id,
         product_name: d.product_name,
-        qty: d.qty,
         image: d.image,
         original_price: parseFloat(d.original_price),
         selling_price: parseFloat(d.selling_price),
+        batch_tag: d.batch_tag,
         available_stock: d.available_stock,
         created_at: d.created_at,
         updated_at: d.updated_at,
