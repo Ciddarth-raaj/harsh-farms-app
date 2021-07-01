@@ -31,6 +31,10 @@ export default class MoreModal extends React.Component {
         icon: require('../Assets/logout.png'),
         onClick: async () => {
           await AsyncStorage.clear();
+          global.accessToken = undefined;
+          global.clt_type = undefined;
+          global.user_role_name = undefined;
+          global.username = undefined;
           this.props.navigation.reset({
             index: 0,
             routes: [{name: 'Home'}],

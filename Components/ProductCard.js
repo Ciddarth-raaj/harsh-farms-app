@@ -91,6 +91,31 @@ export default class ProductCard extends React.Component {
     const {id} = this.props;
     this.setState({addedWishlist: value});
 
+    const loggedIn = global.accessToken != undefined;
+
+    if (!loggedIn) {
+      Alert.alert(
+        'Add to Wishlist',
+        'Login to Continue',
+        [
+          {
+            text: 'Cancel',
+            style: 'destructive',
+          },
+          {
+            text: 'Sign In',
+            onPress: () => this.props.navigation.navigate('Signin'),
+          },
+          {
+            text: 'Login',
+            onPress: () => this.props.navigation.navigate('Login'),
+          },
+        ],
+        {cancelable: true},
+      );
+      return;
+    }
+
     if (value) {
       WishlistHelper.add(id)
         .then(data => {
