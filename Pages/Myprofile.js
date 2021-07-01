@@ -68,7 +68,7 @@ export default class Myprofile extends Component {
       showCurrentPassword,
     } = this.state;
     return (
-      <GlobalWrapper>
+      <GlobalWrapper navigation={this.props.navigation}>
         <View style={styles.wrapper}>
           <Text style={styles.heading}>My Profile</Text>
 
