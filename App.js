@@ -15,9 +15,9 @@ import Wishlist from './Pages/Wishlist';
 import Listing from './Pages/Listing';
 import Payment from './Pages/Payment';
 import Categories from './Components/Categories';
-import Myprofile from './Pages/Myprofile';
+import MyProfile from './Pages/MyProfile';
 import About from './Pages/About';
-import Myorders from './Pages/Myorders';
+import MyOrders from './Pages/MyOrders';
 import Version from './Pages/Version';
 
 import global from './Constants/variables';
@@ -78,9 +78,9 @@ export default class App extends React.Component {
           <Stack.Screen name="Listing" component={Listing} />
           <Stack.Screen name="Payment" component={Payment} />
           <Stack.Screen name="Categories" component={Categories} />
-          <Stack.Screen name="Myprofile" component={Myprofile} />
+          <Stack.Screen name="MyProfile" component={MyProfile} />
           <Stack.Screen name="About" component={About} />
-          <Stack.Screen name="Myorders" component={Myorders} />
+          <Stack.Screen name="MyOrders" component={MyOrders} />
           <Stack.Screen name="Version" component={Version} />
         </Stack.Navigator>
       </NavigationContainer>

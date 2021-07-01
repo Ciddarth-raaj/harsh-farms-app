@@ -5,7 +5,7 @@ import Colors from '../Constants/colors';
 
 import GlobalWrapper from '../Components/GlobalWrapper';
 
-export default class Myorders extends Component {
+export default class MyOrders extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,7 +60,7 @@ export default class Myorders extends Component {
   render() {
     const {colums, orders} = this.state;
     return (
-      <GlobalWrapper>
+      <GlobalWrapper navigation={this.props.navigation}>
         <View>
           <View style={styles.tableHeader}>
             {colums.map((c, index) => {

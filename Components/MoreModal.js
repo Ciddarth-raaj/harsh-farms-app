@@ -19,7 +19,12 @@ export default class MoreModal extends React.Component {
       {
         title: 'My Profile',
         icon: require('../Assets/profile.png'),
-        onClick: () => this.props.navigation.navigate('Myprofile'),
+        onClick: () => this.props.navigation.navigate('MyProfile'),
+      },
+      {
+        title: 'My Orders',
+        icon: require('../Assets/profile.png'),
+        onClick: () => this.props.navigation.navigate('MyOrders'),
       },
       {
         title: 'Logout',

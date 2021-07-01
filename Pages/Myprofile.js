@@ -21,7 +21,7 @@ import CustomInputText from '../Components/CustomTextInput';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import CustomButton from '../Components/CustomButton';
 
-export default class Myprofile extends Component {
+export default class MyProfile extends Component {
   constructor(props) {
     super(props);
 
