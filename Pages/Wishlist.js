@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GlobalWrapper from '../Components/GlobalWrapper';
 import WishlistCard from '../Components/WishlistCard';
+import CustomButton from '../Components/CustomButton';
 
 export default class Wishlist extends Component {
   constructor(props) {
@@ -58,25 +59,23 @@ export default class Wishlist extends Component {
               <WishlistCard
                 id={c.product_id}
                 name={c.product_name}
-                // updateCart={this.updateCart}
                 price={c.sp}
                 image={c.item_image}
               />
             ))}
-            {/* <WishlistCard /> */}
           </View>
         ) : (
           <View style={styles.mainSubWrapper}>
             <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
-              }}
+              source={require('../Assets/wishlist.png')}
               style={styles.image}
             />
             <Text style={styles.heading}>Your Wishlist is empty</Text>
-            <Text style={styles.heading}>
-              Add items to your wishlist and they will appear here
-            </Text>
+
+            <CustomButton
+              onPress={() => this.props.navigation.navigate('Home')}>
+              {'Start Adding'}
+            </CustomButton>
           </View>
         )}
       </GlobalWrapper>
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: Colors.primary,
+    color: Colors.secondary,
     marginBottom: 20,
   },
   image: {
@@ -118,5 +117,6 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     marginBottom: 40,
+    tintColor: Colors.secondary,
   },
 });
