@@ -21,6 +21,7 @@ export default class ProductCard extends React.Component {
     this.state = {
       qty: 1,
       added: false,
+      addedWishlist: props.addedWishlist,
     };
   }
 
@@ -86,7 +87,7 @@ export default class ProductCard extends React.Component {
   };
 
   render() {
-    const {qty, added} = this.state;
+    const {qty, added, addedWishlist} = this.state;
     const {id, name, mrp, sp, image, tag, stock} = this.props;
 
     return (
@@ -130,11 +131,26 @@ export default class ProductCard extends React.Component {
               </TouchableOpacity>
             </View>
 
-            <CustomButton
-              wrapperStyle={{padding: 10}}
-              onPress={() => !added && this.addToCart()}>
-              {!added ? 'Add to Cart' : 'Added to Cart'}
-            </CustomButton>
+            <View style={styles.buttonWrapper}>
+              <CustomButton
+                wrapperStyle={{padding: 10}}
+                onPress={() => !added && this.addToCart()}>
+                {!added ? 'Add to Cart' : 'Added to Cart'}
+              </CustomButton>
+              <TouchableOpacity
+                onPress={() => this.setState({addedWishlist: !addedWishlist})}
+                style={[
+                  styles.wishlistButton,
+                  addedWishlist
+                    ? {backgroundColor: 'gold'}
+                    : {backgroundColor: '#C9C9C9'},
+                ]}>
+                <Image
+                  source={require('../Assets/icon-grey/wishlist.png')}
+                  style={styles.wishlistImage}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -257,5 +273,21 @@ const styles = StyleSheet.create({
   qtyText: {
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+  },
+  wishlistButton: {
+    width: 35,
+    height: 35,
+    padding: 7,
+    marginLeft: 10,
+    borderRadius: 30,
+    alignSelf: 'center',
+  },
+  wishlistImage: {
+    width: '100%',
+    height: '100%',
+    tintColor: 'white',
   },
 });
