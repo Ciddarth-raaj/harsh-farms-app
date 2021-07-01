@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-  SafeAreaView,
   View,
   Text,
   StyleSheet,
@@ -19,41 +18,49 @@ export default class CategoriesModal extends React.Component {
     this.state = {
       categories: [
         {
+          id: '1',
           category_name: 'Branded Foods',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         },
         {
+          id: '2',
           category_name: 'Beverages',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         },
         {
+          id: '3',
           category_name: 'HouseHolds',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         },
         {
+          id: '4',
           category_name: 'Kitchen needs',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         },
         {
+          id: '5',
           category_name: 'Seeds',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         },
         {
+          id: '6',
           category_name: 'Baby Care',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         },
         {
+          id: '7',
           category_name: 'Baby Care',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
         },
         {
+          id: '8',
           category_name: 'Baby Care',
           image:
             'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
@@ -94,7 +101,15 @@ export default class CategoriesModal extends React.Component {
               </TouchableOpacity>
               <Text style={styles.heading}>Categories</Text>
               {categories.map(c => (
-                <TouchableOpacity style={styles.listItem}>
+                <TouchableOpacity
+                  style={styles.listItem}
+                  onPress={() => {
+                    setVisibility(false);
+                    this.props.navigation.replace('Listing', {
+                      category_id: c.id,
+                      category_name: c.category_name,
+                    });
+                  }}>
                   <Image
                     source={{
                       uri: c.image,
