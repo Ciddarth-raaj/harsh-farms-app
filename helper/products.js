@@ -1,9 +1,10 @@
 import API from '../util/api';
 
 const products = {
-  get: () =>
+  get: filterData =>
     new Promise(function (resolve, reject) {
-      API.get('/product')
+      let filterUrl = products.getFilterUrl(filterData);
+      API.get('/product?' + filterUrl)
         .then(async res => {
           if (res.status === 200) {
             resolve(products.format(res.data));
@@ -15,6 +16,21 @@ const products = {
           reject(err);
         });
     }),
+  getFilterUrl: filter => {
+    if (filter == undefined) {
+      return '';
+    }
+
+    let filterUrl = '';
+
+    if (filter.categories !== undefined && filter.categories.length > 0) {
+      filter.categories.forEach(
+        (b, i) => (filterUrl += '&category_ids[' + i + ']=' + b),
+      );
+    }
+
+    return filterUrl;
+  },
   format: data => {
     const formatted = [];
 

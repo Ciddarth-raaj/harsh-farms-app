@@ -69,7 +69,7 @@ export default class CategoriesModal extends React.Component {
                   onPress={() => {
                     setVisibility(false);
                     this.props.navigation.replace('Listing', {
-                      category_id: c.id,
+                      category_id: c.category_id,
                       category_name: c.category_name,
                     });
                   }}>

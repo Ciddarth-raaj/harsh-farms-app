@@ -20,12 +20,18 @@ export default class Listing extends React.Component {
 
   componentDidMount() {
     const params = this.props.route.params;
-    this.setState({pageName: params['category_name']});
-    this.getProducts();
+    const filterData = {};
+
+    if (params['category_name'] != undefined) {
+      this.setState({pageName: params['category_name']});
+      filterData['categories'] = [params['category_id']];
+    }
+
+    this.getProducts(filterData);
   }
 
-  getProducts() {
-    ProductHelper.get()
+  getProducts(filterData) {
+    ProductHelper.get(filterData)
       .then(data => {
         this.setState({product_listing: data});
       })
@@ -35,21 +41,31 @@ export default class Listing extends React.Component {
   render() {
     const {product_listing, pageName} = this.state;
     return (
-      <GlobalWrapper navigation={this.props.navigation}>
+      <GlobalWrapper navigation={this.props.navigation} tag={'category'}>
         <Text style={styles.heading}>{pageName}</Text>
         <View style={styles.wrapper}>
-          {product_listing.map(p => (
-            <ProductCard
-              id={p.product_id}
-              name={p.product_name}
-              mrp={p.original_price}
-              sp={p.selling_price}
-              image={p.image}
-              tag={p.batch_tag}
-              stock={p.available_stock}
-              navigation={this.props.navigation}
-            />
-          ))}
+          {product_listing.length > 0 ? (
+            product_listing.map(p => (
+              <ProductCard
+                id={p.product_id}
+                name={p.product_name}
+                mrp={p.original_price}
+                sp={p.selling_price}
+                image={p.image}
+                tag={p.batch_tag}
+                stock={p.available_stock}
+                navigation={this.props.navigation}
+              />
+            ))
+          ) : (
+            <Text
+              style={[
+                styles.heading,
+                {color: Colors.primary, fontWeight: '500'},
+              ]}>
+              {'No Products Found!'}
+            </Text>
+          )}
         </View>
       </GlobalWrapper>
     );
