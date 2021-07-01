@@ -13,54 +13,14 @@ import {
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
 
+import CategoriesModal from './CategoriesModal';
+
 export default class FooterMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
+      showCategories: false,
       showMore: false,
-      categories: [
-        {
-          category_name: 'Branded Foods',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          category_name: 'Beverages',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          category_name: 'HouseHolds',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          category_name: 'Kitchen needs',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          category_name: 'Seeds',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          category_name: 'Baby Care',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          category_name: 'Baby Care',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          category_name: 'Baby Care',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-      ],
       menu: {
         home: {
           title: 'Home',
@@ -105,7 +65,7 @@ export default class FooterMenu extends React.Component {
         category: {
           title: 'Category',
           selected: false,
-          action: () => this.openModal(),
+          action: () => this.setState({showCategories: true}),
           icon: require('../Assets/icon-grey/category.png'),
           selectedIcon: require('../Assets/icon-selected/category.png'),
         },
@@ -118,12 +78,6 @@ export default class FooterMenu extends React.Component {
         },
       },
     };
-  }
-
-  openModal() {
-    this.setState({
-      show: true,
-    });
   }
 
   openMoreModal() {
@@ -143,7 +97,7 @@ export default class FooterMenu extends React.Component {
   }
 
   render() {
-    const {menu, categories} = this.state;
+    const {menu, showCategories} = this.state;
     return (
       <View style={styles.wrapper}>
         <View style={styles.footerMenu}>
@@ -176,78 +130,13 @@ export default class FooterMenu extends React.Component {
             </TouchableOpacity>
           ))}
         </View>
-        <Modal
-          visible={this.state.show}
-          animationType={'fade'}
-          transparent={true}>
-          <View style={styles.modalContainer}>
-            {/* <Header /> */}
-            <ScrollView>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  paddingRight: 10,
-                  paddingTop: 10,
-                }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    this.setState({
-                      show: false,
-                    });
-                  }}>
-                  <Image
-                    style={{height: 30, width: 30}}
-                    // style={styles.closeImage}
-                    source={require('../Assets/close-red.png')}
-                  />
-                </TouchableOpacity>
-              </View>
-              {/* <Text
-                style={styles.backText}
-                onPress={() => {
-                  this.setState({
-                    show: false,
-                  });
-                }}>
-                Close
-              </Text> */}
-              <Text style={styles.heading}>Categories</Text>
-              {categories.map(c => (
-                <View style={styles.modalWrapper}>
-                  <View style={styles.innerWrapper}>
-                    <View>
-                      <Image
-                        source={{
-                          uri: c.image,
-                        }}
-                        style={styles.image}
-                      />
-                    </View>
 
-                    <View style={styles.contentWrapper}>
-                      <View
-                        onPress={() => {
-                          this.setState({
-                            show: false,
-                          });
-                        }}>
-                        <Text
-                          onPress={() =>
-                            this.props.navigation.navigate('Listing')
-                          }
-                          style={styles.nameText}>
-                          {c.category_name}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={styles.line} />
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-        </Modal>
+        <CategoriesModal
+          visiblilty={showCategories}
+          setVisibility={v => {
+            this.setState({showCategories: v});
+          }}
+        />
 
         <Modal
           visible={this.state.showMore}
