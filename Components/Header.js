@@ -15,10 +15,6 @@ export default class Header extends React.Component {
           />
           <Text style={styles.companyName}>{'Harsh Farms'}</Text>
         </View>
-        {/* <Image
-          source={require('../Assets/search.png')}
-          style={styles.searchImage}
-        /> */}
       </View>
     );
   }
@@ -32,7 +28,7 @@ const styles = StyleSheet.create({
     // marginBottom: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#73AB00',
+    backgroundColor: Colors.primary,
     width: '100%',
     padding: 10,
     paddingBottom: 12,
