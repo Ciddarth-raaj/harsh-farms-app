@@ -18,24 +18,30 @@ export default class Login extends Component {
       showPassword: true,
       username: '',
       password: '',
+      error: {
+        username: false,
+        password: false,
+      },
     };
   }
 
   onSubmit() {
-    const {username, password} = this.state;
-    const alertInitText = 'Fill these fields to continue:\n';
-    let alertText = alertInitText;
+    const {username, password, error} = this.state;
+    let count = 0;
 
     if (username == '') {
-      alertText += '• Username\n';
+      count++;
+      error['username'] = true;
     }
 
     if (password == '') {
-      alertText += '• Password\n';
+      count++;
+      error['password'] = true;
     }
 
-    if (alertText !== alertInitText) {
-      alert(alertText);
+    if (count > 0) {
+      this.setState({error: error});
+      alert('Please fill all fields!');
       return;
     }
 
@@ -63,8 +69,13 @@ export default class Login extends Component {
       });
   }
 
+  setError = (val, key) => {
+    const {error} = this.state;
+    error[key] = val;
+  };
+
   render() {
-    const {username, password, showPassword} = this.state;
+    const {username, password, showPassword, error} = this.state;
     return (
       <GlobalWrapper tag={'login'} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
@@ -74,16 +85,24 @@ export default class Login extends Component {
               maxLength={100}
               value={username}
               label={'Username'}
-              onChangeText={value => this.setState({username: value})}
+              onChangeText={value => {
+                this.setState({username: value});
+                this.setError(false, 'username');
+              }}
+              error={error['username']}
             />
 
             <CustomInputText
               label={'Password'}
               value={password}
               maxLength={100}
-              onChangeText={value => this.setState({password: value})}
+              onChangeText={value => {
+                this.setState({password: value});
+                this.setError(false, 'password');
+              }}
               secureTextEntry={showPassword}
               toggleSecure={v => this.setState({showPassword: v})}
+              error={error['password']}
             />
 
             <CustomButton

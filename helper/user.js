@@ -23,7 +23,6 @@ const user = {
         type: '1',
       })
         .then(async res => {
-          console.log(res.data);
           if (res.status === 200) {
             resolve(res.data);
           } else {
