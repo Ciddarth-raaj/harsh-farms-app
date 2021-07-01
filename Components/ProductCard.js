@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     height: 35,
     padding: 7,
     marginLeft: 10,
-    borderRadius: 30,
+    borderRadius: 10,
     alignSelf: 'center',
   },
   wishlistImage: {
