@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   View,
   Text,
@@ -9,13 +8,14 @@ import {
   Image,
   Modal,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../Constants/colors';
 
 export default class MoreModal extends React.Component {
   constructor(props) {
     super(props);
-    const LOGGED_IN_MENU = [
+    this.LOGGED_IN_MENU = [
       {
         title: 'My Profile',
         icon: require('../Assets/profile.png'),
@@ -24,11 +24,14 @@ export default class MoreModal extends React.Component {
       {
         title: 'Logout',
         icon: require('../Assets/logout.png'),
-        onClick: () => this.props.navigation.navigate('Myprofile'),
+        onClick: async () => {
+          await AsyncStorage.clear();
+          this.props.navigation.navigate('Home');
+        },
       },
     ];
 
-    const LOGGED_OUT_MENU = [
+    this.LOGGED_OUT_MENU = [
       {
         title: 'Signin',
         icon: require('../Assets/register.png'),
@@ -37,13 +40,12 @@ export default class MoreModal extends React.Component {
       {
         title: 'Login',
         icon: require('../Assets/login.png'),
-        onClick: () => this.props.navigation.navigate('Login'),
+        onClick: () => {},
       },
     ];
 
     this.state = {
       menuItem: [
-        ...LOGGED_OUT_MENU,
         {
           title: 'Version Details',
           icon: require('../Assets/cart.png'),
@@ -51,6 +53,18 @@ export default class MoreModal extends React.Component {
         },
       ],
     };
+  }
+
+  async componentDidMount() {
+    const {menuItem} = this.state;
+    const token = await AsyncStorage.getItem('token');
+    if (token != undefined && token != null) {
+      menuItem.splice(0, 0, ...this.LOGGED_IN_MENU);
+    } else {
+      menuItem.splice(0, 0, ...this.LOGGED_OUT_MENU);
+    }
+
+    this.setState({menuItem});
   }
 
   render() {
