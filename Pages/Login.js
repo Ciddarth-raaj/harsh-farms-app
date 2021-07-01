@@ -55,7 +55,10 @@ export default class Login extends Component {
           );
           global.accessToken = data.token;
           global.clt_type = data.clt_type_id.toString();
-          this.props.navigation.navigate('Home');
+          this.props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
         } else if (data.code == 201) {
           alert('Your account was deactivated!');
         } else if (data.code == 404) {

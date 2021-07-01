@@ -51,7 +51,10 @@ export default class Eua extends React.Component {
           global.accessToken = data.token;
           global.clt_type = data.clt_type_id.toString();
           alert('Account successfully created!');
-          this.props.navigation.navigate('Home');
+          this.props.navigation.reset({
+            index: 0,
+            routes: [{name: 'Home'}],
+          });
         } else if (data.code == 101) {
           alert('Phone number already exists!');
           this.props.navigation.goBack();
