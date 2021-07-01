@@ -232,10 +232,14 @@ export default class Signin extends Component {
             autoCompleteType={'name'}
           />
 
+          <Text
+            style={[styles.label, error['selectedSociety'] && {color: 'red'}]}>
+            {'Society'}
+          </Text>
           <View
             style={[
               styles.input,
-              {marginTop: 5, marginBottom: 15},
+              {marginBottom: 15},
               error['selectedSociety'] ? {borderColor: 'red'} : {},
             ]}>
             <RNPickerSelect
@@ -244,24 +248,6 @@ export default class Signin extends Component {
               placeholder={{label: 'Select a Society...', value: null}}
             />
           </View>
-
-          {/* <View style={styles.textAreaContainer}>
-            <Picker
-              selectedValue={selectedSociety}
-              style={styles.input}
-              style={{borderWidth: 1, color: 'gray'}}
-              onValueChange={itemValue =>
-                this.setState({selectedSociety: itemValue})
-              }>
-              {society.map((s, i) => (
-                <Picker.Item
-                  key={'picker-item-' + i}
-                  label={s.society_name}
-                  value={s.society_id}
-                />
-              ))}
-            </Picker>
-          </View> */}
 
           <View style={styles.accountDetailsSection}>
             <Text style={styles.subHeading}>Account Details</Text>
@@ -309,7 +295,6 @@ const styles = StyleSheet.create({
   wrapper: {
     padding: 20,
   },
-
   input: {
     height: 40,
     borderWidth: 2,
@@ -318,6 +303,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 5,
     justifyContent: 'center',
+  },
+  label: {
+    color: 'grey',
+    fontWeight: '500',
+    marginBottom: 5,
+    fontSize: 12,
   },
   heading: {
     textAlign: 'center',
