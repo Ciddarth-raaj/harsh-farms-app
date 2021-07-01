@@ -12,61 +12,24 @@ import {
 
 import Colors from '../Constants/colors';
 
+import CategoryHelper from '../helper/category';
+
 export default class CategoriesModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [
-        {
-          id: '1',
-          category_name: 'Branded Foods',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: '2',
-          category_name: 'Beverages',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: '3',
-          category_name: 'HouseHolds',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: '4',
-          category_name: 'Kitchen needs',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: '5',
-          category_name: 'Seeds',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: '6',
-          category_name: 'Baby Care',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: '7',
-          category_name: 'Baby Care',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: '8',
-          category_name: 'Baby Care',
-          image:
-            'https://images.unsplash.com/photo-1622790210211-b5c39301578a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
-        },
-      ],
+      categories: [],
     };
+  }
+
+  componentDidMount() {
+    this.getCategory();
+  }
+
+  getCategory() {
+    CategoryHelper.get()
+      .then(data => this.setState({categories: data}))
+      .catch(err => console.log(err));
   }
 
   render() {
