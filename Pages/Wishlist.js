@@ -74,7 +74,7 @@ export default class Wishlist extends Component {
                 tag={p.batch_tag}
                 stock={p.available_stock}
                 navigation={this.props.navigation}
-                addedWishlist={true}
+                type={'wishlist'}
               />
             ))}
           </View>

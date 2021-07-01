@@ -22,7 +22,6 @@ export default class ProductCard extends React.Component {
     this.state = {
       qty: 1,
       added: false,
-      addedWishlist: props.addedWishlist,
     };
   }
 
@@ -68,6 +67,11 @@ export default class ProductCard extends React.Component {
       return;
     }
 
+    if (stock <= 0) {
+      alert('No stock available!');
+      return;
+    }
+
     if (qty > stock) {
       alert(`Only ${stock} available in stock!`);
       return;
@@ -89,8 +93,6 @@ export default class ProductCard extends React.Component {
 
   addToWishlist(value) {
     const {id} = this.props;
-    this.setState({addedWishlist: value});
-
     const loggedIn = global.accessToken != undefined;
 
     if (!loggedIn) {
@@ -127,7 +129,6 @@ export default class ProductCard extends React.Component {
       })
       .catch(err => {
         console.log(err);
-        this.setState({addedWishlist: !value});
       });
     // } else {
     //   WishlistHelper.delete(id)
@@ -144,8 +145,8 @@ export default class ProductCard extends React.Component {
   }
 
   render() {
-    const {qty, added, addedWishlist} = this.state;
-    const {id, name, mrp, sp, image, tag, stock} = this.props;
+    const {qty, added} = this.state;
+    const {id, name, mrp, sp, image, tag, stock, type} = this.props;
 
     return (
       <View style={styles.wrapper}>
@@ -161,7 +162,9 @@ export default class ProductCard extends React.Component {
               }}
               style={styles.image}
             />
-            <Text style={styles.stockText}>{`${stock} Left in Stock`}</Text>
+            <Text style={styles.stockText}>
+              {stock <= 0 ? 'No Stock' : `${stock} Left in Stock`}
+            </Text>
           </View>
 
           <View style={styles.contentWrapper}>
@@ -190,12 +193,19 @@ export default class ProductCard extends React.Component {
 
             {/* <View style={styles.buttonWrapper}> */}
             <CustomButton
-              wrapperStyle={{padding: 10}}
+              wrapperStyle={[
+                {padding: 10, maxHeight: 45},
+                stock <= 0 &&
+                  type == 'wishlist' && {backgroundColor: '#c9c9c9'},
+              ]}
               onPress={() =>
-                !added && (stock <= 0 ? this.addToWishlist() : this.addToCart())
+                !added &&
+                (stock <= 0 && type != 'wishlist'
+                  ? this.addToWishlist()
+                  : this.addToCart())
               }>
               {!added
-                ? stock <= 0
+                ? stock <= 0 && type != 'wishlist'
                   ? 'Add to Wishlist'
                   : 'Add to Cart'
                 : 'Added'}
