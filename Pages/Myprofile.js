@@ -135,6 +135,32 @@ export default class MyProfile extends Component {
       alert('Please check all the values!');
       return;
     }
+
+    if (newPass != confirmPass) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    if (newPass == currentPass) {
+      alert('Current Password and New Password cannot be the same');
+      return;
+    }
+
+    UserHelper.updatePassword(currentPass, newPass)
+      .then(data => {
+        if (data.code == 200) {
+          alert('Password Updated!');
+          this.setState({newPass: '', confirmPass: '', currentPass: ''});
+        } else if (data.code == 404) {
+          alert('Invalid Password!');
+        } else {
+          throw 'error';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error updating password!');
+      });
   }
 
   setError = (val, key) => {
