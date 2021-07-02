@@ -30,6 +30,16 @@ export default class MyProfile extends Component {
       address: '',
       selectedSociety: '',
       society: [],
+      error: {
+        name: false,
+        phone: false,
+        email: false,
+        address: false,
+        selectedSociety: false,
+        newPass: false,
+        confirmPass: false,
+        currentPass: false,
+      },
     };
   }
 
@@ -70,8 +80,66 @@ export default class MyProfile extends Component {
       .catch(err => console.log(err));
   }
 
-  onEditPress = () => {
-    this.setState({TextInputDisableStatus: true});
+  onEditPress() {
+    const {name, email, address, selectedSociety, error} = this.state;
+    let count = 0;
+
+    if (name == '') {
+      count++;
+      error['name'] = true;
+    }
+
+    if (email == '') {
+      count++;
+      error['email'] = true;
+    }
+
+    if (address == '') {
+      count++;
+      error['address'] = true;
+    }
+
+    if (selectedSociety == 0 || selectedSociety == undefined) {
+      count++;
+      error['selectedSociety'] = true;
+    }
+
+    if (count > 0) {
+      this.setState({error: error});
+      alert('Please check all the values!');
+      return;
+    }
+  }
+
+  onUpdatePassword() {
+    const {newPass, confirmPass, currentPass, error} = this.state;
+    let count = 0;
+
+    if (newPass == '') {
+      count++;
+      error['newPass'] = true;
+    }
+
+    if (confirmPass == '') {
+      count++;
+      error['confirmPass'] = true;
+    }
+
+    if (currentPass == '') {
+      count++;
+      error['currentPass'] = true;
+    }
+
+    if (count > 0) {
+      this.setState({error: error});
+      alert('Please check all the values!');
+      return;
+    }
+  }
+
+  setError = (val, key) => {
+    const {error} = this.state;
+    error[key] = val;
   };
 
   render() {
@@ -88,7 +156,7 @@ export default class MyProfile extends Component {
       showConfirmPassword,
       showNewPassword,
       showCurrentPassword,
-
+      error,
       society,
     } = this.state;
     return (
@@ -108,7 +176,11 @@ export default class MyProfile extends Component {
             label={'Name'}
             value={name}
             editable={true}
-            onChangeText={value => this.setState({name: value})}
+            error={error['name']}
+            onChangeText={value => {
+              this.setState({name: value});
+              this.setError(false, 'name');
+            }}
           />
 
           <CustomInputText
@@ -116,7 +188,11 @@ export default class MyProfile extends Component {
             value={phone}
             keyboardType="numeric"
             editable={false}
-            onChangeText={value => thi.setState({phone: value})}
+            error={error['phone']}
+            onChangeText={value => {
+              this.setState({phone: value});
+              this.setError(false, 'phone');
+            }}
           />
 
           <Text style={styles.subText}>
@@ -127,7 +203,11 @@ export default class MyProfile extends Component {
             label={'Email'}
             value={email}
             editable={true}
-            onChangeText={value => this.setState({email: value})}
+            error={error['email']}
+            onChangeText={value => {
+              this.setState({email: value});
+              this.setError(false, 'email');
+            }}
           />
 
           <CustomInputText
@@ -136,16 +216,29 @@ export default class MyProfile extends Component {
             numberOfLines={10}
             multiline={true}
             maxLength={400}
+            error={error['address']}
             underlineColorAndroid="transparent"
-            onChangeText={value => this.setState({address: value})}
+            onChangeText={value => {
+              this.setState({address: value});
+              this.setError(false, 'address');
+            }}
           />
 
-          <Text style={[styles.label]}>{'Society'}</Text>
-          <View style={[styles.input, {marginBottom: 15}]}>
+          <Text
+            style={[styles.label, error['selectedSociety'] && {color: 'red'}]}>
+            {'Society'}
+          </Text>
+          <View
+            style={[
+              styles.input,
+              {marginBottom: 15},
+              error['selectedSociety'] ? {borderColor: 'red'} : {},
+            ]}>
             <RNPickerSelect
               value={selectedSociety}
               onValueChange={value => {
                 this.setState({selectedSociety: value});
+                this.setError(false, 'selectedSociety');
               }}
               items={society}
               placeholder={{label: 'Select a Society...', value: null}}
@@ -153,7 +246,7 @@ export default class MyProfile extends Component {
           </View>
 
           <CustomButton
-            onPress={this.onEditPress}
+            onPress={() => this.onEditPress()}
             wrapperStyle={{marginBottom: 30}}>
             {'Update Details'}
           </CustomButton>
@@ -164,16 +257,24 @@ export default class MyProfile extends Component {
             label={'Current Password'}
             value={currentPass}
             maxLength={100}
-            onChangeText={value => this.setState({currentPass: value})}
+            onChangeText={value => {
+              this.setState({currentPass: value});
+              this.setError(false, 'currentPass');
+            }}
             secureTextEntry={showCurrentPassword}
+            error={error['currentPass']}
             toggleSecure={v => this.setState({showCurrentPassword: v})}
           />
           <CustomInputText
             label={'New Password'}
             value={newPass}
             maxLength={100}
-            onChangeText={value => this.setState({newPass: value})}
+            onChangeText={value => {
+              this.setState({newPass: value});
+              this.setError(false, 'newPass');
+            }}
             secureTextEntry={showNewPassword}
+            error={error['newPass']}
             toggleSecure={v => this.setState({showNewPassword: v})}
           />
 
@@ -181,8 +282,12 @@ export default class MyProfile extends Component {
             label={'Confirm Password'}
             value={confirmPass}
             maxLength={100}
-            onChangeText={value => this.setState({confirmPass: value})}
+            onChangeText={value => {
+              this.setState({confirmPass: value});
+              this.setError(false, 'confirmPass');
+            }}
             secureTextEntry={showConfirmPassword}
+            error={error['confirmPass']}
             toggleSecure={v => this.setState({showConfirmPassword: v})}
             customStyle={{marginBottom: 15}}
           />
@@ -194,7 +299,9 @@ export default class MyProfile extends Component {
           </Text> */}
 
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <CustomButton>{'Confirm'}</CustomButton>
+            <CustomButton onPress={() => this.onUpdatePassword()}>
+              {'Confirm'}
+            </CustomButton>
             {/* <CustomButton wrapperStyle={{marginLeft: 10}}>
               {'Cancel'}
             </CustomButton> */}
