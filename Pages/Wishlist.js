@@ -81,9 +81,7 @@ export default class Wishlist extends Component {
         ) : (
           <View style={styles.wrapper}>
             <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
-              }}
+              source={require('../Assets/wishlist.png')}
               style={styles.image}
             />
             <Text style={styles.heading}>Your Wishlist is empty</Text>
@@ -118,5 +116,6 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     marginBottom: 40,
+    tintColor: Colors.secondary,
   },
 });
