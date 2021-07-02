@@ -109,6 +109,26 @@ export default class MyProfile extends Component {
       alert('Please check all the values!');
       return;
     }
+
+    const data = {
+      name: name,
+      email_id: email,
+      society_id: selectedSociety,
+      address: address,
+    };
+
+    UserHelper.update(data)
+      .then(data => {
+        if (data.code == 200) {
+          alert('Updated Details!');
+        } else {
+          throw 'err';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error updating details!');
+      });
   }
 
   onUpdatePassword() {
