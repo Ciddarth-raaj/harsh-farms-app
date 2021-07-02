@@ -9,6 +9,7 @@ import GlobalWrapper from '../Components/GlobalWrapper';
 import ProductCard from '../Components/ProductCard';
 
 import ProductHelper from '../helper/products';
+import BannersHelper from '../helper/banners';
 
 const images = [
   'https://images.unsplash.com/photo-1593642634443-44adaa06623a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1850&q=80',
@@ -21,17 +22,29 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       product_listing: [],
+      banners: [],
     };
   }
 
   async componentDidMount() {
-    this.getProducts();
-
     const accessToken = await AsyncStorage.getItem('token');
     if (accessToken != undefined && accessToken != null) {
       global.accessToken = accessToken;
       global.clt_type = await AsyncStorage.getItem('clt-type-id');
     }
+
+    this.getProducts();
+    this.getBanners();
+  }
+
+  getBanners() {
+    BannersHelper.get()
+      .then(data => {
+        this.setState({banners: data});
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   getProducts() {
@@ -43,7 +56,7 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const {product_listing} = this.state;
+    const {product_listing, banners} = this.state;
     return (
       <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
         <View>
@@ -61,16 +74,8 @@ export default class Home extends React.Component {
             </View>
           </View>
         </View>
-        <ImageCarousel
-          data={[
-            {
-              url: 'https://i2.wp.com/kgsadvisors.com/wp-content/uploads/2020/06/Hero-Banner-Placeholder-Light-1024x480-1.png?fit=1024%2C480&ssl=1',
-            },
-            {
-              url: 'https://www.cellmax.eu/wp-content/uploads/2020/01/Hero-Banner-Placeholder-Dark-1024x480-1.png',
-            },
-          ]}
-        />
+
+        {banners.length > 0 && <ImageCarousel data={banners} />}
 
         <Text style={styles.heading}>New Products</Text>
 
