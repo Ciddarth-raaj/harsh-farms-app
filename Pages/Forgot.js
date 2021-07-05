@@ -26,7 +26,8 @@ export default class Forgot extends React.Component {
     this.state = {
       showPassword: true,
       showConfirmPassword: true,
-      phone: '8890637892',
+      // phone: '9003945219',
+      phone: '9003945219',
       password: '',
       sentOtp: false,
       confirmPass: '',
@@ -73,18 +74,18 @@ export default class Forgot extends React.Component {
     const alertInitText = 'Fill these fields to continue:\n';
     let alertText = alertInitText;
 
+    if (otp == '') {
+      alertText += '• OTP\n';
+    } else if (isNaN(otp)) {
+      alertText += '• Invalid OTP\n';
+    }
+
     if (password == '') {
       alertText += '• Password\n';
     }
 
     if (confirmPass == '') {
       alertText += '• Confirm Password\n';
-    }
-
-    if (otp == '') {
-      alertText += '• OTP\n';
-    } else if (isNaN(otp)) {
-      alertText += '• Invalid OTP\n';
     }
 
     if (alertText !== alertInitText) {
@@ -115,6 +116,7 @@ export default class Forgot extends React.Component {
               label={'Phone Number'}
               value={phone}
               keyboardType="numeric"
+              editable={!sentOtp}
               onChangeText={value =>
                 this.setState({
                   phone: value,
@@ -198,10 +200,7 @@ export default class Forgot extends React.Component {
                   hidden: false,
                 });
                 this.intervalTimer();
-              }}
-              // onPress={() => (sentOtp ? this.checkInput() : this.sendOtp())
-              // }
-            >
+              }}>
               <Text style={Styles.buttonText}>Send OTP</Text>
             </TouchableOpacity>
           )}
@@ -268,7 +267,7 @@ const styles = StyleSheet.create({
   },
   bottomText: {
     fontSize: 14,
-    color: '#0088ff',
+    color: Colors.secondary,
     textAlign: 'center',
     marginBottom: 21,
   },
