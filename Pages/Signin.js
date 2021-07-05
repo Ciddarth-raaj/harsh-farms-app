@@ -184,7 +184,6 @@ export default class Signin extends Component {
             label={'Name'}
             maxLength={100}
             value={name}
-            customStyle={{borderColor: 'red'}}
             onChangeText={value => {
               this.setState({name: value});
               this.setError(false, 'name');
