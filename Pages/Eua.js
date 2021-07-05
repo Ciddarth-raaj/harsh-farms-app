@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'orange',
+    color: Colors.secondary,
     marginBottom: 20,
   },
   buttonDiv: {
