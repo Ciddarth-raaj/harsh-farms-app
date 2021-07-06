@@ -35,8 +35,18 @@ export default class Forgot extends React.Component {
       timer: 60,
       hidden: true,
       hiden: true,
+      error: {
+        otp: false,
+        password: false,
+        confirmPass: false,
+      },
     };
   }
+
+  setError = (val, key) => {
+    const {error} = this.state;
+    error[key] = val;
+  };
 
   toggleSwitch() {
     this.setState({showPassword: !this.state.showPassword});
@@ -70,28 +80,50 @@ export default class Forgot extends React.Component {
   }
 
   onSubmit() {
-    const {password, confirmPass, otp} = this.state;
-    const alertInitText = 'Fill these fields to continue:\n';
-    let alertText = alertInitText;
+    const {password, confirmPass, otp, error} = this.state;
+    let count = 0;
 
     if (otp == '') {
-      alertText += '• OTP\n';
-    } else if (isNaN(otp)) {
-      alertText += '• Invalid OTP\n';
+      count++;
+      error['otp'] = true;
     }
 
     if (password == '') {
-      alertText += '• Password\n';
+      count++;
+      error['password'] = true;
     }
 
     if (confirmPass == '') {
-      alertText += '• Confirm Password\n';
+      count++;
+      error['confirmPass'] = true;
     }
 
-    if (alertText !== alertInitText) {
-      alert(alertText);
+    if (count > 0) {
+      this.setState({error: error});
+      alert('Please fill all fields!');
       return;
     }
+    // const alertInitText = 'Fill these fields to continue:\n';
+    // let alertText = alertInitText;
+
+    // if (otp == '') {
+    //   alertText += '• OTP\n';
+    // } else if (isNaN(otp)) {
+    //   alertText += '• Invalid OTP\n';
+    // }
+
+    // if (password == '') {
+    //   alertText += '• Password\n';
+    // }
+
+    // if (confirmPass == '') {
+    //   alertText += '• Confirm Password\n';
+    // }
+
+    // if (alertText !== alertInitText) {
+    //   alert(alertText);
+    //   return;
+    // }
   }
 
   render() {
@@ -105,6 +137,7 @@ export default class Forgot extends React.Component {
       hidden,
       showPassword,
       showConfirmPassword,
+      error,
     } = this.state;
     return (
       <GlobalWrapper disableFooter={true} navigation={this.props.navigation}>
@@ -117,11 +150,11 @@ export default class Forgot extends React.Component {
               value={phone}
               keyboardType="numeric"
               editable={!sentOtp}
-              onChangeText={value =>
+              onChangeText={value => {
                 this.setState({
                   phone: value,
-                })
-              }
+                });
+              }}
             />
           </View>
 
@@ -131,20 +164,26 @@ export default class Forgot extends React.Component {
                 maxLength={4}
                 label={'OTP'}
                 value={otp}
-                onChangeText={value =>
+                onChangeText={value => {
                   this.setState({
                     otp: value,
-                  })
-                }
+                  });
+                  this.setError(false, 'otp');
+                }}
+                error={error['otp']}
               />
 
               <CustomInputText
                 label={'Password'}
                 maxLength={100}
                 value={password}
-                onChangeText={value => this.setState({password: value})}
+                onChangeText={value => {
+                  this.setState({password: value});
+                  this.setError(false, 'password');
+                }}
                 secureTextEntry={showPassword}
                 toggleSecure={v => this.setState({showPassword: v})}
+                error={error['password']}
               />
 
               <CustomInputText
@@ -153,7 +192,11 @@ export default class Forgot extends React.Component {
                 maxLength={100}
                 onChangeText={value => this.setState({confirmPass: value})}
                 secureTextEntry={showConfirmPassword}
-                toggleSecure={v => this.setState({showConfirmPassword: v})}
+                toggleSecure={v => {
+                  this.setState({showConfirmPassword: v});
+                  this.setError(false, 'confirmPass');
+                }}
+                error={error['confirmPass']}
               />
             </View>
           )}
