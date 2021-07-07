@@ -1,5 +1,11 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, View} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  StatusBar,
+} from 'react-native';
 
 import Colors from '../Constants/colors';
 
@@ -17,6 +23,10 @@ export default class GlobalWrapper extends React.Component {
       <>
         <SafeAreaView style={{backgroundColor: Colors.primary}} />
         <SafeAreaView style={{height: '100%'}}>
+          <StatusBar
+            backgroundColor={Colors.primaryDark}
+            barStyle="light-content"
+          />
           <Header />
           <View style={{flex: 1, height: '100%'}}>
             <View style={{flex: 7}}>
