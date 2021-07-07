@@ -1,23 +1,15 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Dimensions,
-} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+
 import GlobalWrapper from '../Components/GlobalWrapper';
+
 import Colors from '../Constants/colors';
 export default class Version extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      version_id: '1.6.12',
-      release_date: '10th June 2021',
+      version_id: '1.0.0 - Alpha',
+      release_date: '8th July, 2021',
     };
   }
   render() {
@@ -25,13 +17,17 @@ export default class Version extends Component {
     return (
       <GlobalWrapper navigation={this.props.navigation}>
         <Text style={styles.heading}>Version Details</Text>
+
         <View style={styles.mainWrapper}>
-          <Text style={styles.subHeading}>Version ID : </Text>
-          <Text style={styles.subHeadingContent}>{version_id}</Text>
-        </View>
-        <View style={styles.mainWrapper}>
-          <Text style={styles.subHeading}>Release Date : </Text>
+          <Text style={styles.subHeading}>{'Release Date'}</Text>
+          <Text style={{marginHorizontal: 5}}>{':'}</Text>
           <Text style={styles.subHeadingContent}>{release_date}</Text>
+        </View>
+
+        <View style={styles.mainWrapper}>
+          <Text style={styles.subHeading}>{'Version ID'}</Text>
+          <Text style={{marginHorizontal: 5}}>{':'}</Text>
+          <Text style={styles.subHeadingContent}>{version_id}</Text>
         </View>
       </GlobalWrapper>
     );
@@ -45,19 +41,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   subHeading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontSize: 18,
     color: Colors.primary,
-    marginBottom: 10,
-    width: '50%',
-    textAlign: 'right',
   },
   heading: {
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: 'orange',
+    color: Colors.secondary,
     marginBottom: 30,
     marginTop: 30,
   },
@@ -67,12 +59,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   subHeadingContent: {
-    textAlign: 'center',
-    fontWeight: 'bold',
     fontSize: 18,
-    color: Colors.primary,
-    marginBottom: 10,
-    width: '50%',
+    color: Colors.secondaryLight,
     textAlign: 'left',
   },
 });
