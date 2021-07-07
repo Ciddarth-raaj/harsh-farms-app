@@ -60,7 +60,7 @@ export default class MoreModal extends React.Component {
       menuItem: [
         {
           title: 'Version Details',
-          icon: require('../Assets/cart.png'),
+          icon: require('../Assets/version.png'),
           onClick: () => this.props.navigation.navigate('Version'),
         },
       ],
