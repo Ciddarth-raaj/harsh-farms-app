@@ -35,25 +35,19 @@ export default class FooterMenu extends React.Component {
         category: {
           title: 'Category',
           selected: false,
-          action: () => this.setState({showCategories: true}),
+          action: () => this.setModal('category', 'showCategories', true),
           icon: require('../Assets/icon-grey/category.png'),
           selectedIcon: require('../Assets/icon-selected/category.png'),
         },
         more: {
           title: 'More',
           selected: false,
-          action: () => this.openMoreModal(),
-          // action: () => props.navigation.navigate('Wishlist'),
+          // action: v => this.setState({showMore: v}),
+          action: () => this.setModal('more', 'showMore', true),
           icon: require('../Assets/icon-grey/more.png'),
         },
       },
     };
-  }
-
-  openMoreModal() {
-    this.setState({
-      showMore: true,
-    });
   }
 
   componentDidMount() {
@@ -66,6 +60,21 @@ export default class FooterMenu extends React.Component {
     }
   }
 
+  setModal = (key, stateKey, value) => {
+    const {menu} = this.state;
+    const {tag} = this.props;
+
+    for (let k of Object.keys(menu)) {
+      if (k == key) {
+        menu[k].selected = value;
+        this.setState({[stateKey]: value});
+        break;
+      }
+    }
+    menu[tag].selected = !value;
+    this.setState({menu: menu});
+  };
+
   render() {
     const {menu, showCategories, showMore} = this.state;
     return (
@@ -74,18 +83,15 @@ export default class FooterMenu extends React.Component {
           {Object.keys(menu).map(m => (
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={
-                (() => {
-                  // this.props.navigation.navigate(menu[m].pageName);
-                },
-                menu[m].action)
-              }>
+              onPress={() => menu[m].action()}>
               <View>
                 <Image
                   source={menu[m].icon}
                   style={[
                     styles.menuIcon,
-                    {tintColor: menu[m].selected ? Colors.primary : 'none'},
+                    {
+                      tintColor: menu[m].selected ? Colors.primary : '#e9e9e9',
+                    },
                   ]}
                 />
               </View>
@@ -104,7 +110,7 @@ export default class FooterMenu extends React.Component {
         <CategoriesModal
           visiblilty={showCategories}
           setVisibility={v => {
-            this.setState({showCategories: v});
+            this.setModal('category', 'showCategories', v);
           }}
           navigation={this.props.navigation}
         />
@@ -112,7 +118,7 @@ export default class FooterMenu extends React.Component {
         <MoreModal
           visiblilty={showMore}
           setVisibility={v => {
-            this.setState({showMore: v});
+            this.setModal('more', 'showMore', v);
           }}
           navigation={this.props.navigation}
         />
