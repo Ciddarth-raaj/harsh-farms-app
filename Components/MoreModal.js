@@ -71,9 +71,9 @@ export default class MoreModal extends React.Component {
     const {menuItem} = this.state;
     const token = await AsyncStorage.getItem('token');
     if (token != undefined && token != null) {
-      menuItem.splice(0, 0, ...this.LOGGED_IN_MENU);
+      menuItem.splice(1, 0, ...this.LOGGED_IN_MENU);
     } else {
-      menuItem.splice(0, 0, ...this.LOGGED_OUT_MENU);
+      menuItem.splice(1, 0, ...this.LOGGED_OUT_MENU);
     }
 
     this.setState({menuItem});
