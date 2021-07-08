@@ -25,6 +25,8 @@ const category = {
         image: d.image,
         is_active: d.is_active == '1' ? true : false,
         created_at: d.created_at,
+        displaySub: false,
+        subCategory: [],
       });
     });
 

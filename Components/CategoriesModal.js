@@ -19,50 +19,49 @@ export default class CategoriesModal extends React.Component {
     super(props);
     this.state = {
       categories: [
-        {
-          category_id: 1,
-          category_name: 'Fruits',
-          created_at: '2021-06-22T06:36:49.000Z',
-          image:
-            'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
-          is_active: true,
-          displaySub: false,
-          subCategory: [
-            {
-              subcategory_id: 1,
-              subcategory_name: 'test 1',
-              image:
-                'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
-            },
-            {
-              subcategory_id: 1,
-              subcategory_name: 'test 1',
-              image:
-                'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
-            },
-          ],
-        },
-        {
-          category_id: 2,
-          category_name: 'Test',
-          created_at: '2021-06-28T04:33:41.000Z',
-          image:
-            'http://192.168.1.7:8080/uploads/test-8a85d20d-68db-4e05-a6d5-cada0f7aea87.jpg',
-          is_active: true,
-          displaySub: false,
-        },
+        // {
+        //   category_id: 1,
+        //   category_name: 'Fruits',
+        //   created_at: '2021-06-22T06:36:49.000Z',
+        //   image:
+        //     'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
+        //   is_active: true,
+        //   displaySub: false,
+        //   subCategory: [
+        //     {
+        //       subcategory_id: 1,
+        //       subcategory_name: 'test 1',
+        //       image:
+        //         'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
+        //     },
+        //     {
+        //       subcategory_id: 1,
+        //       subcategory_name: 'test 1',
+        //       image:
+        //         'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
+        //     },
+        //   ],
+        // },
+        // {
+        //   category_id: 2,
+        //   category_name: 'Test',
+        //   created_at: '2021-06-28T04:33:41.000Z',
+        //   image:
+        //     'http://192.168.1.7:8080/uploads/test-8a85d20d-68db-4e05-a6d5-cada0f7aea87.jpg',
+        //   is_active: true,
+        //   displaySub: false,
+        // },
       ],
     };
   }
 
   componentDidMount() {
-    // this.getCategory();
+    this.getCategory();
   }
 
   getCategory() {
     CategoryHelper.get()
       .then(data => {
-        console.log(data);
         this.setState({categories: data});
       })
       .catch(err => console.log(err));
