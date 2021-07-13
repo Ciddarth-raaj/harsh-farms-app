@@ -35,6 +35,10 @@ const products = {
       );
     }
 
+    if (filter.search !== undefined) {
+      filterUrl += '&search=' + filter.search;
+    }
+
     return filterUrl;
   },
   format: data => {

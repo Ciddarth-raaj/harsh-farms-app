@@ -28,6 +28,8 @@ export default class Listing extends React.Component {
         filterData['categories'] = [params['id']];
       } else if (params['type'] == 'subcat') {
         filterData['subcategories'] = [params['id']];
+      } else if (params['type'] == 'search') {
+        filterData['search'] = params['title'];
       }
     }
 
