@@ -18,40 +18,7 @@ export default class CategoriesModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [
-        // {
-        //   category_id: 1,
-        //   category_name: 'Fruits',
-        //   created_at: '2021-06-22T06:36:49.000Z',
-        //   image:
-        //     'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
-        //   is_active: true,
-        //   displaySub: false,
-        //   subCategory: [
-        //     {
-        //       subcategory_id: 1,
-        //       subcategory_name: 'test 1',
-        //       image:
-        //         'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
-        //     },
-        //     {
-        //       subcategory_id: 1,
-        //       subcategory_name: 'test 1',
-        //       image:
-        //         'http://192.168.1.7:8080/uploads/fruits-9127376d-94c1-4a66-bae3-c575eddfae56.jpg',
-        //     },
-        //   ],
-        // },
-        // {
-        //   category_id: 2,
-        //   category_name: 'Test',
-        //   created_at: '2021-06-28T04:33:41.000Z',
-        //   image:
-        //     'http://192.168.1.7:8080/uploads/test-8a85d20d-68db-4e05-a6d5-cada0f7aea87.jpg',
-        //   is_active: true,
-        //   displaySub: false,
-        // },
-      ],
+      categories: [],
     };
   }
 
@@ -80,6 +47,7 @@ export default class CategoriesModal extends React.Component {
   }
 
   menuItem = (id, title, image, subList, displaySub) => {
+    const {setVisibility} = this.props;
     return (
       <>
         <TouchableOpacity
@@ -102,7 +70,15 @@ export default class CategoriesModal extends React.Component {
             <TouchableOpacity
               style={styles.arrow}
               onPress={() => this.setSubCatDisplay(id, !displaySub)}>
-              <Text>{displaySub ? 'X' : '>'}</Text>
+              {/* <Text>{displaySub ? 'X' : '>'}</Text> */}
+              <Image
+                style={{width: 15, height: 15, tintColor: Colors.primary}}
+                source={
+                  displaySub
+                    ? require('../Assets/arrow-top.png')
+                    : require('../Assets/arrow-right.png')
+                }
+              />
             </TouchableOpacity>
           )}
         </TouchableOpacity>
