@@ -199,7 +199,7 @@ export default class Cart extends Component {
 
             <CustomButton
               wrapperStyle={{marginTop: 15}}
-              onPress={() => this.props.navigation.navigate('Payment')}>
+              onPress={() => this.props.navigation.navigate('Checkout')}>
               {'Proceed to Buy'}
             </CustomButton>
           </View>
