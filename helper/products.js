@@ -29,6 +29,12 @@ const products = {
       );
     }
 
+    if (filter.subcategories !== undefined && filter.subcategories.length > 0) {
+      filter.subcategories.forEach(
+        (b, i) => (filterUrl += '&subcategory_ids[' + i + ']=' + b),
+      );
+    }
+
     return filterUrl;
   },
   format: data => {

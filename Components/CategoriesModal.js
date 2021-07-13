@@ -46,7 +46,7 @@ export default class CategoriesModal extends React.Component {
     }
   }
 
-  menuItem = (id, title, image, subList, displaySub) => {
+  menuItem = (id, title, image, type, subList, displaySub) => {
     const {setVisibility} = this.props;
     return (
       <>
@@ -55,8 +55,9 @@ export default class CategoriesModal extends React.Component {
           onPress={() => {
             setVisibility(false);
             this.props.navigation.replace('Listing', {
-              category_id: id,
-              category_name: title,
+              id: id,
+              title: title,
+              type: type,
             });
           }}>
           <Image
@@ -85,7 +86,12 @@ export default class CategoriesModal extends React.Component {
         {displaySub && (
           <View style={{marginLeft: 20}}>
             {subList?.map(s =>
-              this.menuItem(s.subcategory_id, s.subcategory_name, s.image),
+              this.menuItem(
+                s.subcategory_id,
+                s.subcategory_name,
+                s.image,
+                'subcat',
+              ),
             )}
           </View>
         )}
@@ -130,6 +136,7 @@ export default class CategoriesModal extends React.Component {
                     c.category_id,
                     c.category_name,
                     c.image,
+                    'cat',
                     c.subCategory,
                     c.displaySub,
                   ),
