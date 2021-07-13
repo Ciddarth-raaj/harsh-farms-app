@@ -348,9 +348,6 @@ export default class MyProfile extends Component {
             <CustomButton onPress={() => this.onUpdatePassword()}>
               {'Confirm'}
             </CustomButton>
-            {/* <CustomButton wrapperStyle={{marginLeft: 10}}>
-              {'Cancel'}
-            </CustomButton> */}
           </View>
         </View>
       </GlobalWrapper>
