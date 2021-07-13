@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import GlobalWrapper from './GlobalWrapper';
 import Colors from '../Constants/colors';
+import Styles from '../Constants/styles';
 
 export default class Categories extends Component {
   constructor(props) {
@@ -78,7 +79,7 @@ export default class Categories extends Component {
                   }}>
                   Go Back
                 </Text> */}
-            <Text style={styles.heading}>Categories</Text>
+            <Text style={Styles.heading}>Categories</Text>
             {categories.map(c => (
               <View style={styles.modalWrapper}>
                 <View style={styles.innerWrapper}>
@@ -223,12 +224,5 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 16,
     paddingRight: 20,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.primary,
-    marginBottom: 20,
   },
 });

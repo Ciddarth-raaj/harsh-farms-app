@@ -14,6 +14,8 @@ import Colors from '../Constants/colors';
 
 import CategoryHelper from '../helper/category';
 
+import Styles from '../Constants/styles';
+
 export default class CategoriesModal extends React.Component {
   constructor(props) {
     super(props);
@@ -147,7 +149,11 @@ export default class CategoriesModal extends React.Component {
                   source={require('../Assets/close-red.png')}
                 />
               </TouchableOpacity>
-              <Text style={styles.heading}>Categories</Text>
+              <Text
+                styles={{marginBottom: -10, marginTop: 20}}
+                style={Styles.heading}>
+                Categories
+              </Text>
               {categories.map(
                 c =>
                   this.menuItem(
@@ -200,14 +206,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.primary,
-    marginBottom: 20,
-    marginTop: -10,
-  },
+
   listItem: {
     flexDirection: 'row',
     marginBottom: 10,

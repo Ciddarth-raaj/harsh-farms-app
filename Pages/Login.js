@@ -82,7 +82,7 @@ export default class Login extends Component {
     return (
       <GlobalWrapper tag={'login'} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
-          <Text style={styles.heading}>Login</Text>
+          <Text style={Styles.heading}>Login</Text>
           <View style={styles.fieldHolder}>
             <CustomInputText
               maxLength={100}

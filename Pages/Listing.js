@@ -42,7 +42,7 @@ export default class Listing extends React.Component {
     const {product_listing, pageName} = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation} tag={'category'}>
-        <Text style={styles.heading}>{pageName}</Text>
+        <Text style={Styles.heading}>{pageName}</Text>
         <View style={styles.wrapper}>
           {product_listing.length > 0 ? (
             product_listing.map(p => (
@@ -60,7 +60,7 @@ export default class Listing extends React.Component {
           ) : (
             <Text
               style={[
-                styles.heading,
+                Styles.heading,
                 {color: Colors.primary, fontWeight: '500'},
               ]}>
               {'No Products Found!'}
@@ -76,12 +76,5 @@ const styles = StyleSheet.create({
   wrapper: {
     padding: 20,
     flex: 1,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginTop: 20,
   },
 });

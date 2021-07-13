@@ -4,6 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import GlobalWrapper from '../Components/GlobalWrapper';
 
 import Colors from '../Constants/colors';
+import Styles from '../Constants/styles';
 export default class Version extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +17,9 @@ export default class Version extends Component {
     const {version_id, release_date} = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation}>
-        <Text style={styles.heading}>Version Details</Text>
+        <View style={{marginBottom: 10, marginTop: 30}}>
+          <Text style={Styles.heading}>Version Details</Text>
+        </View>
 
         <View style={styles.mainWrapper}>
           <Text style={styles.subHeading}>{'Release Date'}</Text>
@@ -45,14 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.primary,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 30,
-    marginTop: 30,
-  },
+
   mainWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',

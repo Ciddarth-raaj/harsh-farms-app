@@ -178,8 +178,8 @@ export default class Signin extends Component {
     return (
       <GlobalWrapper tag={'signin'} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
-          <Text style={styles.heading}>Sign Up</Text>
-          <Text style={styles.subHeading}>Personal Details</Text>
+          <Text style={Styles.heading}>Sign Up</Text>
+          <Text style={Styles.secondaryHeading}>Personal Details</Text>
           <CustomInputText
             label={'Name'}
             maxLength={100}
@@ -249,7 +249,7 @@ export default class Signin extends Component {
           </View>
 
           <View style={styles.accountDetailsSection}>
-            <Text style={styles.subHeading}>Account Details</Text>
+            <Text style={Styles.heading}>Account Details</Text>
             <View>
               <CustomInputText
                 label={'Password'}

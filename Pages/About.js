@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import Header from '../Components/Header';
+import Styles from '../Constants/styles';
 
 export default class About extends Component {
   constructor(props) {
@@ -32,7 +33,9 @@ export default class About extends Component {
         <ScrollView>
           <Header />
           <View style={styles.wrapper}>
-            <Text style={styles.heading}>About us</Text>
+            <Text styles={{marginBottom: 20}} style={Styles.heading}>
+              About us
+            </Text>
 
             <View style={styles.mainSubWrapper}>
               <Image
@@ -42,7 +45,7 @@ export default class About extends Component {
                 style={styles.image}
               />
 
-              <Text style={styles.subHeading}>{about}</Text>
+              <Text style={Styles.subHeading}>{about}</Text>
             </View>
           </View>
         </ScrollView>
@@ -56,13 +59,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 20,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: 'orange',
-    marginBottom: 40,
-  },
+
   mainSubWrapper: {
     padding: 20,
     justifyContent: 'center',

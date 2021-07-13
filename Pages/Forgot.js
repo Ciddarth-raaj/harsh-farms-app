@@ -109,7 +109,7 @@ export default class Forgot extends React.Component {
     return (
       <GlobalWrapper disableFooter={true} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
-          <Text style={styles.heading}>Forgot Password</Text>
+          <Text style={Styles.heading}>Forgot Password</Text>
 
           <View style={styles.fieldHolder}>
             <CustomInputText
@@ -220,11 +220,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     width: '100%',
-  },
-  heading: {
-    marginBottom: 20,
-    fontWeight: 'bold',
-    fontSize: 25,
   },
   input: {
     position: 'relative',

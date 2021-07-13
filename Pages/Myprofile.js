@@ -208,7 +208,7 @@ export default class MyProfile extends Component {
     return (
       <GlobalWrapper navigation={this.props.navigation}>
         <View style={styles.wrapper}>
-          <Text style={styles.heading}>My Profile</Text>
+          <Text style={Styles.heading}>My Profile</Text>
 
           <Text style={styles.subHeading}>Profile Details</Text>
           {/* <CustomInputText
@@ -361,13 +361,6 @@ export default class MyProfile extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     padding: 20,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginBottom: 30,
-    color: Colors.secondary,
   },
   input: {
     height: 40,

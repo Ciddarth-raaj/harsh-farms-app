@@ -10,6 +10,7 @@ import ProductCard from '../Components/ProductCard';
 
 import ProductHelper from '../helper/products';
 import BannersHelper from '../helper/banners';
+import Styles from '../Constants/styles';
 
 const images = [
   'https://images.unsplash.com/photo-1593642634443-44adaa06623a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1850&q=80',
@@ -77,7 +78,7 @@ export default class Home extends React.Component {
 
         {banners.length > 0 && <ImageCarousel data={banners} />}
 
-        <Text style={styles.heading}>New Products</Text>
+        <Text style={Styles.heading}>New Products</Text>
 
         <View style={styles.wrapper}>
           {product_listing.map(p => (
@@ -130,13 +131,5 @@ const styles = StyleSheet.create({
     width: 25,
     resizeMode: 'stretch',
     alignItems: 'center',
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 0,
-    marginTop: 20,
   },
 });
