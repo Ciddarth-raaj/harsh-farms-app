@@ -25,35 +25,19 @@ export default class Checkout extends React.Component {
 
     this.payment_methods = [
       {
-        label: 'Google pay',
+        label: 'Cash on Delivery',
       },
       {
-        label: 'Paytm',
-      },
-      {
-        label: 'Netbanking',
+        label: 'Online Payment',
       },
     ];
   }
   render() {
     return (
-      <GlobalWrapper>
+      <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
         <SafeAreaView>
-          {/* <Header /> */}
-          {/* <View style={styles.mainWrapper}>
-            <Text style={styles.heading}>Choose your payment option</Text>
-
-            <TouchableOpacity style={styles.shareButton}>
-              <Text style={{color: 'white'}}>Google Pay</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.shareButton}>
-              <Text style={{color: 'white'}}>Paytm</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.shareButton}>
-              <Text style={{color: 'white'}}>Net Banking</Text>
-            </TouchableOpacity>
-          </View> */}
           <View style={styles.mainWrapper}>
+            <Text style={styles.heading}>{'Checkout'}</Text>
             <RadioButtonRN
               data={this.payment_methods}
               selectedBtn={e => this.setState({res: e})}
@@ -75,7 +59,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 20,
-    color: Colors.primary,
+    color: Colors.secondary,
     marginBottom: 20,
   },
   shareButton: {

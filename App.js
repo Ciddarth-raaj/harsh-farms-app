@@ -15,9 +15,9 @@ import Wishlist from './Pages/Wishlist';
 import Listing from './Pages/Listing';
 import Checkout from './Pages/Checkout';
 import Categories from './Components/Categories';
-import MyProfile from './Pages/Myprofile';
+import MyProfile from './Pages/MyProfile';
 import About from './Pages/About';
-import MyOrders from './Pages/Myorders';
+import MyOrders from './Pages/MyOrders';
 import Version from './Pages/Version';
 
 import global from './Constants/variables';
