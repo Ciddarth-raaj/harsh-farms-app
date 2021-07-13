@@ -85,7 +85,7 @@ export default class CategoriesModal extends React.Component {
         <TouchableOpacity
           style={styles.listItem}
           onPress={() => {
-            setVisibility(false);
+            // setVisibility(false);
             this.props.navigation.replace('Listing', {
               category_id: id,
               category_name: title,

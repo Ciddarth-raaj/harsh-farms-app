@@ -13,14 +13,34 @@ import {
 import GlobalWrapper from '../Components/GlobalWrapper';
 import Header from '../Components/Header';
 import Colors from '../Constants/colors';
+import RadioButtonRN from 'radio-buttons-react-native';
 
 export default class Checkout extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      res: {},
+    };
+
+    this.payment_methods = [
+      {
+        label: 'Google pay',
+      },
+      {
+        label: 'Paytm',
+      },
+      {
+        label: 'Netbanking',
+      },
+    ];
+  }
   render() {
     return (
       <GlobalWrapper>
         <SafeAreaView>
           {/* <Header /> */}
-          <View style={styles.mainWrapper}>
+          {/* <View style={styles.mainWrapper}>
             <Text style={styles.heading}>Choose your payment option</Text>
 
             <TouchableOpacity style={styles.shareButton}>
@@ -32,6 +52,14 @@ export default class Checkout extends React.Component {
             <TouchableOpacity style={styles.shareButton}>
               <Text style={{color: 'white'}}>Net Banking</Text>
             </TouchableOpacity>
+          </View> */}
+          <View style={styles.mainWrapper}>
+            <RadioButtonRN
+              data={this.payment_methods}
+              selectedBtn={e => this.setState({res: e})}
+              circleSize={16}
+              activeColor="#306b67"
+            />
           </View>
         </SafeAreaView>
       </GlobalWrapper>
