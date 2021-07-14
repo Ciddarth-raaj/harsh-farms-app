@@ -29,10 +29,12 @@ export default class GlobalWrapper extends React.Component {
           />
           <Header />
           <View style={{flex: 1, height: '100%'}}>
-            <View style={{flex: 7, paddingBottom: disableFooter ? 20 : 0}}>
+            <View style={{flex: 7, paddingBottom: disableFooter ? 10 : 0}}>
               <ScrollView style={{height: '100%'}}>{children}</ScrollView>
             </View>
-            {!disableFooter && (
+            {disableFooter ? (
+              <SafeAreaView />
+            ) : (
               <View style={{flex: 1}}>
                 <FooterMenu tag={tag} navigation={navigation} />
               </View>
