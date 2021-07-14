@@ -309,13 +309,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 12,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.primary,
-    marginBottom: 20,
-  },
   subHeading: {
     textAlign: 'center',
     marginBottom: 10,
