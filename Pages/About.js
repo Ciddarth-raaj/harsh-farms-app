@@ -22,7 +22,7 @@ export default class About extends Component {
 
     this.state = {
       about:
-        'There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain... There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...',
+        'Harsh Farms Mission is to supply the best tasting and finest Quality Fruits, Fresh Vegetables, Fresh Leafy Vegetables, Fresh Beans, Dry Items, Powder Items  directly from farm to our customers. Through our farming farmers, we aiming to have a maximum amount of organic produce as possible. Our farm provides online bookings and online payments only. Our farm provides delivery service to your residence or designated pick up points depending on your location.',
     };
   }
   render() {
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   mainSubWrapper: {
-    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -77,7 +76,8 @@ const styles = StyleSheet.create({
   subHeading: {
     marginBottom: 30,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     color: 'grey',
+    textAlign: 'center',
   },
 });
