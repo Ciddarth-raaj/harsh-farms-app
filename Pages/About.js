@@ -40,13 +40,7 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 20,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: 'orange',
-    marginBottom: 40,
-  },
+
   mainSubWrapper: {
     justifyContent: 'center',
     alignItems: 'center',

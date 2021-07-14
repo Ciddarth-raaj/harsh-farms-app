@@ -11,6 +11,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../Constants/colors';
+import Styles from '../Constants/styles';
 
 export default class MoreModal extends React.Component {
   constructor(props) {
@@ -113,7 +114,11 @@ export default class MoreModal extends React.Component {
                   source={require('../Assets/close-red.png')}
                 />
               </TouchableOpacity>
-              <Text style={styles.heading}>More Menu</Text>
+              <Text
+                styles={{marginBottom: -10, marginTop: 20}}
+                style={Styles.heading}>
+                More Menu
+              </Text>
               {menuItem.map(v => (
                 <TouchableOpacity
                   style={styles.listItem}
@@ -150,14 +155,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.primary,
-    marginBottom: 20,
-    marginTop: -10,
-  },
+
   listItem: {
     flexDirection: 'row',
     marginBottom: 10,

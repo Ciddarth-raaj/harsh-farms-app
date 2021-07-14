@@ -12,6 +12,8 @@ import numberFormatter from '../util/numberFormatter';
 import CartHelper from '../helper/cart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import Styles from '../Constants/styles';
+
 export default class Cart extends Component {
   constructor(props) {
     super(props);
@@ -152,7 +154,7 @@ export default class Cart extends Component {
       <GlobalWrapper tag={'cart'} navigation={this.props.navigation}>
         {cart.length > 0 ? (
           <View style={styles.mainWrapper}>
-            <Text style={styles.heading}>My Cart</Text>
+            <Text style={Styles.heading}>My Cart</Text>
 
             {cart.map(c => (
               <CartCard
@@ -199,7 +201,7 @@ export default class Cart extends Component {
 
             <CustomButton
               wrapperStyle={{marginTop: 15}}
-              onPress={() => this.props.navigation.navigate('Payment')}>
+              onPress={() => this.props.navigation.navigate('Checkout')}>
               {'Proceed to Buy'}
             </CustomButton>
           </View>
@@ -209,7 +211,7 @@ export default class Cart extends Component {
               source={require('../Assets/cart.png')}
               style={styles.image}
             />
-            <Text style={styles.heading}>Your Cart is empty</Text>
+            <Text style={Styles.heading}>Your Cart is empty</Text>
             <CustomButton
               onPress={() => this.props.navigation.navigate('Home')}>
               {'Start Shopping'}
@@ -233,13 +235,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 'auto',
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 20,
-  },
+
   image: {
     width: 200,
     height: 200,

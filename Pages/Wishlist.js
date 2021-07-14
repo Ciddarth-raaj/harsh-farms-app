@@ -63,7 +63,7 @@ export default class Wishlist extends Component {
       <GlobalWrapper tag={'wishlist'} navigation={this.props.navigation}>
         {wishlist.length > 0 ? (
           <View style={styles.wrapper}>
-            <Text style={styles.heading}>{'Wishlist'}</Text>
+            <Text style={Styles.heading}>{'Wishlist'}</Text>
             {wishlist.map(p => (
               <ProductCard
                 id={p.product_id}
@@ -84,7 +84,7 @@ export default class Wishlist extends Component {
               source={require('../Assets/wishlist.png')}
               style={styles.image}
             />
-            <Text style={styles.heading}>Your Wishlist is empty</Text>
+            <Text style={Styles.heading}>Your Wishlist is empty</Text>
             <CustomButton
               onPress={() => this.props.navigation.navigate('Home')}>
               {'Start Adding'}
@@ -103,13 +103,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     padding: 20,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 20,
   },
   image: {
     width: 200,
