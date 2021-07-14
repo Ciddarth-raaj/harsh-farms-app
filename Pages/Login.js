@@ -130,13 +130,6 @@ const styles = StyleSheet.create({
     padding: 20,
     marginTop: 100,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 20,
-  },
   bottomText: {
     fontSize: 14,
     color: Colors.secondary,

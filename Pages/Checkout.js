@@ -217,7 +217,7 @@ export default class Checkout extends React.Component {
               wrapperStyle={{marginBottom: 30}}>
               {'Update Details'}
             </CustomButton>
-            <Text style={styles.heading}>{'Checkout'}</Text>
+            <Text style={Styles.heading}>{'Checkout'}</Text>
             <RadioButtonRN
               data={this.payment_methods}
               selectedBtn={e => this.setState({res: e})}
@@ -234,13 +234,6 @@ export default class Checkout extends React.Component {
 const styles = StyleSheet.create({
   mainWrapper: {
     padding: 20,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 20,
   },
   shareButton: {
     backgroundColor: Colors.primary,

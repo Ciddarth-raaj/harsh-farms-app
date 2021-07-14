@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   subHeading: {
-    // fontWeight: 'bold',
     fontSize: 18,
     color: Colors.primary,
   },
