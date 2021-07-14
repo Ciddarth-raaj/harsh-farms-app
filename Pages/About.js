@@ -1,20 +1,7 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Share,
-  Button,
-  Picker,
-  TextInput,
-  Switch,
-  ScrollView,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 
-import Header from '../Components/Header';
+import GlobalWrapper from '../Components/GlobalWrapper';
 
 export default class About extends Component {
   constructor(props) {
@@ -28,25 +15,22 @@ export default class About extends Component {
   render() {
     const {about} = this.state;
     return (
-      <SafeAreaView>
-        <ScrollView>
-          <Header />
-          <View style={styles.wrapper}>
-            <Text style={styles.heading}>About us</Text>
+      <GlobalWrapper navigation={this.props.navigation}>
+        <View style={styles.wrapper}>
+          <Text style={styles.heading}>About us</Text>
 
-            <View style={styles.mainSubWrapper}>
-              <Image
-                source={{
-                  uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
-                }}
-                style={styles.image}
-              />
+          <View style={styles.mainSubWrapper}>
+            <Image
+              source={{
+                uri: 'https://images.unsplash.com/photo-1539799827118-e091578f7011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80',
+              }}
+              style={styles.image}
+            />
 
-              <Text style={styles.subHeading}>{about}</Text>
-            </View>
+            <Text style={styles.subHeading}>{about}</Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
+        </View>
+      </GlobalWrapper>
     );
   }
 }
