@@ -19,6 +19,7 @@ import CustomInputText from '../Components/CustomTextInput';
 import RNPickerSelect from 'react-native-picker-select';
 import CustomButton from '../Components/CustomButton';
 import Styles from '../Constants/styles';
+import OrderProductCard from '../Components/OrderProductCard';
 
 export default class Checkout extends React.Component {
   constructor(props) {
@@ -27,11 +28,41 @@ export default class Checkout extends React.Component {
     this.state = {
       name: 'ddvdvdv',
 
-      email: '',
-      address: '',
+      email: 'nithss0404@gmail.com',
+      address: 'No 33, Random street , Random Colony',
       selectedSociety: '',
+      society: 'Random',
       phone: '3323',
-      society: [],
+      product_listing: [
+        {
+          product_id: 1,
+          product_name: 'Random',
+          original_price: '33',
+          selling_price: '33',
+          quantity: 22,
+          image:
+            'https://images.unsplash.com/photo-1626288937173-9506afb2fc7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
+        },
+        {
+          product_id: 1,
+          product_name: 'Random',
+          original_price: '33',
+          selling_price: '33',
+
+          quantity: 22,
+          image:
+            'https://images.unsplash.com/photo-1626288937173-9506afb2fc7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
+        },
+        {
+          product_id: 1,
+          product_name: 'Random',
+          original_price: '33',
+          selling_price: '33',
+          quantity: 22,
+          image:
+            'https://images.unsplash.com/photo-1626288937173-9506afb2fc7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
+        },
+      ],
       error: {
         name: false,
         phone: false,
@@ -123,6 +154,7 @@ export default class Checkout extends React.Component {
 
       error,
       society,
+      product_listing,
     } = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
@@ -135,8 +167,42 @@ export default class Checkout extends React.Component {
             editable={false}
             onChangeText={value => this.setState({account_name: value})}
           /> */}
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Name : </Text>
+              {name}
+            </Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Mobile Number : </Text>
+              {phone}
+            </Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Email : </Text>
+              {email}
+            </Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Address : </Text>
+              {address}
+            </Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Society : </Text>
+              {society}
+            </Text>
 
-            <CustomInputText
+            <Text style={Styles.heading}>Products</Text>
+
+            {product_listing.map(p => (
+              <OrderProductCard
+                id={p.product_id}
+                name={p.product_name}
+                mrp={p.original_price}
+                sp={p.selling_price}
+                image={p.image}
+                navigation={this.props.navigation}
+                quantity={p.quantity}
+              />
+            ))}
+
+            {/* <CustomInputText
               label={'Name'}
               value={name}
               editable={true}
@@ -216,7 +282,7 @@ export default class Checkout extends React.Component {
               onPress={() => this.onEditPress()}
               wrapperStyle={{marginBottom: 30}}>
               {'Update Details'}
-            </CustomButton>
+            </CustomButton> */}
             <Text style={styles.heading}>{'Checkout'}</Text>
             <RadioButtonRN
               data={this.payment_methods}
@@ -270,5 +336,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 5,
     fontSize: 12,
+  },
+  nameText: {
+    fontSize: 18,
+    marginBottom: 15,
   },
 });
