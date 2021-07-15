@@ -4,6 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import Colors from '../Constants/colors';
 
 import GlobalWrapper from '../Components/GlobalWrapper';
+import MyOrderCard from '../Components/MyOrderCard';
 
 export default class MyOrders extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ export default class MyOrders extends Component {
     const {colums, orders} = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation}>
-        <View>
+        {/* <View>
           <View style={styles.tableHeader}>
             {colums.map((c, index) => {
               {
@@ -97,6 +98,16 @@ export default class MyOrders extends Component {
               );
             })}
           </View>
+        </View> */}
+        <View style={styles.Mainwrapper}>
+          {orders.map(o => (
+            <MyOrderCard
+              order_number={o.order_number}
+              amount={o.order_amount}
+              date={o.order_date}
+              status={o.order_status}
+            />
+          ))}
         </View>
       </GlobalWrapper>
     );
@@ -104,44 +115,58 @@ export default class MyOrders extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 80,
-  },
-  tableHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    backgroundColor: Colors.primary,
-    height: 70,
-  },
-  tableRow: {
-    flexDirection: 'row',
-    height: 70,
-    alignItems: 'center',
-  },
-  columnHeader: {
-    width: '20%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  columnHeaderTxt: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  columnRowTxt: {
-    width: '20%',
-    textAlign: 'center',
-  },
-  tableItems: {
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    backgroundColor: '#37C2D0',
-    borderTopEndRadius: 10,
-    borderTopStartRadius: 10,
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: '#fff',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   paddingTop: 80,
+  // },
+  // tableHeader: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-evenly',
+  //   alignItems: 'center',
+  //   backgroundColor: Colors.primary,
+  //   height: 70,
+  // },
+  // tableRow: {
+  //   flexDirection: 'row',
+  //   height: 70,
+  //   alignItems: 'center',
+  // },
+  // columnHeader: {
+  //   width: '20%',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  // columnHeaderTxt: {
+  //   color: 'white',
+  //   fontWeight: 'bold',
+  //   textAlign: 'center',
+  // },
+  // columnRowTxt: {
+  //   width: '20%',
+  //   textAlign: 'center',
+  // },
+  // tableItems: {
+  //   justifyContent: 'space-evenly',
+  //   alignItems: 'center',
+  //   backgroundColor: '#37C2D0',
+  //   borderTopEndRadius: 10,
+  //   borderTopStartRadius: 10,
+  // },
+
+  // wrapper: {
+  //   width: '100%',
+  //   backgroundColor: 'white',
+  //   padding: 10,
+  //   marginBottom: 15,
+  //   borderWidth: 1,
+  //   borderColor: '#c9c9c9',
+  //   position: 'relative',
+  //   borderRadius: 8,
+  // },
+  Mainwrapper: {
+    padding: 20,
   },
 });
