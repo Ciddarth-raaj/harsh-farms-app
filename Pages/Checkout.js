@@ -21,18 +21,21 @@ import CustomButton from '../Components/CustomButton';
 import Styles from '../Constants/styles';
 import OrderProductCard from '../Components/OrderProductCard';
 
+import UserHelper from '../helper/user';
+import SocietyHelper from '../helper/society';
+
 export default class Checkout extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: 'ddvdvdv',
+      name: '',
 
-      email: 'nithss0404@gmail.com',
-      address: 'No 33, Random street , Random Colony',
+      email: '',
+      address: '',
       selectedSociety: '',
-      society: 'Random',
-      phone: '3323',
+      society: '',
+      phone: '',
       product_listing: [
         {
           product_id: 1,
@@ -83,6 +86,43 @@ export default class Checkout extends React.Component {
     ];
   }
 
+  componentDidMount() {
+    this.getSociety();
+    this.getDetails();
+  }
+
+  getSociety() {
+    SocietyHelper.get()
+      .then(data => {
+        if (data.length > 0) {
+          const formatted = [];
+          for (let d of data) {
+            formatted.push({
+              label: d.society_name,
+              value: d.society_id,
+            });
+          }
+          this.setState({society: formatted});
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  getDetails() {
+    UserHelper.getDetails()
+      .then(data => {
+        this.setState({
+          // account_name: data.account_name,
+          phone: data.mobile_nr,
+          name: data.name,
+          email: data.email_id,
+          selectedSociety: data.society_id,
+          address: data.address,
+        });
+      })
+      .catch(err => console.log(err));
+  }
+
   onEditPress() {
     const {name, email, address, selectedSociety, error, phone} = this.state;
     let count = 0;
@@ -117,25 +157,25 @@ export default class Checkout extends React.Component {
       return;
     }
 
-    // const data = {
-    //   name: name,
-    //   email_id: email,
-    //   society_id: selectedSociety,
-    //   address: address,
-    // };
+    const data = {
+      name: name,
+      email_id: email,
+      society_id: selectedSociety,
+      address: address,
+    };
 
-    // UserHelper.update(data)
-    //   .then(data => {
-    //     if (data.code == 200) {
-    //       alert('Updated Details!');
-    //     } else {
-    //       throw 'err';
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     alert('Error updating details!');
-    //   });
+    UserHelper.update(data)
+      .then(data => {
+        if (data.code == 200) {
+          alert('Updated Details!');
+        } else {
+          throw 'err';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error updating details!');
+      });
   }
 
   setError = (val, key) => {
@@ -185,7 +225,7 @@ export default class Checkout extends React.Component {
             </Text>
             <Text style={styles.nameText}>
               <Text style={{fontWeight: 'bold'}}>Society : </Text>
-              {society}
+              {selectedSociety}
             </Text>
 
             <Text style={Styles.heading}>Products</Text>
