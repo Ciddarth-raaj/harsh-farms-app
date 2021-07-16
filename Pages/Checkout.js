@@ -19,19 +19,53 @@ import CustomInputText from '../Components/CustomTextInput';
 import RNPickerSelect from 'react-native-picker-select';
 import CustomButton from '../Components/CustomButton';
 import Styles from '../Constants/styles';
+import OrderProductCard from '../Components/OrderProductCard';
+
+import UserHelper from '../helper/user';
+import SocietyHelper from '../helper/society';
 
 export default class Checkout extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: 'ddvdvdv',
+      name: '',
 
       email: '',
       address: '',
       selectedSociety: '',
-      phone: '3323',
-      society: [],
+      society: '',
+      phone: '',
+      product_listing: [
+        {
+          product_id: 1,
+          product_name: 'Random',
+          original_price: '33',
+          selling_price: '33',
+          quantity: 22,
+          image:
+            'https://images.unsplash.com/photo-1626288937173-9506afb2fc7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
+        },
+        {
+          product_id: 1,
+          product_name: 'Random',
+          original_price: '33',
+          selling_price: '33',
+
+          quantity: 22,
+          image:
+            'https://images.unsplash.com/photo-1626288937173-9506afb2fc7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
+        },
+        {
+          product_id: 1,
+          product_name: 'Random',
+          original_price: '33',
+          selling_price: '33',
+          quantity: 22,
+          image:
+            'https://images.unsplash.com/photo-1626288937173-9506afb2fc7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
+        },
+      ],
       error: {
         name: false,
         phone: false,
@@ -50,6 +84,43 @@ export default class Checkout extends React.Component {
         label: 'Online Payment',
       },
     ];
+  }
+
+  componentDidMount() {
+    this.getSociety();
+    this.getDetails();
+  }
+
+  getSociety() {
+    SocietyHelper.get()
+      .then(data => {
+        if (data.length > 0) {
+          const formatted = [];
+          for (let d of data) {
+            formatted.push({
+              label: d.society_name,
+              value: d.society_id,
+            });
+          }
+          this.setState({society: formatted});
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  getDetails() {
+    UserHelper.getDetails()
+      .then(data => {
+        this.setState({
+          // account_name: data.account_name,
+          phone: data.mobile_nr,
+          name: data.name,
+          email: data.email_id,
+          selectedSociety: data.society_id,
+          address: data.address,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   onEditPress() {
@@ -85,6 +156,26 @@ export default class Checkout extends React.Component {
       alert('Please check all the values!');
       return;
     }
+
+    const data = {
+      name: name,
+      email_id: email,
+      society_id: selectedSociety,
+      address: address,
+    };
+
+    UserHelper.update(data)
+      .then(data => {
+        if (data.code == 200) {
+          alert('Updated Details!');
+        } else {
+          throw 'err';
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error updating details!');
+      });
   }
 
   setError = (val, key) => {
@@ -103,6 +194,7 @@ export default class Checkout extends React.Component {
 
       error,
       society,
+      product_listing,
     } = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
@@ -111,91 +203,147 @@ export default class Checkout extends React.Component {
 
           <Text style={Styles.subHeading}>{'Delivery Details'}</Text>
 
-          <CustomInputText
-            label={'Name'}
-            value={name}
-            editable={true}
-            error={error['name']}
-            onChangeText={value => {
-              this.setState({name: value});
-              this.setError(false, 'name');
-            }}
-          />
-
-          <CustomInputText
-            label={'Mobile Number'}
-            value={phone}
-            keyboardType="numeric"
-            editable={false}
-            error={error['phone']}
-            onChangeText={value => {
-              this.setState({phone: value});
-              this.setError(false, 'phone');
-            }}
-          />
-
-          <CustomInputText
-            label={'Email'}
-            value={email}
-            editable={true}
-            error={error['email']}
-            onChangeText={value => {
-              this.setState({email: value});
-              this.setError(false, 'email');
-            }}
-          />
-
-          <CustomInputText
-            label={'Address'}
-            value={address}
-            numberOfLines={10}
-            multiline={true}
-            maxLength={400}
-            error={error['address']}
-            underlineColorAndroid="transparent"
-            onChangeText={value => {
-              this.setState({address: value});
-              this.setError(false, 'address');
-            }}
-          />
-
-          <Text
-            style={[styles.label, error['selectedSociety'] && {color: 'red'}]}>
-            {'Society'}
+          <Text style={styles.nameText}>
+            <Text style={{fontWeight: 'bold'}}>Name : </Text>
+            {name}
           </Text>
-          <View
-            style={[
-              styles.input,
-              {marginBottom: 15},
-              error['selectedSociety'] ? {borderColor: 'red'} : {},
-            ]}>
-            <RNPickerSelect
-              value={selectedSociety}
-              onValueChange={value => {
-                this.setState({selectedSociety: value});
-                this.setError(false, 'selectedSociety');
-              }}
-              items={society}
-              placeholder={{label: 'Select a Society...', value: null}}
+          <Text style={styles.nameText}>
+            <Text style={{fontWeight: 'bold'}}>Mobile Number : </Text>
+            {phone}
+          </Text>
+          <Text style={styles.nameText}>
+            <Text style={{fontWeight: 'bold'}}>Email : </Text>
+            {email}
+          </Text>
+          <Text style={styles.nameText}>
+            <Text style={{fontWeight: 'bold'}}>Address : </Text>
+            {address}
+          </Text>
+          <Text style={styles.nameText}>
+            <Text style={{fontWeight: 'bold'}}>Society : </Text>
+            {selectedSociety}
+          </Text>
+
+          <Text style={Styles.heading}>Products</Text>
+
+          {product_listing.map(p => (
+            <OrderProductCard
+              id={p.product_id}
+              name={p.product_name}
+              mrp={p.original_price}
+              sp={p.selling_price}
+              image={p.image}
+              navigation={this.props.navigation}
+              quantity={p.quantity}
             />
-          </View>
+          ))}
 
-          <Text style={[Styles.subHeading, {marginTop: 20}]}>
-            {'Payment Method'}
-          </Text>
+          {/* <CustomInputText
+              label={'Name'}
+              value={name}
+              editable={true}
+              error={error['name']}
+              onChangeText={value => {
+                this.setState({name: value});
+                this.setError(false, 'name');
+              }}
+            />
+
+            <CustomInputText
+              label={'Mobile Number'}
+              value={phone}
+              keyboardType="numeric"
+              editable={false}
+              error={error['phone']}
+              onChangeText={value => {
+                this.setState({phone: value});
+                this.setError(false, 'phone');
+              }}
+            />
+
+            <Text style={styles.subText}>
+              {'Mobile number will be used during order delivery and login'}
+            </Text>
+
+            <CustomInputText
+              label={'Email'}
+              value={email}
+              editable={true}
+              error={error['email']}
+              onChangeText={value => {
+                this.setState({email: value});
+                this.setError(false, 'email');
+              }}
+            />
+
+            <CustomInputText
+              label={'Address'}
+              value={address}
+              numberOfLines={10}
+              multiline={true}
+              maxLength={400}
+              error={error['address']}
+              underlineColorAndroid="transparent"
+              onChangeText={value => {
+                this.setState({address: value});
+                this.setError(false, 'address');
+              }}
+            />
+
+            <Text
+              style={[
+                styles.label,
+                error['selectedSociety'] && {color: 'red'},
+              ]}>
+              {'Society'}
+            </Text>
+            <View
+              style={[
+                styles.input,
+                {marginBottom: 15},
+                error['selectedSociety'] ? {borderColor: 'red'} : {},
+              ]}>
+              <RNPickerSelect
+                value={selectedSociety}
+                onValueChange={value => {
+                  this.setState({selectedSociety: value});
+                  this.setError(false, 'selectedSociety');
+                }}
+                items={society}
+                placeholder={{label: 'Select a Society...', value: null}}
+              />
+            </View>
+
+            <CustomButton
+              onPress={() => this.onEditPress()}
+              wrapperStyle={{marginBottom: 30}}>
+              {'Update Details'}
+            </CustomButton> */}
+          <Text style={styles.heading}>{'Checkout'}</Text>
           <RadioButtonRN
             data={this.payment_methods}
             selectedBtn={e => this.setState({res: e})}
             circleSize={16}
             activeColor="#306b67"
           />
-
-          <CustomButton
-            // onPress={() => this.onEditPress()}
-            wrapperStyle={{marginTop: 30}}>
-            {'Update Details'}
-          </CustomButton>
         </View>
+
+        <Text style={[Styles.subHeading, {marginTop: 20}]}>
+          {'Payment Method'}
+        </Text>
+        <RadioButtonRN
+          data={this.payment_methods}
+          selectedBtn={e => this.setState({res: e})}
+          circleSize={16}
+          activeColor="#306b67"
+        />
+
+        <CustomButton
+          // onPress={() => this.onEditPress()}
+          wrapperStyle={{marginTop: 30}}>
+          {'Update Details'}
+        </CustomButton>
+        {/* </View> */}
       </GlobalWrapper>
     );
   }
@@ -233,5 +381,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 5,
     fontSize: 12,
+  },
+  nameText: {
+    fontSize: 18,
+    marginBottom: 15,
   },
 });
