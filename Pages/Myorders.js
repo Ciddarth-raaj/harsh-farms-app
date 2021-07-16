@@ -106,6 +106,7 @@ export default class MyOrders extends Component {
               amount={o.order_amount}
               date={o.order_date}
               status={o.order_status}
+              navigation={this.props.navigation}
             />
           ))}
         </View>

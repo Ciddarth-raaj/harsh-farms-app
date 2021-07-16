@@ -25,7 +25,11 @@ export default class MyOrderCard extends Component {
           </Text>
         </View>
         <View styles={styles.buttonWrapper}>
-          <CustomButton wrapperStyle={{marginTop: 20}}>{'More'}</CustomButton>
+          <CustomButton
+            onPress={() => this.props.navigation.navigate('OrderDetails')}
+            wrapperStyle={{marginTop: 20}}>
+            {'More'}
+          </CustomButton>
         </View>
       </View>
     );

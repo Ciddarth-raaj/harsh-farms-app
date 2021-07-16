@@ -207,7 +207,8 @@ export default class Checkout extends React.Component {
             editable={false}
             onChangeText={value => this.setState({account_name: value})}
           /> */}
-            <Text style={styles.nameText}>
+
+            {/* <Text style={styles.nameText}>
               <Text style={{fontWeight: 'bold'}}>Name : </Text>
               {name}
             </Text>
@@ -240,9 +241,9 @@ export default class Checkout extends React.Component {
                 navigation={this.props.navigation}
                 quantity={p.quantity}
               />
-            ))}
+            ))} */}
 
-            {/* <CustomInputText
+            <CustomInputText
               label={'Name'}
               value={name}
               editable={true}
@@ -322,7 +323,7 @@ export default class Checkout extends React.Component {
               onPress={() => this.onEditPress()}
               wrapperStyle={{marginBottom: 30}}>
               {'Update Details'}
-            </CustomButton> */}
+            </CustomButton>
             <Text style={styles.heading}>{'Checkout'}</Text>
             <RadioButtonRN
               data={this.payment_methods}
@@ -330,6 +331,9 @@ export default class Checkout extends React.Component {
               circleSize={16}
               activeColor="#306b67"
             />
+            <CustomButton wrapperStyle={{marginBottom: 30, marginTop: 20}}>
+              {'Continue'}
+            </CustomButton>
           </View>
         </SafeAreaView>
       </GlobalWrapper>
