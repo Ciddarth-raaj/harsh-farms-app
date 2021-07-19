@@ -156,7 +156,7 @@ export default class Checkout extends React.Component {
       alert('Please check all the values!');
       return;
     }
-
+    
     const data = {
       name: name,
       email_id: email,
@@ -296,7 +296,23 @@ export default class Checkout extends React.Component {
               {'Continue'}
             </CustomButton>
           </View>
-        </SafeAreaView>
+
+          <Text style={[Styles.subHeading, {marginTop: 20}]}>
+            {'Payment Method'}
+          </Text>
+          <RadioButtonRN
+            data={this.payment_methods}
+            selectedBtn={e => this.setState({res: e})}
+            circleSize={16}
+            activeColor="#306b67"
+          />
+
+          <CustomButton
+            // onPress={() => this.onEditPress()}
+            wrapperStyle={{marginTop: 30}}>
+            {'Update Details'}
+          </CustomButton>
+        </View>
       </GlobalWrapper>
     );
   }
@@ -305,13 +321,6 @@ export default class Checkout extends React.Component {
 const styles = StyleSheet.create({
   mainWrapper: {
     padding: 20,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 20,
   },
   shareButton: {
     backgroundColor: Colors.primary,
