@@ -71,7 +71,7 @@ export default class FooterMenu extends React.Component {
         break;
       }
     }
-    menu[tag].selected = !value;
+    menu[tag] !== undefined && (menu[tag].selected = !value);
     this.setState({menu: menu});
   };
 
