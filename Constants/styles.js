@@ -38,11 +38,10 @@ export default StyleSheet.create({
     color: Colors.secondary,
     marginBottom: 20,
   },
-  // secondaryHeading: {
-  //   textAlign: 'center',
-  //   fontWeight: 'bold',
-  //   fontSize: 20,
-
-  //   marginBottom: 20,
-  // },
+  subText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: Colors.primary,
+    marginBottom: 10,
+  },
 });

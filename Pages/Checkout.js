@@ -200,49 +200,8 @@ export default class Checkout extends React.Component {
       <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
         <SafeAreaView>
           <View style={styles.mainWrapper}>
-            <Text style={Styles.heading}>Profile Details</Text>
-            {/* <CustomInputText
-            label={'Account Name'}
-            value={account_name}
-            editable={false}
-            onChangeText={value => this.setState({account_name: value})}
-          /> */}
-
-            {/* <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Name : </Text>
-              {name}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Mobile Number : </Text>
-              {phone}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Email : </Text>
-              {email}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Address : </Text>
-              {address}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Society : </Text>
-              {selectedSociety}
-            </Text>
-
-            <Text style={Styles.heading}>Products</Text>
-
-            {product_listing.map(p => (
-              <OrderProductCard
-                id={p.product_id}
-                name={p.product_name}
-                mrp={p.original_price}
-                sp={p.selling_price}
-                image={p.image}
-                navigation={this.props.navigation}
-                quantity={p.quantity}
-              />
-            ))} */}
-
+            <Text style={Styles.heading}>Checkout</Text>
+            <Text style={Styles.subText}>Profile Details</Text>
             <CustomInputText
               label={'Name'}
               value={name}
@@ -319,12 +278,14 @@ export default class Checkout extends React.Component {
               />
             </View>
 
-            <CustomButton
+            {/* <CustomButton
               onPress={() => this.onEditPress()}
               wrapperStyle={{marginBottom: 30}}>
               {'Update Details'}
-            </CustomButton>
-            <Text style={styles.heading}>{'Checkout'}</Text>
+            </CustomButton> */}
+
+            <Text style={Styles.subText}>{'Payment Method'}</Text>
+
             <RadioButtonRN
               data={this.payment_methods}
               selectedBtn={e => this.setState({res: e})}

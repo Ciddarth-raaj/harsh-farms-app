@@ -69,6 +69,7 @@ export default class App extends React.Component {
           screenOptions={{
             headerShown: false,
           }}>
+          <Stack.Screen name="Checkout" component={Checkout} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Eua" component={Eua} />
           <Stack.Screen name="Signin" component={Signin} />
@@ -77,7 +78,7 @@ export default class App extends React.Component {
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Wishlist" component={Wishlist} />
           <Stack.Screen name="Listing" component={Listing} />
-          <Stack.Screen name="Checkout" component={Checkout} />
+          {/* <Stack.Screen name="Checkout" component={Checkout} /> */}
           <Stack.Screen name="Categories" component={Categories} />
           <Stack.Screen name="MyProfile" component={MyProfile} />
           <Stack.Screen name="About" component={About} />
