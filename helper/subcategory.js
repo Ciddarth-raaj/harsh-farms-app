@@ -1,13 +1,15 @@
 import API from '../util/api';
-import SubcategoryHelper from './subcategory';
 
-const category = {
-  get: () =>
+const subcategory = {
+  get: category_id =>
     new Promise(function (resolve, reject) {
-      API.get('/category/subcategory')
+      API.get(
+        '/subcategory?' +
+          (category_id != undefined ? 'category_id=' + category_id : ''),
+      )
         .then(async res => {
           if (res.status === 200) {
-            resolve(category.format(res.data));
+            resolve(subcategory.format(res.data));
           } else {
             reject(res.data.msg);
           }
@@ -21,13 +23,12 @@ const category = {
 
     data.forEach(d => {
       formatted.push({
+        subcategory_id: d.subcategory_id,
+        subcategory_name: d.subcategory_name,
         category_id: d.category_id,
         category_name: d.category_name,
-        image: d.image,
         is_active: d.is_active == '1' ? true : false,
         created_at: d.created_at,
-        displaySub: false,
-        subCategory: SubcategoryHelper.format(d.subCategory),
       });
     });
 
@@ -35,4 +36,4 @@ const category = {
   },
 };
 
-export default category;
+export default subcategory;

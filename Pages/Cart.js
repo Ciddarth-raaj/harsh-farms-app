@@ -154,7 +154,7 @@ export default class Cart extends Component {
       <GlobalWrapper tag={'cart'} navigation={this.props.navigation}>
         {cart.length > 0 ? (
           <View style={styles.mainWrapper}>
-            <Text style={Styles.secondaryHeading}>My Cart</Text>
+            <Text style={Styles.heading}>My Cart</Text>
 
             {cart.map(c => (
               <CartCard

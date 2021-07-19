@@ -147,55 +147,6 @@ export default class GlobalWrapper extends React.Component {
               </Text>
             </TouchableOpacity>
           ))}
-          {/* <Modal visible={this.state.show}>
-            <View style={styles.modalContainer}>
-              <Header />
-              <ScrollView>
-                <Text
-                  style={styles.backText}
-                  onPress={() => {
-                    this.setState({
-                      show: false,
-                    });
-                  }}>
-                  Go Back
-                </Text>
-                <Text style={styles.heading}>Categories</Text>
-                {categories.map(c => (
-                  <View style={styles.modalWrapper}>
-                    <View style={styles.innerWrapper}>
-                      <View>
-                        <Image
-                          source={{
-                            uri: c.image,
-                          }}
-                          style={styles.image}
-                        />
-                      </View>
-
-                      <View style={styles.contentWrapper}>
-                        <View
-                          onPress={() => {
-                            this.setState({
-                              show: false,
-                            });
-                          }}>
-                          <Text
-                            onPress={() =>
-                              this.props.navigation.navigate('Listing')
-                            }
-                            style={styles.nameText}>
-                            {c.category_name}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                    <View style={styles.line} />
-                  </View>
-                ))}
-              </ScrollView>
-            </View>
-          </Modal> */}
         </View>
       </SafeAreaView>
     );
@@ -306,12 +257,5 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontSize: 16,
     paddingRight: 20,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.primary,
-    marginBottom: 20,
   },
 });

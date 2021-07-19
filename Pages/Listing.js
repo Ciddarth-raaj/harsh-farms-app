@@ -22,9 +22,15 @@ export default class Listing extends React.Component {
     const params = this.props.route.params;
     const filterData = {};
 
-    if (params['category_name'] != undefined) {
-      this.setState({pageName: params['category_name']});
-      filterData['categories'] = [params['category_id']];
+    if (params['title'] != undefined) {
+      this.setState({pageName: params['title']});
+      if (params['type'] == 'cat') {
+        filterData['categories'] = [params['id']];
+      } else if (params['type'] == 'subcat') {
+        filterData['subcategories'] = [params['id']];
+      } else if (params['type'] == 'search') {
+        filterData['search'] = params['title'];
+      }
     }
 
     this.getProducts(filterData);
