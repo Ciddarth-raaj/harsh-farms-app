@@ -19,6 +19,7 @@ import MyProfile from './Pages/MyProfile';
 import About from './Pages/About';
 import MyOrders from './Pages/MyOrders';
 import Version from './Pages/Version';
+import Success from './Pages/Success';
 
 import global from './Constants/variables';
 
@@ -84,6 +85,7 @@ export default class App extends React.Component {
           <Stack.Screen name="MyOrders" component={MyOrders} />
           <Stack.Screen name="Version" component={Version} />
           <Stack.Screen name="OrderDetails" component={OrderDetails} />
+          <Stack.Screen name="Success" component={Success} />
         </Stack.Navigator>
       </NavigationContainer>
     );

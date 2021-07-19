@@ -198,54 +198,6 @@ export default class Checkout extends React.Component {
     } = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
-<<<<<<< HEAD
-        <SafeAreaView>
-          <View style={styles.mainWrapper}>
-            <Text style={Styles.heading}>Profile Details</Text>
-            {/* <CustomInputText
-            label={'Account Name'}
-            value={account_name}
-            editable={false}
-            onChangeText={value => this.setState({account_name: value})}
-          /> */}
-
-            {/* <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Name : </Text>
-              {name}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Mobile Number : </Text>
-              {phone}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Email : </Text>
-              {email}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Address : </Text>
-              {address}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Society : </Text>
-              {selectedSociety}
-            </Text>
-
-            <Text style={Styles.heading}>Products</Text>
-
-            {product_listing.map(p => (
-              <OrderProductCard
-                id={p.product_id}
-                name={p.product_name}
-                mrp={p.original_price}
-                sp={p.selling_price}
-                image={p.image}
-                navigation={this.props.navigation}
-                quantity={p.quantity}
-              />
-            ))} */}
-
-            <CustomInputText
-=======
         <View style={styles.mainWrapper}>
           <Text style={Styles.heading}>Checkout</Text>
 
@@ -287,7 +239,6 @@ export default class Checkout extends React.Component {
           ))}
 
           {/* <CustomInputText
->>>>>>> acf097df9b1845f6858fa45932de63083805a724
               label={'Name'}
               value={name}
               editable={true}
@@ -367,21 +318,6 @@ export default class Checkout extends React.Component {
               onPress={() => this.onEditPress()}
               wrapperStyle={{marginBottom: 30}}>
               {'Update Details'}
-<<<<<<< HEAD
-            </CustomButton>
-            <Text style={styles.heading}>{'Checkout'}</Text>
-            <RadioButtonRN
-              data={this.payment_methods}
-              selectedBtn={e => this.setState({res: e})}
-              circleSize={16}
-              activeColor="#306b67"
-            />
-            <CustomButton wrapperStyle={{marginBottom: 30, marginTop: 20}}>
-              {'Continue'}
-            </CustomButton>
-          </View>
-        </SafeAreaView>
-=======
             </CustomButton> */}
           <Text style={styles.heading}>{'Checkout'}</Text>
           <RadioButtonRN
@@ -408,7 +344,6 @@ export default class Checkout extends React.Component {
           {'Update Details'}
         </CustomButton>
         {/* </View> */}
->>>>>>> acf097df9b1845f6858fa45932de63083805a724
       </GlobalWrapper>
     );
   }

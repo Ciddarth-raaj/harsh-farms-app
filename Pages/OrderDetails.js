@@ -14,6 +14,7 @@ import GlobalWrapper from '../Components/GlobalWrapper';
 import OrderProductCard from '../Components/OrderProductCard';
 import Colors from '../Constants/colors';
 import Styles from '../Constants/styles';
+import numberFormatter from '../util/numberFormatter';
 
 export default class OrderDetails extends Component {
   constructor(props) {
@@ -27,6 +28,10 @@ export default class OrderDetails extends Component {
       selectedSociety: '',
       society: '',
       phone: '',
+      number_products: 2,
+      price: 33,
+      deleivery: 3434,
+      total: 232323,
       product_listing: [
         {
           product_id: 1,
@@ -67,11 +72,15 @@ export default class OrderDetails extends Component {
       email,
       address,
       selectedSociety,
+      number_products,
+      price,
+      deleivery,
+      total,
 
       product_listing,
     } = this.state;
     return (
-      <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
+      <GlobalWrapper navigation={this.props.navigation}>
         <SafeAreaView>
           <View style={styles.mainWrapper}>
             <Text style={Styles.heading}>Profile Details</Text>
@@ -110,6 +119,24 @@ export default class OrderDetails extends Component {
                 navigation={this.props.navigation}
               />
             ))}
+
+            <Text style={Styles.heading}>Product Summary</Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Number of products : </Text>
+              {number_products}
+            </Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Price : </Text>
+              {numberFormatter(price)}
+            </Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Deleivery Charge : </Text>
+              {numberFormatter(deleivery)}
+            </Text>
+            <Text style={styles.nameText}>
+              <Text style={{fontWeight: 'bold'}}>Total : </Text>
+              {numberFormatter(total)}
+            </Text>
           </View>
         </SafeAreaView>
       </GlobalWrapper>
