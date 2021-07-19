@@ -95,7 +95,9 @@ export default class Home extends React.Component {
 
         {banners.length > 0 && <ImageCarousel data={banners} />}
 
-        <Text style={Styles.heading}>New Products</Text>
+        <Text style={[Styles.heading, {marginTop: 20, marginBottom: 0}]}>
+          New Products
+        </Text>
 
         <View style={styles.wrapper}>
           {product_listing.map(p => (

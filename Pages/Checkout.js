@@ -156,7 +156,7 @@ export default class Checkout extends React.Component {
       alert('Please check all the values!');
       return;
     }
-    
+
     const data = {
       name: name,
       email_id: email,
@@ -198,119 +198,98 @@ export default class Checkout extends React.Component {
     } = this.state;
     return (
       <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
-        <SafeAreaView>
-          <View style={styles.mainWrapper}>
-            <Text style={Styles.heading}>Checkout</Text>
-            <Text style={Styles.subText}>Profile Details</Text>
-            <CustomInputText
-              label={'Name'}
-              value={name}
-              editable={true}
-              error={error['name']}
-              onChangeText={value => {
-                this.setState({name: value});
-                this.setError(false, 'name');
+        <View style={styles.mainWrapper}>
+          <Text style={Styles.heading}>Checkout</Text>
+          <Text style={Styles.subText}>Profile Details</Text>
+          <CustomInputText
+            label={'Name'}
+            value={name}
+            editable={true}
+            error={error['name']}
+            onChangeText={value => {
+              this.setState({name: value});
+              this.setError(false, 'name');
+            }}
+          />
+
+          <CustomInputText
+            label={'Mobile Number'}
+            value={phone}
+            keyboardType="numeric"
+            editable={false}
+            error={error['phone']}
+            onChangeText={value => {
+              this.setState({phone: value});
+              this.setError(false, 'phone');
+            }}
+          />
+
+          <Text style={styles.subText}>
+            {'Mobile number will be used during order delivery and login'}
+          </Text>
+
+          <CustomInputText
+            label={'Email'}
+            value={email}
+            editable={true}
+            error={error['email']}
+            onChangeText={value => {
+              this.setState({email: value});
+              this.setError(false, 'email');
+            }}
+          />
+
+          <CustomInputText
+            label={'Address'}
+            value={address}
+            numberOfLines={10}
+            multiline={true}
+            maxLength={400}
+            error={error['address']}
+            underlineColorAndroid="transparent"
+            onChangeText={value => {
+              this.setState({address: value});
+              this.setError(false, 'address');
+            }}
+          />
+
+          <Text
+            style={[styles.label, error['selectedSociety'] && {color: 'red'}]}>
+            {'Society'}
+          </Text>
+          <View
+            style={[
+              styles.input,
+              {marginBottom: 15},
+              error['selectedSociety'] ? {borderColor: 'red'} : {},
+            ]}>
+            <RNPickerSelect
+              value={selectedSociety}
+              onValueChange={value => {
+                this.setState({selectedSociety: value});
+                this.setError(false, 'selectedSociety');
               }}
+              items={society}
+              placeholder={{label: 'Select a Society...', value: null}}
             />
+          </View>
 
-            <CustomInputText
-              label={'Mobile Number'}
-              value={phone}
-              keyboardType="numeric"
-              editable={false}
-              error={error['phone']}
-              onChangeText={value => {
-                this.setState({phone: value});
-                this.setError(false, 'phone');
-              }}
-            />
-
-            <Text style={styles.subText}>
-              {'Mobile number will be used during order delivery and login'}
-            </Text>
-
-            <CustomInputText
-              label={'Email'}
-              value={email}
-              editable={true}
-              error={error['email']}
-              onChangeText={value => {
-                this.setState({email: value});
-                this.setError(false, 'email');
-              }}
-            />
-
-            <CustomInputText
-              label={'Address'}
-              value={address}
-              numberOfLines={10}
-              multiline={true}
-              maxLength={400}
-              error={error['address']}
-              underlineColorAndroid="transparent"
-              onChangeText={value => {
-                this.setState({address: value});
-                this.setError(false, 'address');
-              }}
-            />
-
-            <Text
-              style={[
-                styles.label,
-                error['selectedSociety'] && {color: 'red'},
-              ]}>
-              {'Society'}
-            </Text>
-            <View
-              style={[
-                styles.input,
-                {marginBottom: 15},
-                error['selectedSociety'] ? {borderColor: 'red'} : {},
-              ]}>
-              <RNPickerSelect
-                value={selectedSociety}
-                onValueChange={value => {
-                  this.setState({selectedSociety: value});
-                  this.setError(false, 'selectedSociety');
-                }}
-                items={society}
-                placeholder={{label: 'Select a Society...', value: null}}
-              />
-            </View>
-
-            {/* <CustomButton
+          {/* <CustomButton
               onPress={() => this.onEditPress()}
               wrapperStyle={{marginBottom: 30}}>
               {'Update Details'}
             </CustomButton> */}
 
-            <Text style={Styles.subText}>{'Payment Method'}</Text>
+          <Text style={Styles.subText}>{'Payment Method'}</Text>
 
-            <RadioButtonRN
-              data={this.payment_methods}
-              selectedBtn={e => this.setState({res: e})}
-              circleSize={16}
-              activeColor="#306b67"
-            />
-            <CustomButton wrapperStyle={{marginBottom: 30, marginTop: 20}}>
-              {'Continue'}
-            </CustomButton>
-          </View>
-
-          <Text style={[Styles.subHeading, {marginTop: 20}]}>
-            {'Payment Method'}
-          </Text>
           <RadioButtonRN
             data={this.payment_methods}
             selectedBtn={e => this.setState({res: e})}
             circleSize={16}
             activeColor="#306b67"
           />
-
-          <CustomButton
-            // onPress={() => this.onEditPress()}
-            wrapperStyle={{marginTop: 30}}>
-            {'Update Details'}
+          <CustomButton wrapperStyle={{marginBottom: 10, marginTop: 20}}>
+            {'Continue'}
           </CustomButton>
         </View>
       </GlobalWrapper>
