@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 
+import Styles from '../Constants/styles';
+
 import GlobalWrapper from '../Components/GlobalWrapper';
 
 export default class About extends Component {
@@ -17,7 +19,7 @@ export default class About extends Component {
     return (
       <GlobalWrapper navigation={this.props.navigation}>
         <View style={styles.wrapper}>
-          <Text style={styles.heading}>About us</Text>
+          <Text style={Styles.heading}>About us</Text>
 
           <View style={styles.mainSubWrapper}>
             <Image
@@ -27,7 +29,7 @@ export default class About extends Component {
               style={styles.image}
             />
 
-            <Text style={styles.subHeading}>{about}</Text>
+            <Text>{about}</Text>
           </View>
         </View>
       </GlobalWrapper>

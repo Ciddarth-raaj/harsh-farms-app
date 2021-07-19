@@ -215,7 +215,7 @@ export default class ProductCard extends React.Component {
                 style={[
                   styles.wishlistButton,
                   addedWishlist
-                    ? {backgroundColor: 'gold'}
+                    ? {backgrondColor: 'gold'}
                     : {backgroundColor: '#C9C9C9'},
                 ]}>
                 <Image

@@ -27,6 +27,7 @@ import {
   setCustomTextInput,
   setCustomView,
 } from 'react-native-global-props';
+import OrderDetails from './Pages/OrderDetails';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -82,6 +83,7 @@ export default class App extends React.Component {
           <Stack.Screen name="About" component={About} />
           <Stack.Screen name="MyOrders" component={MyOrders} />
           <Stack.Screen name="Version" component={Version} />
+          <Stack.Screen name="OrderDetails" component={OrderDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -64,15 +64,9 @@ export default class FooterMenu extends React.Component {
     const {menu} = this.state;
     const {tag} = this.props;
 
-    for (let k of Object.keys(menu)) {
-      if (k == key) {
-        menu[k].selected = value;
-        this.setState({[stateKey]: value});
-        break;
-      }
-    }
-    menu[tag].selected = !value;
-    this.setState({menu: menu});
+    menu[key].selected = value;
+    menu[tag] !== undefined && (menu[tag].selected = !value);
+    this.setState({menu: menu, [stateKey]: value});
   };
 
   render() {
