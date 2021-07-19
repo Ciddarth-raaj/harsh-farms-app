@@ -29,6 +29,16 @@ const products = {
       );
     }
 
+    if (filter.subcategories !== undefined && filter.subcategories.length > 0) {
+      filter.subcategories.forEach(
+        (b, i) => (filterUrl += '&subcategory_ids[' + i + ']=' + b),
+      );
+    }
+
+    if (filter.search !== undefined) {
+      filterUrl += '&search=' + filter.search;
+    }
+
     return filterUrl;
   },
   format: data => {

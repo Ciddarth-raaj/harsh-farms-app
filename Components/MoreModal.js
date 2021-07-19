@@ -64,6 +64,11 @@ export default class MoreModal extends React.Component {
           icon: require('../Assets/version.png'),
           onClick: () => this.props.navigation.navigate('Version'),
         },
+        {
+          title: 'About Us',
+          icon: require('../Assets/version.png'),
+          onClick: () => this.props.navigation.navigate('About'),
+        },
       ],
     };
   }
@@ -72,9 +77,9 @@ export default class MoreModal extends React.Component {
     const {menuItem} = this.state;
     const token = await AsyncStorage.getItem('token');
     if (token != undefined && token != null) {
-      menuItem.splice(1, 0, ...this.LOGGED_IN_MENU);
+      menuItem.splice(2, 0, ...this.LOGGED_IN_MENU);
     } else {
-      menuItem.splice(1, 0, ...this.LOGGED_OUT_MENU);
+      menuItem.splice(2, 0, ...this.LOGGED_OUT_MENU);
     }
 
     this.setState({menuItem});
