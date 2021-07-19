@@ -5,6 +5,11 @@ import CustomButton from '../Components/CustomButton';
 import Colors from '../Constants/colors';
 
 export default class MyOrderCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     const {order_number, date, status, amount} = this.props;
     return (
