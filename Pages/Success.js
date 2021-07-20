@@ -1,9 +1,18 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Button,
+} from 'react-native';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import Styles from '../Constants/styles';
 import Colors from '../Constants/colors';
 import numberFormatter from '../util/numberFormatter';
+import Rate, {AndroidMarket} from 'react-native-rate';
+import CustomButton from '../Components/CustomButton';
 
 export default class Success extends React.Component {
   constructor(props) {
@@ -13,6 +22,7 @@ export default class Success extends React.Component {
       total: 3434,
       address: 'NO.33 Random street, Random city',
       payment_method: 'Google pay',
+      rated: false,
     };
   }
   render() {
@@ -56,6 +66,33 @@ export default class Success extends React.Component {
             <Text style={{fontWeight: 'bold'}}>Address : </Text>
             {address}
           </Text>
+          <CustomButton
+            title="Rate Our App"
+            onPress={() => {
+              const options = {
+                // AppleAppID: '2193813192',
+                // GooglePackageName: 'com.mywebsite.myapp',
+                // AmazonPackageName: 'com.mywebsite.myapp',
+                OtherAndroidURL: 'http://www.randomappstore.com/app/47172391',
+                preferredAndroidMarket: AndroidMarket.Google,
+                preferInApp: false,
+                openAppStoreIfInAppFails: true,
+                fallbackPlatformURL: 'http://www.mywebsite.com/myapp.html',
+              };
+              Rate.rate(options, success => {
+                if (success) {
+                  this.setState({rated: true});
+                }
+              });
+            }}>
+            {'Rate Our App'}
+          </CustomButton>
+          <View style={{marginTop: 10, marginBottom: 10}}>
+            <CustomButton
+              onPress={() => this.props.navigation.navigate('Home')}>
+              {'Continue'}
+            </CustomButton>
+          </View>
         </View>
       </GlobalWrapper>
     );
