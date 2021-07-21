@@ -242,9 +242,13 @@ export default class Signin extends Component {
               error['selectedSociety'] ? {borderColor: 'red'} : {},
             ]}>
             <RNPickerSelect
-              onValueChange={value => this.setState({selectedSociety: value})}
+              value={selectedSociety}
               items={society}
-              placeholder={{label: 'Select a Society...', value: null}}
+              placeholder={{
+                label: 'Select a Society...',
+                value: 0,
+              }}
+              onValueChange={value => this.setState({selectedSociety: value})}
             />
           </View>
 
