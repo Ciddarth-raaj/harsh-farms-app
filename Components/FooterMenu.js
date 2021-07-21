@@ -23,13 +23,13 @@ export default class FooterMenu extends React.Component {
         cart: {
           title: 'My Cart',
           selected: false,
-          action: () => props.navigation.navigate('OrderDetails'),
+          action: () => props.navigation.navigate('Cart'),
           icon: require('../Assets/icon-grey/cart.png'),
         },
         wishlist: {
           title: 'Wishlist',
           selected: false,
-          action: () => props.navigation.navigate('MyOrders'),
+          action: () => props.navigation.navigate('Wishlist'),
           icon: require('../Assets/icon-grey/wishlist.png'),
         },
         category: {
