@@ -39,7 +39,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   subHeading: {
-    // textAlign: 'center',
+    textAlign: 'center',
     marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,

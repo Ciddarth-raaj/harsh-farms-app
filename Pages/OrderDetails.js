@@ -83,7 +83,7 @@ export default class OrderDetails extends Component {
       <GlobalWrapper navigation={this.props.navigation}>
         <SafeAreaView>
           <View style={styles.mainWrapper}>
-            <Text style={Styles.heading}>Profile Details</Text>
+            <Text style={Styles.heading}>Order Summary</Text>
             <Text style={styles.nameText}>
               <Text style={{fontWeight: 'bold'}}>Name : </Text>
               {name}
@@ -105,7 +105,7 @@ export default class OrderDetails extends Component {
               {selectedSociety}
             </Text>
 
-            <Text style={Styles.heading}>Products</Text>
+            <Text style={Styles.subHeading}>Products</Text>
 
             {product_listing.map(p => (
               <OrderProductCard
@@ -119,24 +119,24 @@ export default class OrderDetails extends Component {
                 navigation={this.props.navigation}
               />
             ))}
-
-            <Text style={Styles.heading}>Product Summary</Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Number of products : </Text>
-              {number_products}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Price : </Text>
-              {numberFormatter(price)}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Deleivery Charge : </Text>
-              {numberFormatter(deleivery)}
-            </Text>
-            <Text style={styles.nameText}>
-              <Text style={{fontWeight: 'bold'}}>Total : </Text>
-              {numberFormatter(total)}
-            </Text>
+            <View style={styles.summaryDiv}>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Number of products : </Text>
+                {number_products}
+              </Text>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Sub total : </Text>
+                {numberFormatter(price)}
+              </Text>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Deleivery Charge : </Text>
+                {numberFormatter(deleivery)}
+              </Text>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Grand Total : </Text>
+                {numberFormatter(total)}
+              </Text>
+            </View>
           </View>
         </SafeAreaView>
       </GlobalWrapper>
@@ -186,6 +186,14 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 18,
-    marginBottom: 15,
+    marginBottom: 10,
+  },
+  summaryDiv: {
+    borderWidth: 1,
+    borderColor: '#c9c9c9',
+    borderRadius: 3,
+    padding: 10,
+    paddingBottom: 5,
+    marginBottom: 5,
   },
 });

@@ -42,18 +42,6 @@ export default class Success extends React.Component {
           </Text>
           <Text style={Styles.heading}>Order Summary</Text>
 
-          <View style={styles.imageHolderField}>
-            <Image
-              source={{
-                uri: 'https://images.unsplash.com/photo-1626609676274-405368136093?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80',
-              }}
-              style={styles.productImage}
-            />
-          </View>
-          <Text style={styles.nameText}>
-            <Text style={{fontWeight: 'bold'}}>Product : </Text>
-            {product_name}
-          </Text>
           <Text style={styles.nameText}>
             <Text style={{fontWeight: 'bold'}}>Total Payment : </Text>
             {numberFormatter(total)}
@@ -129,7 +117,6 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 16,
     marginBottom: 15,
-    textAlign: 'center',
   },
   productImage: {
     height: 60,
