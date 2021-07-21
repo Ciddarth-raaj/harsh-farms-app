@@ -13,7 +13,7 @@ import Eua from './Pages/Eua';
 import Cart from './Pages/Cart';
 import Wishlist from './Pages/Wishlist';
 import Listing from './Pages/Listing';
-import Payment from './Pages/Payment';
+import Checkout from './Pages/Checkout';
 import Categories from './Components/Categories';
 import MyProfile from './Pages/Myprofile';
 import About from './Pages/About';
@@ -27,6 +27,7 @@ import {
   setCustomTextInput,
   setCustomView,
 } from 'react-native-global-props';
+import OrderDetails from './Pages/OrderDetails';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -76,12 +77,13 @@ export default class App extends React.Component {
           <Stack.Screen name="Cart" component={Cart} />
           <Stack.Screen name="Wishlist" component={Wishlist} />
           <Stack.Screen name="Listing" component={Listing} />
-          <Stack.Screen name="Payment" component={Payment} />
+          <Stack.Screen name="Checkout" component={Checkout} />
           <Stack.Screen name="Categories" component={Categories} />
           <Stack.Screen name="MyProfile" component={MyProfile} />
           <Stack.Screen name="About" component={About} />
           <Stack.Screen name="MyOrders" component={MyOrders} />
           <Stack.Screen name="Version" component={Version} />
+          <Stack.Screen name="OrderDetails" component={OrderDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     );

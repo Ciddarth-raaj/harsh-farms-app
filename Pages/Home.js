@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, TextInput, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../Constants/colors';
@@ -7,9 +14,11 @@ import Colors from '../Constants/colors';
 import ImageCarousel from '../Components/ImageCarousal';
 import GlobalWrapper from '../Components/GlobalWrapper';
 import ProductCard from '../Components/ProductCard';
+import CustomTextInput from '../Components/CustomTextInput';
 
 import ProductHelper from '../helper/products';
 import BannersHelper from '../helper/banners';
+import Styles from '../Constants/styles';
 
 const images = [
   'https://images.unsplash.com/photo-1593642634443-44adaa06623a?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1850&q=80',
@@ -23,6 +32,7 @@ export default class Home extends React.Component {
     this.state = {
       product_listing: [],
       banners: [],
+      searchText: '',
     };
   }
 
@@ -55,29 +65,39 @@ export default class Home extends React.Component {
       .catch(err => console.log(err));
   }
 
+  search() {
+    const {searchText} = this.state;
+    this.props.navigation.replace('Listing', {
+      title: searchText,
+      type: 'search',
+    });
+  }
+
   render() {
-    const {product_listing, banners} = this.state;
+    const {product_listing, banners, searchText} = this.state;
     return (
       <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
-        <View>
-          <View style={styles.container}>
-            <View style={styles.sectionStyle}>
-              <TextInput
-                style={{flex: 1}}
-                placeholder="Search"
-                underlineColorAndroid="transparent"
-              />
-              <Image
-                source={require('../Assets/search.png')}
-                style={styles.imageStyle}
-              />
-            </View>
-          </View>
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={{flex: 1}}
+            placeholder="Search"
+            placeholderTextColor={'#d9d9d9'}
+            value={searchText}
+            onChangeText={v => this.setState({searchText: v})}
+          />
+          <TouchableOpacity onPress={() => this.search()}>
+            <Image
+              source={require('../Assets/search.png')}
+              style={styles.imageStyle}
+            />
+          </TouchableOpacity>
         </View>
 
         {banners.length > 0 && <ImageCarousel data={banners} />}
 
-        <Text style={styles.heading}>New Products</Text>
+        <Text style={[Styles.heading, {marginTop: 20, marginBottom: 0}]}>
+          New Products
+        </Text>
 
         <View style={styles.wrapper}>
           {product_listing.map(p => (
@@ -106,37 +126,24 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: 20,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-  },
-  sectionStyle: {
+  searchContainer: {
     paddingLeft: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderWidth: 0.5,
-    borderColor: '#000',
+    borderWidth: 2,
+    borderColor: Colors.primary,
     height: 40,
     borderRadius: 5,
     margin: 10,
   },
   imageStyle: {
-    margin: 5,
-    height: 25,
-    width: 25,
+    height: 20,
+    width: 20,
+    marginRight: 10,
     resizeMode: 'stretch',
     alignItems: 'center',
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 0,
-    marginTop: 20,
+    tintColor: Colors.secondary,
   },
 });

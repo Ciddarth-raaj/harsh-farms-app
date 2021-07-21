@@ -31,4 +31,17 @@ export default StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  heading: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: Colors.secondary,
+    marginBottom: 20,
+  },
+  subText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: Colors.primary,
+    marginBottom: 10,
+  },
 });

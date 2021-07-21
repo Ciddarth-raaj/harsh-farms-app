@@ -1,9 +1,10 @@
 import API from '../util/api';
+import SubcategoryHelper from './subcategory';
 
 const category = {
   get: () =>
     new Promise(function (resolve, reject) {
-      API.get('/category')
+      API.get('/category/subcategory')
         .then(async res => {
           if (res.status === 200) {
             resolve(category.format(res.data));
@@ -25,47 +26,13 @@ const category = {
         image: d.image,
         is_active: d.is_active == '1' ? true : false,
         created_at: d.created_at,
+        displaySub: false,
+        subCategory: SubcategoryHelper.format(d.subCategory),
       });
     });
 
     return formatted;
   },
-  create: data =>
-    new Promise(function (resolve, reject) {
-      API.post('/category', data, {
-        headers: {
-          'x-access-token': global.config.accessToken,
-        },
-      })
-        .then(async res => {
-          if (res.status === 200) {
-            resolve(res.data);
-          } else {
-            reject(res);
-          }
-        })
-        .catch(err => {
-          reject(err);
-        });
-    }),
-  update: data =>
-    new Promise(function (resolve, reject) {
-      API.patch('/category', data, {
-        headers: {
-          'x-access-token': global.config.accessToken,
-        },
-      })
-        .then(async res => {
-          if (res.status === 200) {
-            resolve(res.data);
-          } else {
-            reject(res);
-          }
-        })
-        .catch(err => {
-          reject(err);
-        });
-    }),
 };
 
 export default category;

@@ -14,6 +14,8 @@ import Colors from '../Constants/colors';
 
 import CategoryHelper from '../helper/category';
 
+import Styles from '../Constants/styles';
+
 export default class CategoriesModal extends React.Component {
   constructor(props) {
     super(props);
@@ -28,9 +30,76 @@ export default class CategoriesModal extends React.Component {
 
   getCategory() {
     CategoryHelper.get()
-      .then(data => this.setState({categories: data}))
+      .then(data => {
+        this.setState({categories: data});
+      })
       .catch(err => console.log(err));
   }
+
+  setSubCatDisplay(id, value) {
+    const {categories} = this.state;
+
+    for (let i in categories) {
+      if (categories[i].category_id == id) {
+        categories[i].displaySub = value;
+        this.setState({categories: categories});
+        break;
+      }
+    }
+  }
+
+  menuItem = (id, title, image, type, subList, displaySub) => {
+    const {setVisibility} = this.props;
+    return (
+      <>
+        <TouchableOpacity
+          style={styles.listItem}
+          onPress={() => {
+            // setVisibility(false);
+            this.props.navigation.replace('Listing', {
+              id: id,
+              title: title,
+              type: type,
+            });
+          }}>
+          <Image
+            source={{
+              uri: image,
+            }}
+            style={styles.imageStyle}
+          />
+          <Text>{title}</Text>
+          {subList != undefined && subList.length > 0 && (
+            <TouchableOpacity
+              style={styles.arrow}
+              onPress={() => this.setSubCatDisplay(id, !displaySub)}>
+              {/* <Text>{displaySub ? 'X' : '>'}</Text> */}
+              <Image
+                style={{width: 15, height: 15, tintColor: Colors.primary}}
+                source={
+                  displaySub
+                    ? require('../Assets/arrow-top.png')
+                    : require('../Assets/arrow-right.png')
+                }
+              />
+            </TouchableOpacity>
+          )}
+        </TouchableOpacity>
+        {displaySub && (
+          <View style={{marginLeft: 20}}>
+            {subList?.map(s =>
+              this.menuItem(
+                s.subcategory_id,
+                s.subcategory_name,
+                s.image,
+                'subcat',
+              ),
+            )}
+          </View>
+        )}
+      </>
+    );
+  };
 
   render() {
     const {visiblilty, setVisibility} = this.props;
@@ -62,26 +131,39 @@ export default class CategoriesModal extends React.Component {
                   source={require('../Assets/close-red.png')}
                 />
               </TouchableOpacity>
-              <Text style={styles.heading}>Categories</Text>
-              {categories.map(c => (
-                <TouchableOpacity
-                  style={styles.listItem}
-                  onPress={() => {
-                    setVisibility(false);
-                    this.props.navigation.replace('Listing', {
-                      category_id: c.category_id,
-                      category_name: c.category_name,
-                    });
-                  }}>
-                  <Image
-                    source={{
-                      uri: c.image,
-                    }}
-                    style={styles.imageStyle}
-                  />
-                  <Text>{c.category_name}</Text>
-                </TouchableOpacity>
-              ))}
+              <Text
+                styles={{marginBottom: -10, marginTop: 20}}
+                style={Styles.heading}>
+                Categories
+              </Text>
+              {categories.map(
+                c =>
+                  this.menuItem(
+                    c.category_id,
+                    c.category_name,
+                    c.image,
+                    'cat',
+                    c.subCategory,
+                    c.displaySub,
+                  ),
+                // <TouchableOpacity
+                //   style={styles.listItem}
+                //   onPress={() => {
+                //     setVisibility(false);
+                //     this.props.navigation.replace('Listing', {
+                //       category_id: c.category_id,
+                //       category_name: c.category_name,
+                //     });
+                //   }}>
+                //   <Image
+                //     source={{
+                //       uri: c.image,
+                //     }}
+                //     style={styles.imageStyle}
+                //   />
+                //   <Text>{c.category_name}</Text>
+                // </TouchableOpacity>
+              )}
             </ScrollView>
           </View>
         </View>
@@ -107,14 +189,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.primary,
-    marginBottom: 20,
-    marginTop: -10,
-  },
+
   listItem: {
     flexDirection: 'row',
     marginBottom: 10,
@@ -137,5 +212,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: 20,
     marginTop: 20,
+  },
+  arrow: {
+    position: 'absolute',
+    right: 10,
   },
 });

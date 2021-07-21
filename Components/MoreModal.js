@@ -11,6 +11,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../Constants/colors';
+import Styles from '../Constants/styles';
 
 export default class MoreModal extends React.Component {
   constructor(props) {
@@ -60,8 +61,13 @@ export default class MoreModal extends React.Component {
       menuItem: [
         {
           title: 'Version Details',
-          icon: require('../Assets/cart.png'),
+          icon: require('../Assets/version.png'),
           onClick: () => this.props.navigation.navigate('Version'),
+        },
+        {
+          title: 'About Us',
+          icon: require('../Assets/version.png'),
+          onClick: () => this.props.navigation.navigate('About'),
         },
       ],
     };
@@ -71,9 +77,9 @@ export default class MoreModal extends React.Component {
     const {menuItem} = this.state;
     const token = await AsyncStorage.getItem('token');
     if (token != undefined && token != null) {
-      menuItem.splice(0, 0, ...this.LOGGED_IN_MENU);
+      menuItem.splice(2, 0, ...this.LOGGED_IN_MENU);
     } else {
-      menuItem.splice(0, 0, ...this.LOGGED_OUT_MENU);
+      menuItem.splice(2, 0, ...this.LOGGED_OUT_MENU);
     }
 
     this.setState({menuItem});
@@ -108,7 +114,11 @@ export default class MoreModal extends React.Component {
                   source={require('../Assets/close-red.png')}
                 />
               </TouchableOpacity>
-              <Text style={styles.heading}>More Menu</Text>
+              <Text
+                styles={{marginBottom: -10, marginTop: 20}}
+                style={Styles.heading}>
+                More Menu
+              </Text>
               {menuItem.map(v => (
                 <TouchableOpacity
                   style={styles.listItem}
@@ -145,14 +155,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.primary,
-    marginBottom: 20,
-    marginTop: -10,
-  },
+
   listItem: {
     flexDirection: 'row',
     marginBottom: 10,

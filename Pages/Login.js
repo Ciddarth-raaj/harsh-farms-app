@@ -82,7 +82,7 @@ export default class Login extends Component {
     return (
       <GlobalWrapper tag={'login'} navigation={this.props.navigation}>
         <View style={styles.wrapper}>
-          <Text style={styles.heading}>Login</Text>
+          <Text style={Styles.heading}>Login</Text>
           <View style={styles.fieldHolder}>
             <CustomInputText
               maxLength={100}
@@ -129,13 +129,6 @@ const styles = StyleSheet.create({
   wrapper: {
     padding: 20,
     marginTop: 100,
-  },
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 20,
   },
   bottomText: {
     fontSize: 14,

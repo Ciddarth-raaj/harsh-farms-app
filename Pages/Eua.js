@@ -114,7 +114,7 @@ export default class Eua extends React.Component {
     return (
       <GlobalWrapper>
         <View style={{padding: 20}}>
-          <Text style={styles.heading}>End User Agreement</Text>
+          <Text style={Styles.heading}>End User Agreement</Text>
 
           <Text style={styles.textStyle}>{Eua}</Text>
 
@@ -138,13 +138,6 @@ export default class Eua extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  heading: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: Colors.secondary,
-    marginBottom: 20,
-  },
   buttonDiv: {
     flexDirection: 'row',
   },
