@@ -27,6 +27,7 @@ export default class Cart extends Component {
       grandTotal: 0,
       saved: 0,
       terms: '1) All products once purchased cannot be refunded',
+      loading: false,
     };
   }
 
@@ -79,6 +80,7 @@ export default class Cart extends Component {
   }
 
   getCart() {
+    this.setState({loading: true});
     CartHelper.get()
       .then(data => {
         const calculatedData = this.getCalculatedData(data);
@@ -90,7 +92,8 @@ export default class Cart extends Component {
           saved: calculatedData.saved,
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => this.setState({loading: false}));
   }
 
   getSubTotal = cartData => {
@@ -149,9 +152,14 @@ export default class Cart extends Component {
       grandTotal,
       discount,
       saved,
+      loading,
     } = this.state;
     return (
-      <GlobalWrapper tag={'cart'} navigation={this.props.navigation}>
+      <GlobalWrapper
+        tag={'cart'}
+        navigation={this.props.navigation}
+        refreshing={loading}
+        handleRefresh={() => this.getCart()}>
         {cart.length > 0 ? (
           <View style={styles.mainWrapper}>
             <Text style={Styles.heading}>My Cart</Text>

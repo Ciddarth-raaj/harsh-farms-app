@@ -65,8 +65,8 @@ export default class Home extends React.Component {
       .then(data => {
         this.setState({product_listing: data});
       })
-      .catch(err => console.log(err));
-    .finally(() => this.setState({loading: false}));
+      .catch(err => console.log(err))
+      .finally(() => this.setState({loading: false}));
   }
 
   search() {
