@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,6 +34,7 @@ export default class Home extends React.Component {
       product_listing: [],
       banners: [],
       searchText: '',
+      loading: false,
     };
   }
 
@@ -58,11 +60,13 @@ export default class Home extends React.Component {
   }
 
   getProducts() {
+    this.setState({loading: true});
     ProductHelper.get()
       .then(data => {
         this.setState({product_listing: data});
       })
       .catch(err => console.log(err));
+    .finally(() => this.setState({loading: false}));
   }
 
   search() {
@@ -74,9 +78,13 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const {product_listing, banners, searchText} = this.state;
+    const {product_listing, banners, searchText, loading} = this.state;
     return (
-      <GlobalWrapper tag={'home'} navigation={this.props.navigation}>
+      <GlobalWrapper
+        tag={'home'}
+        navigation={this.props.navigation}
+        refreshing={loading}
+        handleRefresh={() => this.getProducts()}>
         <View style={styles.searchContainer}>
           <TextInput
             style={{flex: 1}}

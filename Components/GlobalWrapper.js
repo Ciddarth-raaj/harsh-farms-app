@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   StatusBar,
+  RefreshControl
 } from 'react-native';
 
 import Colors from '../Constants/colors';
@@ -18,24 +19,30 @@ export default class GlobalWrapper extends React.Component {
     this.state = {};
   }
   render() {
-    const {children, disableFooter, tag, navigation} = this.props;
+    const { children, disableFooter, tag, navigation, refreshing, handleRefresh } = this.props;
     return (
       <>
-        <SafeAreaView style={{backgroundColor: Colors.primary}} />
-        <SafeAreaView style={{height: '100%'}}>
+        <SafeAreaView style={{ backgroundColor: Colors.primary }} />
+        <SafeAreaView style={{ height: '100%' }}>
           <StatusBar
             backgroundColor={Colors.primaryDark}
             barStyle="light-content"
           />
           <Header />
-          <View style={{flex: 1, height: '100%'}}>
-            <View style={{flex: 7, paddingBottom: disableFooter ? 10 : 0}}>
-              <ScrollView style={{height: '100%'}}>{children}</ScrollView>
+          <View style={{ flex: 1, height: '100%' }}>
+            <View style={{ flex: 7, paddingBottom: disableFooter ? 10 : 0 }}>
+              <ScrollView style={{ height: '100%' }}
+                refreshControl={handleRefresh != undefined &&
+                  <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                  />
+                }>{children}</ScrollView>
             </View>
             {disableFooter ? (
               <SafeAreaView />
             ) : (
-              <View style={{flex: 1}}>
+              <View style={{ flex: 1 }}>
                 <FooterMenu tag={tag} navigation={navigation} />
               </View>
             )}
