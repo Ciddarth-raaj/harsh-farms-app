@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 10,
     borderWidth: 2,
-    borderColor: Colors.secondary,
+    borderColor: Colors.primary,
     borderRadius: 12,
   },
   qtyButton: {
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   qtyCounter: {
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.primary,
     flex: 1,
     alignItems: 'center',
   },
