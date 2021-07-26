@@ -26,8 +26,9 @@ export default class ProductCard extends React.Component {
   }
 
   updateQty(type) {
+    const {stock} = this.props;
     let {qty} = this.state;
-    if (type === 'add') {
+    if (type === 'add' && this.state.qty < stock) {
       qty++;
     } else {
       if (this.state.qty > 0) {

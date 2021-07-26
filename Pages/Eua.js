@@ -91,7 +91,7 @@ export default class Eua extends React.Component {
           );
           global.accessToken = data.token;
           global.clt_type = data.clt_type_id.toString();
-          alert('Account successfully created!');
+          alert('Account created successfully!');
           this.props.navigation.reset({
             index: 0,
             routes: [{name: 'Home'}],
