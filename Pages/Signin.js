@@ -219,7 +219,7 @@ export default class Signin extends Component {
           <CustomInputText
             label={'Address'}
             value={address}
-            numberOfLines={10}
+            // numberOfLines={10}
             multiline={true}
             maxLength={400}
             underlineColorAndroid="transparent"
@@ -242,9 +242,13 @@ export default class Signin extends Component {
               error['selectedSociety'] ? {borderColor: 'red'} : {},
             ]}>
             <RNPickerSelect
-              onValueChange={value => this.setState({selectedSociety: value})}
+              value={selectedSociety}
               items={society}
-              placeholder={{label: 'Select a Society...', value: null}}
+              placeholder={{
+                label: 'Select a Society...',
+                value: selectedSociety,
+              }}
+              onValueChange={value => this.setState({selectedSociety: value})}
             />
           </View>
 
