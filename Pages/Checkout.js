@@ -102,7 +102,7 @@ export default class Checkout extends React.Component {
               value: d.society_id,
             });
           }
-          this.setState({society: formatted});
+          this.setState({ society: formatted });
         }
       })
       .catch(err => console.log(err));
@@ -124,7 +124,7 @@ export default class Checkout extends React.Component {
   }
 
   onEditPress() {
-    const {name, email, address, selectedSociety, error, phone} = this.state;
+    const { name, email, address, selectedSociety, error, phone } = this.state;
     let count = 0;
 
     if (name == '') {
@@ -152,7 +152,7 @@ export default class Checkout extends React.Component {
     }
 
     if (count > 0) {
-      this.setState({error: error});
+      this.setState({ error: error });
       alert('Please check all the values!');
       return;
     }
@@ -179,7 +179,7 @@ export default class Checkout extends React.Component {
   }
 
   setError = (val, key) => {
-    const {error} = this.state;
+    const { error } = this.state;
     error[key] = val;
   };
 
@@ -207,7 +207,7 @@ export default class Checkout extends React.Component {
             editable={true}
             error={error['name']}
             onChangeText={value => {
-              this.setState({name: value});
+              this.setState({ name: value });
               this.setError(false, 'name');
             }}
           />
@@ -219,7 +219,7 @@ export default class Checkout extends React.Component {
             editable={false}
             error={error['phone']}
             onChangeText={value => {
-              this.setState({phone: value});
+              this.setState({ phone: value });
               this.setError(false, 'phone');
             }}
           />
@@ -234,7 +234,7 @@ export default class Checkout extends React.Component {
             editable={true}
             error={error['email']}
             onChangeText={value => {
-              this.setState({email: value});
+              this.setState({ email: value });
               this.setError(false, 'email');
             }}
           />
@@ -248,29 +248,33 @@ export default class Checkout extends React.Component {
             error={error['address']}
             underlineColorAndroid="transparent"
             onChangeText={value => {
-              this.setState({address: value});
+              this.setState({ address: value });
               this.setError(false, 'address');
             }}
           />
 
           <Text
-            style={[styles.label, error['selectedSociety'] && {color: 'red'}]}>
+            style={[styles.label, error['selectedSociety'] && { color: 'red' }]}>
             {'Society'}
           </Text>
+
           <View
             style={[
               styles.input,
-              {marginBottom: 15},
-              error['selectedSociety'] ? {borderColor: 'red'} : {},
+              { marginBottom: 15 },
+              error['selectedSociety'] ? { borderColor: 'red' } : {},
             ]}>
             <RNPickerSelect
               value={selectedSociety}
+              items={society}
+              placeholder={{
+                label: 'Select a Society...',
+                value: 0,
+              }}
               onValueChange={value => {
-                this.setState({selectedSociety: value});
+                this.setState({ selectedSociety: value });
                 this.setError(false, 'selectedSociety');
               }}
-              items={society}
-              placeholder={{label: 'Select a Society...', value: null}}
             />
           </View>
 
@@ -284,11 +288,11 @@ export default class Checkout extends React.Component {
 
           <RadioButtonRN
             data={this.payment_methods}
-            selectedBtn={e => this.setState({res: e})}
+            selectedBtn={e => this.setState({ res: e })}
             circleSize={16}
             activeColor="#306b67"
           />
-          <CustomButton wrapperStyle={{marginBottom: 10, marginTop: 20}}>
+          <CustomButton wrapperStyle={{ marginBottom: 10, marginTop: 20 }}>
             {'Continue'}
           </CustomButton>
         </View>

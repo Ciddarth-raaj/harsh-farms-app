@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import CustomButton from '../Components/CustomButton';
 
 import Colors from '../Constants/colors';
+import numberFormatter from '../util/numberFormatter';
 
 export default class MyOrderCard extends Component {
   constructor(props) {
@@ -11,23 +12,21 @@ export default class MyOrderCard extends Component {
   }
 
   render() {
-    const {order_number, date, status, amount} = this.props;
+    const {order_id, date, status, amount} = this.props;
     return (
       <View style={styles.wrapper}>
         <View style={styles.topComponent}>
           <Text>
-            <Text style={{fontWeight: 'bold'}}> Order Number :</Text>{' '}
-            {order_number}
+            <Text style={{fontWeight: 'bold'}}> Order ID :</Text> {order_id}
           </Text>
           <Text style={{fontWeight: 'bold'}}>{date}</Text>
         </View>
         <View style={styles.topComponent}>
           <Text>
-            <Text style={{fontWeight: 'bold'}}>Order Amount : </Text> {amount}
+            <Text style={{fontWeight: 'bold'}}>Total : </Text>{' '}
+            {numberFormatter(amount)}
           </Text>
-          <Text>
-            <Text style={{fontWeight: 'bold'}}>Order Status :</Text> {status}
-          </Text>
+          <Text>{status}</Text>
         </View>
         <View styles={styles.buttonWrapper}>
           <CustomButton

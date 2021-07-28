@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GlobalWrapper from '../Components/GlobalWrapper';
@@ -91,10 +91,10 @@ export default class Eua extends React.Component {
           );
           global.accessToken = data.token;
           global.clt_type = data.clt_type_id.toString();
-          alert('Account successfully created!');
+          Alert.alert("Information", 'Account successfully created!');
           this.props.navigation.reset({
             index: 0,
-            routes: [{name: 'Home'}],
+            routes: [{ name: 'Home' }],
           });
         } else if (data.code == 101) {
           alert('Phone number already exists!');
@@ -110,23 +110,23 @@ export default class Eua extends React.Component {
   }
 
   render() {
-    const {Eua} = this.state;
+    const { Eua } = this.state;
     return (
       <GlobalWrapper>
-        <View style={{padding: 20}}>
+        <View style={{ padding: 20 }}>
           <Text style={Styles.heading}>End User Agreement</Text>
 
           <Text style={styles.textStyle}>{Eua}</Text>
 
           <View style={styles.buttonDiv}>
             <CustomButton
-              wrapperStyle={{marginRight: 10}}
+              wrapperStyle={{ marginRight: 10 }}
               onPress={() => this.props.navigation.navigate('Signin')}>
               {'Do Not Accept'}
             </CustomButton>
 
             <CustomButton
-              wrapperStyle={{marginLeft: 10}}
+              wrapperStyle={{ marginLeft: 10 }}
               onPress={() => this.acceptTerms()}>
               {'Accept and Continue'}
             </CustomButton>

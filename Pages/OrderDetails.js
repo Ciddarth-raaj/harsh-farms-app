@@ -14,6 +14,7 @@ import GlobalWrapper from '../Components/GlobalWrapper';
 import OrderProductCard from '../Components/OrderProductCard';
 import Colors from '../Constants/colors';
 import Styles from '../Constants/styles';
+import numberFormatter from '../util/numberFormatter';
 
 export default class OrderDetails extends Component {
   constructor(props) {
@@ -27,6 +28,10 @@ export default class OrderDetails extends Component {
       selectedSociety: '',
       society: '',
       phone: '',
+      number_products: 2,
+      price: 33,
+      deleivery: 3434,
+      total: 232323,
       product_listing: [
         {
           product_id: 1,
@@ -67,14 +72,18 @@ export default class OrderDetails extends Component {
       email,
       address,
       selectedSociety,
+      number_products,
+      price,
+      deleivery,
+      total,
 
       product_listing,
     } = this.state;
     return (
-      <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
+      <GlobalWrapper navigation={this.props.navigation}>
         <SafeAreaView>
           <View style={styles.mainWrapper}>
-            <Text style={Styles.heading}>Profile Details</Text>
+            <Text style={Styles.heading}>Order Summary</Text>
             <Text style={styles.nameText}>
               <Text style={{fontWeight: 'bold'}}>Name : </Text>
               {name}
@@ -96,7 +105,7 @@ export default class OrderDetails extends Component {
               {selectedSociety}
             </Text>
 
-            <Text style={Styles.heading}>Products</Text>
+            <Text style={Styles.subHeading}>Products</Text>
 
             {product_listing.map(p => (
               <OrderProductCard
@@ -110,6 +119,24 @@ export default class OrderDetails extends Component {
                 navigation={this.props.navigation}
               />
             ))}
+            <View style={styles.summaryDiv}>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Number of products : </Text>
+                {number_products}
+              </Text>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Sub total : </Text>
+                {numberFormatter(price)}
+              </Text>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Deleivery Charge : </Text>
+                {numberFormatter(deleivery)}
+              </Text>
+              <Text style={styles.nameText}>
+                <Text style={{fontWeight: 'bold'}}>Grand Total : </Text>
+                {numberFormatter(total)}
+              </Text>
+            </View>
           </View>
         </SafeAreaView>
       </GlobalWrapper>
@@ -159,6 +186,14 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 18,
-    marginBottom: 15,
+    marginBottom: 10,
+  },
+  summaryDiv: {
+    borderWidth: 1,
+    borderColor: '#c9c9c9',
+    borderRadius: 3,
+    padding: 10,
+    paddingBottom: 5,
+    marginBottom: 5,
   },
 });

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Picker} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Picker } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
 import Styles from '../Constants/styles';
@@ -61,7 +61,7 @@ export default class Signin extends Component {
               value: d.society_id,
             });
           }
-          this.setState({society: formatted});
+          this.setState({ society: formatted });
         }
       })
       .catch(err => console.log(err));
@@ -136,7 +136,7 @@ export default class Signin extends Component {
     }
 
     if (count > 0) {
-      this.setState({error: error});
+      this.setState({ error: error });
       alert('Please recheck all the entered details!');
       return;
     }
@@ -150,11 +150,11 @@ export default class Signin extends Component {
       password: password,
     };
 
-    this.props.navigation.navigate('Eua', {data: data});
+    this.props.navigation.navigate('Eua', { data: data });
   }
 
   setError = (val, key) => {
-    const {error} = this.state;
+    const { error } = this.state;
     error[key] = val;
   };
 
@@ -185,7 +185,7 @@ export default class Signin extends Component {
             maxLength={100}
             value={name}
             onChangeText={value => {
-              this.setState({name: value});
+              this.setState({ name: value });
               this.setError(false, 'name');
             }}
             error={error['name']}
@@ -197,7 +197,7 @@ export default class Signin extends Component {
             maxLength={11}
             keyboardType="numeric"
             onChangeText={value => {
-              this.setState({phone: value});
+              this.setState({ phone: value });
               this.setError(false, 'phone');
             }}
             error={error['phone']}
@@ -207,7 +207,7 @@ export default class Signin extends Component {
             label={'Email address'}
             value={email}
             onChangeText={value => {
-              this.setState({email: value});
+              this.setState({ email: value });
               this.setError(false, 'email');
             }}
             maxLength={100}
@@ -219,12 +219,12 @@ export default class Signin extends Component {
           <CustomInputText
             label={'Address'}
             value={address}
-            numberOfLines={10}
+            // numberOfLines={10}
             multiline={true}
             maxLength={400}
             underlineColorAndroid="transparent"
             onChangeText={value => {
-              this.setState({address: value});
+              this.setState({ address: value });
               this.setError(false, 'address');
             }}
             error={error['address']}
@@ -232,14 +232,14 @@ export default class Signin extends Component {
           />
 
           <Text
-            style={[styles.label, error['selectedSociety'] && {color: 'red'}]}>
+            style={[styles.label, error['selectedSociety'] && { color: 'red' }]}>
             {'Society'}
           </Text>
           <View
             style={[
               styles.input,
-              {marginBottom: 15},
-              error['selectedSociety'] ? {borderColor: 'red'} : {},
+              { marginBottom: 15 },
+              error['selectedSociety'] ? { borderColor: 'red' } : {},
             ]}>
             <RNPickerSelect
               value={selectedSociety}
@@ -248,7 +248,7 @@ export default class Signin extends Component {
                 label: 'Select a Society...',
                 value: 0,
               }}
-              onValueChange={value => this.setState({selectedSociety: value})}
+              onValueChange={value => this.setState({ selectedSociety: value })}
             />
           </View>
 
@@ -260,11 +260,11 @@ export default class Signin extends Component {
                 value={password}
                 maxLength={100}
                 onChangeText={value => {
-                  this.setState({password: value});
+                  this.setState({ password: value });
                   this.setError(false, 'password');
                 }}
                 secureTextEntry={showPassword}
-                toggleSecure={v => this.setState({showPassword: v})}
+                toggleSecure={v => this.setState({ showPassword: v })}
                 error={error['password']}
                 autoCompleteType={'password'}
               />
@@ -273,18 +273,18 @@ export default class Signin extends Component {
                 value={confirmPass}
                 maxLength={100}
                 onChangeText={value => {
-                  this.setState({confirmPass: value});
+                  this.setState({ confirmPass: value });
                   this.setError(false, 'confirmPass');
                 }}
                 secureTextEntry={showConfirmPassword}
-                toggleSecure={v => this.setState({showConfirmPassword: v})}
+                toggleSecure={v => this.setState({ showConfirmPassword: v })}
                 error={error['confirmPass']}
                 autoCompleteType={'password'}
               />
             </View>
 
             <CustomButton
-              wrapperStyle={{marginTop: 20}}
+              wrapperStyle={{ marginTop: 20 }}
               onPress={() => this.onSubmit()}>
               {'Submit'}
             </CustomButton>

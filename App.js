@@ -2,8 +2,8 @@ import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import 'react-native-gesture-handler';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './Pages/Home';
 import Signin from './Pages/Signin';
@@ -19,6 +19,7 @@ import MyProfile from './Pages/Myprofile';
 import About from './Pages/About';
 import MyOrders from './Pages/Myorders';
 import Version from './Pages/Version';
+import Success from './Pages/Success';
 
 import global from './Constants/variables';
 
@@ -34,9 +35,9 @@ export default class App extends React.Component {
     super(props);
     this.state = {};
 
-    setCustomText({style: {fontFamily: 'Poppins-Regular'}});
-    setCustomTextInput({style: {fontFamily: 'Poppins-Regular'}});
-    setCustomView({style: {fontFamily: 'Poppins-Regular'}});
+    setCustomText({ style: { fontFamily: 'Poppins-Regular' } });
+    setCustomTextInput({ style: { fontFamily: 'Poppins-Regular' } });
+    setCustomView({ style: { fontFamily: 'Poppins-Regular' } });
     this.setToken();
   }
 
@@ -84,6 +85,7 @@ export default class App extends React.Component {
           <Stack.Screen name="MyOrders" component={MyOrders} />
           <Stack.Screen name="Version" component={Version} />
           <Stack.Screen name="OrderDetails" component={OrderDetails} />
+          <Stack.Screen name="Success" component={Success} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -20,35 +20,35 @@ export default class MyOrders extends Component {
 
       orders: [
         {
-          order_number: 1,
+          order_id: 1,
           order_amount: 33,
           order_date: '30/1/2021',
           order_status: 'Deleivered',
           details: 'More',
         },
         {
-          order_number: 2,
+          order_id: 1,
           order_amount: 33,
           order_date: '30/1/2021',
           order_status: 'Deleivered',
           details: 'More',
         },
         {
-          order_number: 3,
+          order_id: 1,
           order_amount: 33,
           order_date: '30/1/2021',
           order_status: 'Deleivered',
           details: 'More',
         },
         {
-          order_number: 4,
+          order_id: 1,
           order_amount: 33,
           order_date: '30/1/2021',
           order_status: 'Deleivered',
           details: 'More',
         },
         {
-          order_number: 5,
+          order_id: 1,
           order_amount: 33,
           order_date: '30/1/2021',
           order_status: 'Deleivered',
@@ -65,7 +65,7 @@ export default class MyOrders extends Component {
         <View style={styles.Mainwrapper}>
           {orders.map(o => (
             <MyOrderCard
-              order_number={o.order_number}
+              order_id={o.order_id}
               amount={o.order_amount}
               date={o.order_date}
               status={o.order_status}

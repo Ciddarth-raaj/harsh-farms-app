@@ -26,21 +26,24 @@ export default class ProductCard extends React.Component {
   }
 
   updateQty(type) {
-    let {qty} = this.state;
-    if (type === 'add') {
+    const { stock } = this.props;
+    let { qty } = this.state;
+    if (stock == qty) {
+      alert(`Only ${stock} left in stock!`)
+      return;
+    }
+    if (type === 'add' && qty < stock) {
       qty++;
     } else {
-      if (this.state.qty > 0) {
-        qty--;
-      }
+      qty--;
     }
 
-    this.setState({qty: qty, added: false});
+    this.setState({ qty: qty, added: false });
   }
 
   addToCart = () => {
-    const {qty} = this.state;
-    const {id, stock} = this.props;
+    const { qty } = this.state;
+    const { id, stock } = this.props;
 
     const loggedIn = global.accessToken != undefined;
 
@@ -62,7 +65,7 @@ export default class ProductCard extends React.Component {
             onPress: () => this.props.navigation.navigate('Login'),
           },
         ],
-        {cancelable: true},
+        { cancelable: true },
       );
       return;
     }
@@ -80,7 +83,7 @@ export default class ProductCard extends React.Component {
     CartHelper.add(id, qty)
       .then(data => {
         if (data.code == 200) {
-          this.setState({added: true});
+          this.setState({ added: true });
         } else {
           throw 'err';
         }
@@ -91,8 +94,8 @@ export default class ProductCard extends React.Component {
       });
   };
 
-  addToWishlist(value) {
-    const {id} = this.props;
+  addToWishlist() {
+    const { id } = this.props;
     const loggedIn = global.accessToken != undefined;
 
     if (!loggedIn) {
@@ -113,16 +116,15 @@ export default class ProductCard extends React.Component {
             onPress: () => this.props.navigation.navigate('Login'),
           },
         ],
-        {cancelable: true},
+        { cancelable: true },
       );
       return;
     }
 
-    // if (value) {
     WishlistHelper.add(id)
       .then(data => {
         if (data.code == 200) {
-          this.setState({added: true});
+          this.setState({ added: true });
         } else {
           throw 'err';
         }
@@ -130,23 +132,11 @@ export default class ProductCard extends React.Component {
       .catch(err => {
         console.log(err);
       });
-    // } else {
-    //   WishlistHelper.delete(id)
-    //     .then(data => {
-    //       if (data.code != 200) {
-    //         throw 'err';
-    //       }
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //       this.setState({addedWishlist: !value});
-    //     });
-    // }
   }
 
   render() {
-    const {qty, added} = this.state;
-    const {id, name, mrp, sp, image, tag, stock, type} = this.props;
+    const { qty, added } = this.state;
+    const { id, name, mrp, sp, image, tag, stock, type } = this.props;
 
     return (
       <View style={styles.wrapper}>
@@ -191,12 +181,11 @@ export default class ProductCard extends React.Component {
               </TouchableOpacity>
             </View>
 
-            {/* <View style={styles.buttonWrapper}> */}
             <CustomButton
               wrapperStyle={[
-                {padding: 10, maxHeight: 45},
+                { padding: 10, maxHeight: 45 },
                 stock <= 0 &&
-                  type == 'wishlist' && {backgroundColor: '#c9c9c9'},
+                type == 'wishlist' && { backgroundColor: '#c9c9c9' },
               ]}
               onPress={() =>
                 !added &&
@@ -210,20 +199,6 @@ export default class ProductCard extends React.Component {
                   : 'Add to Cart'
                 : 'Added'}
             </CustomButton>
-            {/* <TouchableOpacity
-                onPress={() => this.addToWishlist(!addedWishlist)}
-                style={[
-                  styles.wishlistButton,
-                  addedWishlist
-                    ? {backgrondColor: 'gold'}
-                    : {backgroundColor: '#C9C9C9'},
-                ]}>
-                <Image
-                  source={require('../Assets/icon-grey/wishlist.png')}
-                  style={styles.wishlistImage}
-                />
-              </TouchableOpacity> */}
-            {/* </View> */}
           </View>
         </View>
       </View>
@@ -303,7 +278,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 10,
     borderWidth: 2,
-    borderColor: Colors.secondary,
+    borderColor: Colors.primary,
     borderRadius: 12,
   },
   qtyButton: {
@@ -328,7 +303,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   qtyCounter: {
-    backgroundColor: Colors.secondary,
+    backgroundColor: Colors.primary,
     flex: 1,
     alignItems: 'center',
   },

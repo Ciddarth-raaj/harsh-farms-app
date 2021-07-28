@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 10,
     marginBottom: 40,
-    tintColor: Colors.secondary,
+    tintColor: Colors.secondaryLight,
   },
   mainSubWrapper: {
     padding: 20,
