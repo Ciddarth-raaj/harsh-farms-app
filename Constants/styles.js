@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Colors from './colors';
 
 export default StyleSheet.create({
@@ -38,11 +38,10 @@ export default StyleSheet.create({
     color: Colors.secondary,
     marginBottom: 20,
   },
-  subHeading: {
-    textAlign: 'center',
-    marginBottom: 10,
+  subText: {
     fontWeight: 'bold',
     fontSize: 16,
     color: Colors.primary,
+    marginBottom: 10,
   },
 });

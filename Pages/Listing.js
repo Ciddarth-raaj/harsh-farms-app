@@ -15,10 +15,15 @@ export default class Listing extends React.Component {
     this.state = {
       product_listing: [],
       pageName: 'Categories',
+      loading: false,
     };
   }
 
   componentDidMount() {
+    this.getProductByFilter();
+  }
+
+  getProductByFilter() {
     const params = this.props.route.params;
     const filterData = {};
 
@@ -37,17 +42,23 @@ export default class Listing extends React.Component {
   }
 
   getProducts(filterData) {
+    this.setState({loading: true});
     ProductHelper.get(filterData)
       .then(data => {
         this.setState({product_listing: data});
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => this.setState({loading: false}));
   }
 
   render() {
-    const {product_listing, pageName} = this.state;
+    const {product_listing, pageName, loading} = this.state;
     return (
-      <GlobalWrapper navigation={this.props.navigation} tag={'category'}>
+      <GlobalWrapper
+        navigation={this.props.navigation}
+        tag={'category'}
+        refreshing={loading}
+        handleRefresh={() => this.getProducts()}>
         <Text style={Styles.heading}>{pageName}</Text>
         <View style={styles.wrapper}>
           {product_listing.length > 0 ? (

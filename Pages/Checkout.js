@@ -102,7 +102,7 @@ export default class Checkout extends React.Component {
               value: d.society_id,
             });
           }
-          this.setState({society: formatted});
+          this.setState({ society: formatted });
         }
       })
       .catch(err => console.log(err));
@@ -124,7 +124,7 @@ export default class Checkout extends React.Component {
   }
 
   onEditPress() {
-    const {name, email, address, selectedSociety, error, phone} = this.state;
+    const { name, email, address, selectedSociety, error, phone } = this.state;
     let count = 0;
 
     if (name == '') {
@@ -152,7 +152,7 @@ export default class Checkout extends React.Component {
     }
 
     if (count > 0) {
-      this.setState({error: error});
+      this.setState({ error: error });
       alert('Please check all the values!');
       return;
     }
@@ -179,7 +179,7 @@ export default class Checkout extends React.Component {
   }
 
   setError = (val, key) => {
-    const {error} = this.state;
+    const { error } = this.state;
     error[key] = val;
   };
 
@@ -204,23 +204,23 @@ export default class Checkout extends React.Component {
           <Text style={Styles.subHeading}>{'Delivery Details'}</Text>
 
           <Text style={styles.nameText}>
-            <Text style={{fontWeight: 'bold'}}>Name : </Text>
+            <Text style={{ fontWeight: 'bold' }}>Name : </Text>
             {name}
           </Text>
           <Text style={styles.nameText}>
-            <Text style={{fontWeight: 'bold'}}>Mobile Number : </Text>
+            <Text style={{ fontWeight: 'bold' }}>Mobile Number : </Text>
             {phone}
           </Text>
           <Text style={styles.nameText}>
-            <Text style={{fontWeight: 'bold'}}>Email : </Text>
+            <Text style={{ fontWeight: 'bold' }}>Email : </Text>
             {email}
           </Text>
           <Text style={styles.nameText}>
-            <Text style={{fontWeight: 'bold'}}>Address : </Text>
+            <Text style={{ fontWeight: 'bold' }}>Address : </Text>
             {address}
           </Text>
           <Text style={styles.nameText}>
-            <Text style={{fontWeight: 'bold'}}>Society : </Text>
+            <Text style={{ fontWeight: 'bold' }}>Society : </Text>
             {selectedSociety}
           </Text>
 
@@ -275,72 +275,40 @@ export default class Checkout extends React.Component {
                 this.setError(false, 'email');
               }}
             />
+          </View>
 
-            <CustomInputText
-              label={'Address'}
-              value={address}
-              numberOfLines={10}
-              multiline={true}
-              maxLength={400}
-              error={error['address']}
-              underlineColorAndroid="transparent"
-              onChangeText={value => {
-                this.setState({address: value});
-                this.setError(false, 'address');
-              }}
-            />
-
-            <Text
-              style={[
-                styles.label,
-                error['selectedSociety'] && {color: 'red'},
-              ]}>
-              {'Society'}
-            </Text>
-            <View
-              style={[
-                styles.input,
-                {marginBottom: 15},
-                error['selectedSociety'] ? {borderColor: 'red'} : {},
-              ]}>
-              <RNPickerSelect
-                value={selectedSociety}
-                onValueChange={value => {
-                  this.setState({selectedSociety: value});
-                  this.setError(false, 'selectedSociety');
-                }}
-                items={society}
-                placeholder={{label: 'Select a Society...', value: null}}
-              />
-            </View>
-
-            <CustomButton
+          {/* <CustomButton
               onPress={() => this.onEditPress()}
               wrapperStyle={{marginBottom: 30}}>
               {'Update Details'}
             </CustomButton> */}
-          <Text style={styles.heading}>{'Checkout'}</Text>
+
+          <Text style={Styles.subText}>{'Payment Method'}</Text>
+
           <RadioButtonRN
             data={this.payment_methods}
-            selectedBtn={e => this.setState({res: e})}
+            selectedBtn={e => this.setState({ res: e })}
             circleSize={16}
             activeColor="#306b67"
           />
+          <CustomButton wrapperStyle={{ marginBottom: 10, marginTop: 20 }}>
+            {'Continue'}
+          </CustomButton>
         </View>
 
-        <Text style={[Styles.subHeading, {marginTop: 20}]}>
+        <Text style={[Styles.subHeading, { marginTop: 20 }]}>
           {'Payment Method'}
         </Text>
         <RadioButtonRN
           data={this.payment_methods}
-          selectedBtn={e => this.setState({res: e})}
+          selectedBtn={e => this.setState({ res: e })}
           circleSize={16}
           activeColor="#306b67"
         />
 
         <CustomButton
           // onPress={() => this.onEditPress()}
-          wrapperStyle={{marginTop: 30}}>
+          wrapperStyle={{ marginTop: 30 }}>
           {'Update Details'}
         </CustomButton>
         {/* </View> */}

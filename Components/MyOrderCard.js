@@ -6,6 +6,11 @@ import Colors from '../Constants/colors';
 import numberFormatter from '../util/numberFormatter';
 
 export default class MyOrderCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     const {order_id, date, status, amount} = this.props;
     return (
