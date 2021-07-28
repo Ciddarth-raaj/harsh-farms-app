@@ -2,8 +2,8 @@ import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import 'react-native-gesture-handler';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './Pages/Home';
 import Signin from './Pages/Signin';
@@ -35,9 +35,9 @@ export default class App extends React.Component {
     super(props);
     this.state = {};
 
-    setCustomText({style: {fontFamily: 'Poppins-Regular'}});
-    setCustomTextInput({style: {fontFamily: 'Poppins-Regular'}});
-    setCustomView({style: {fontFamily: 'Poppins-Regular'}});
+    setCustomText({ style: { fontFamily: 'Poppins-Regular' } });
+    setCustomTextInput({ style: { fontFamily: 'Poppins-Regular' } });
+    setCustomView({ style: { fontFamily: 'Poppins-Regular' } });
     this.setToken();
   }
 

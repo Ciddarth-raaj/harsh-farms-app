@@ -200,79 +200,80 @@ export default class Checkout extends React.Component {
       <GlobalWrapper navigation={this.props.navigation} disableFooter={true}>
         <View style={styles.mainWrapper}>
           <Text style={Styles.heading}>Checkout</Text>
+          <Text style={Styles.subText}>Profile Details</Text>
+          <CustomInputText
+            label={'Name'}
+            value={name}
+            editable={true}
+            error={error['name']}
+            onChangeText={value => {
+              this.setState({ name: value });
+              this.setError(false, 'name');
+            }}
+          />
 
-          <Text style={Styles.subHeading}>{'Delivery Details'}</Text>
+          <CustomInputText
+            label={'Mobile Number'}
+            value={phone}
+            keyboardType="numeric"
+            editable={false}
+            error={error['phone']}
+            onChangeText={value => {
+              this.setState({ phone: value });
+              this.setError(false, 'phone');
+            }}
+          />
 
-          <Text style={styles.nameText}>
-            <Text style={{ fontWeight: 'bold' }}>Name : </Text>
-            {name}
-          </Text>
-          <Text style={styles.nameText}>
-            <Text style={{ fontWeight: 'bold' }}>Mobile Number : </Text>
-            {phone}
-          </Text>
-          <Text style={styles.nameText}>
-            <Text style={{ fontWeight: 'bold' }}>Email : </Text>
-            {email}
-          </Text>
-          <Text style={styles.nameText}>
-            <Text style={{ fontWeight: 'bold' }}>Address : </Text>
-            {address}
-          </Text>
-          <Text style={styles.nameText}>
-            <Text style={{ fontWeight: 'bold' }}>Society : </Text>
-            {selectedSociety}
+          <Text style={styles.subText}>
+            {'Mobile number will be used during order delivery and login'}
           </Text>
 
-          <Text style={Styles.heading}>Products</Text>
+          <CustomInputText
+            label={'Email'}
+            value={email}
+            editable={true}
+            error={error['email']}
+            onChangeText={value => {
+              this.setState({ email: value });
+              this.setError(false, 'email');
+            }}
+          />
 
-          {product_listing.map(p => (
-            <OrderProductCard
-              id={p.product_id}
-              name={p.product_name}
-              mrp={p.original_price}
-              sp={p.selling_price}
-              image={p.image}
-              navigation={this.props.navigation}
-              quantity={p.quantity}
-            />
-          ))}
+          <CustomInputText
+            label={'Address'}
+            value={address}
+            numberOfLines={10}
+            multiline={true}
+            maxLength={400}
+            error={error['address']}
+            underlineColorAndroid="transparent"
+            onChangeText={value => {
+              this.setState({ address: value });
+              this.setError(false, 'address');
+            }}
+          />
 
-          {/* <CustomInputText
-              label={'Name'}
-              value={name}
-              editable={true}
-              error={error['name']}
-              onChangeText={value => {
-                this.setState({name: value});
-                this.setError(false, 'name');
+          <Text
+            style={[styles.label, error['selectedSociety'] && { color: 'red' }]}>
+            {'Society'}
+          </Text>
+
+          <View
+            style={[
+              styles.input,
+              { marginBottom: 15 },
+              error['selectedSociety'] ? { borderColor: 'red' } : {},
+            ]}>
+            <RNPickerSelect
+              value={selectedSociety}
+              items={society}
+              placeholder={{
+                label: 'Select a Society...',
+                value: 0,
               }}
-            />
-
-            <CustomInputText
-              label={'Mobile Number'}
-              value={phone}
-              keyboardType="numeric"
-              editable={false}
-              error={error['phone']}
-              onChangeText={value => {
-                this.setState({phone: value});
-                this.setError(false, 'phone');
-              }}
-            />
-
-            <Text style={styles.subText}>
-              {'Mobile number will be used during order delivery and login'}
-            </Text>
-
-            <CustomInputText
-              label={'Email'}
-              value={email}
-              editable={true}
-              error={error['email']}
-              onChangeText={value => {
-                this.setState({email: value});
-                this.setError(false, 'email');
+              onValueChange={value => {
+                this.setState({ selectedSociety: value });
+                this.setError(false, 'selectedSociety');
               }}
             />
           </View>
@@ -295,23 +296,6 @@ export default class Checkout extends React.Component {
             {'Continue'}
           </CustomButton>
         </View>
-
-        <Text style={[Styles.subHeading, { marginTop: 20 }]}>
-          {'Payment Method'}
-        </Text>
-        <RadioButtonRN
-          data={this.payment_methods}
-          selectedBtn={e => this.setState({ res: e })}
-          circleSize={16}
-          activeColor="#306b67"
-        />
-
-        <CustomButton
-          // onPress={() => this.onEditPress()}
-          wrapperStyle={{ marginTop: 30 }}>
-          {'Update Details'}
-        </CustomButton>
-        {/* </View> */}
       </GlobalWrapper>
     );
   }
